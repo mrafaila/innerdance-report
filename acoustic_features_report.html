@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acoustic Feature Reference — Life Sounds Playlist</title>
+  <style>
+:root {
+  --ground: #0a0a16;
+  --text: #e2ddd4;
+  --text-muted: #888;
+  --accent: #f07830;
+  --accent2: #76b7b2;
+  --muted-bg: #111120;
+  --border: #242442;
+  --max-color: #f07830;
+  --min-color: #4c9be8;
+  --font-mono: "Courier New", Courier, monospace;
+  --font-body: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --radius: 6px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+a { color: var(--accent2); }
+a:hover { color: var(--accent); }
+code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: #18182a;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #b0c0e8;
+}
+
+/* ── Header ── */
+.site-header {
+  background: #07070f;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 32px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-top {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.header-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.header-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.nav-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  overflow-x: auto;
+}
+.nav-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px 3px 6px;
+  background: var(--muted-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.nav-pill:hover { border-color: var(--accent); background: #1a1a2e; color: var(--text); }
+.pill-num {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+.pill-name { font-size: 11px; color: var(--text); }
+
+/* ── Disclaimer ── */
+.disclaimer {
+  background: #110800;
+  border-bottom: 2px solid #e67e22;
+  padding: 10px 32px;
+  font-size: 12px;
+  color: #f0c080;
+}
+
+/* ── Main ── */
+.main-content {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+/* ── Feature card ── */
+.feat-card {
+  margin-bottom: 48px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.feat-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: #0e0e1e;
+  border-bottom: 1px solid var(--border);
+}
+.feat-num {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  min-width: 44px;
+  opacity: 0.6;
+}
+.feat-title-group { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.feat-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.feat-key {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: transparent;
+  color: var(--accent);
+  padding: 0;
+  letter-spacing: 0.06em;
+}
+.feat-band {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.feat-cv-badge {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.cv-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.cv-val {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent2);
+  line-height: 1;
+}
+
+/* ── 6-cell grid ── */
+.feat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1px;
+  background: var(--border);
+}
+.cell {
+  background: var(--muted-bg);
+  padding: 16px 18px;
+}
+.cell-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.cell-desc   { grid-column: 1; grid-row: 1; }
+.cell-sound  { grid-column: 2; grid-row: 1; }
+.cell-synth  { grid-column: 3; grid-row: 1 / span 2; }
+.cell-lit    { grid-column: 1; grid-row: 2; }
+.cell-profile{ grid-column: 2; grid-row: 2; }
+.cell-samples{ grid-column: 3; grid-row: 2; display: none; } /* hidden in synth span */
+
+/* We need 6 cells; override synth span for a 3×2 grid */
+.feat-grid {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+}
+.cell-desc   { grid-column: 1; grid-row: 1; }
+.cell-sound  { grid-column: 2; grid-row: 1; }
+.cell-synth  { grid-column: 3; grid-row: 1; }
+.cell-lit    { grid-column: 1; grid-row: 2; }
+.cell-profile{ grid-column: 2; grid-row: 2; }
+.cell-samples{ grid-column: 3; grid-row: 2; display: block; }
+
+/* ── Literature ── */
+.cite-block { display: flex; flex-direction: column; gap: 8px; }
+.cite-ref { font-size: 12px; line-height: 1.5; }
+.doi-link {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--accent2);
+  text-decoration: none;
+}
+.doi-link:hover { color: var(--accent); }
+.doi-link.no-link { color: #555; cursor: default; }
+.cite-quote {
+  border-left: 2px solid var(--accent);
+  padding: 6px 10px;
+  font-style: italic;
+  font-size: 12px;
+  color: #c8c4be;
+  background: #0d0d1a;
+  margin: 2px 0;
+}
+.cite-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.trust-stars {
+  font-size: 13px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.trust-note { font-size: 11px; color: var(--text-muted); }
+.cite-relevance {
+  font-size: 11px;
+  color: var(--accent2);
+  padding: 5px 8px;
+  border: 1px solid #1a2a3a;
+  border-radius: 3px;
+  background: #0a1520;
+}
+
+/* ── Sparkline / stage profile ── */
+.profile-legend {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  font-size: 10px;
+  color: var(--text-muted);
+  align-items: center;
+}
+.glow-note { font-size: 10px; color: #555; }
+
+/* ── Audio samples ── */
+.sample-row {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.sample-row.sample-max { border-left: 3px solid var(--max-color); }
+.sample-row.sample-min { border-left: 3px solid var(--min-color); }
+.sample-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.sample-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.sample-max .sample-tag { color: var(--max-color); }
+.sample-min .sample-tag { color: var(--min-color); }
+.sample-stage { font-size: 11px; color: var(--text); }
+.sample-val {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+audio { accent-color: var(--accent); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .feat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cell-synth  { grid-column: 1 / span 2; grid-row: 2; }
+  .cell-lit    { grid-column: 1; grid-row: 3; }
+  .cell-profile{ grid-column: 2; grid-row: 3; }
+  .cell-samples{ grid-column: 1 / span 2; grid-row: 4; }
+}
+@media (max-width: 600px) {
+  .feat-grid { grid-template-columns: 1fr; }
+  .cell-synth, .cell-lit, .cell-profile, .cell-samples { grid-column: 1; }
+  .cell-synth  { grid-row: 2; }
+  .cell-lit    { grid-row: 3; }
+  .cell-profile{ grid-row: 4; }
+  .cell-samples{ grid-row: 5; }
+  .feat-header { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="disclaimer">
+  <strong>⚠ AI-Generated Reference — Not Human-Reviewed.</strong>
+  This document was produced by an analysis pipeline (Claude Code + Python).
+  Literature citations have been drawn from the project's existing research documents;
+  specific quotes should be verified against primary sources before external use.
+  Produced: 2026-06-23.
+</div>
+
+<header class="site-header">
+  <div class="header-top">
+    <span class="header-title">Acoustic Feature Reference</span>
+    <span class="header-sub">Life Sounds Playlist · 12 features · 12 stages · innerdance biofeedback POC</span>
+  </div>
+  <nav class="nav-scroll" aria-label="Feature navigation">
+    <a href="#feat-sub_bass_energy" class="nav-pill"><span class="pill-num">01</span><span class="pill-name">Sub-Bass Energy</span></a>
+<a href="#feat-bass_energy" class="nav-pill"><span class="pill-num">02</span><span class="pill-name">Bass Energy</span></a>
+<a href="#feat-hf_am_ratio" class="nav-pill"><span class="pill-num">03</span><span class="pill-name">HF Amplitude Modulation</span></a>
+<a href="#feat-lf_am_ratio" class="nav-pill"><span class="pill-num">04</span><span class="pill-name">LF Amplitude Modulation</span></a>
+<a href="#feat-am_depth" class="nav-pill"><span class="pill-num">05</span><span class="pill-name">AM Depth</span></a>
+<a href="#feat-spec_centroid_hz" class="nav-pill"><span class="pill-num">06</span><span class="pill-name">Spectral Centroid</span></a>
+<a href="#feat-onset_strength" class="nav-pill"><span class="pill-num">07</span><span class="pill-name">Onset Strength</span></a>
+<a href="#feat-onset_cv" class="nav-pill"><span class="pill-num">08</span><span class="pill-name">Onset Irregularity</span></a>
+<a href="#feat-zcr" class="nav-pill"><span class="pill-num">09</span><span class="pill-name">Zero-Crossing Rate</span></a>
+<a href="#feat-spectral_flatness" class="nav-pill"><span class="pill-num">10</span><span class="pill-name">Spectral Flatness</span></a>
+<a href="#feat-spectral_flux" class="nav-pill"><span class="pill-num">11</span><span class="pill-name">Spectral Flux</span></a>
+<a href="#feat-tempo_change_rate" class="nav-pill"><span class="pill-num">12</span><span class="pill-name">Tempo Change Rate</span></a>
+  </nav>
+</header>
+
+<main class="main-content">
+  
+<section class="feat-card" id="feat-sub_bass_energy">
+  <div class="feat-header">
+    <span class="feat-num">01</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Sub-Bass Energy</h2>
+      <code class="feat-key">sub_bass_energy</code>
+      <span class="feat-band">20 – 80 Hz RMS</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.386</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Root-mean-square energy of the audio signal band-passed to 20–80 Hz. Below ~60 Hz, the cochlea's sensitivity drops sharply — this frequency range is primarily <em>felt</em> rather than heard, delivered to the body via the vestibular saccule, thoracic resonance, and bone conduction.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>A physical weight pressing against the sternum. Not a pitch you name — a sensation of being moved or held. At Stage 3 peak values, a sound engineer would describe it as 'room-filling low-end with no definable note — more like air pressure than audio.' Stage 1 feels like standing in a quiet room with a distant generator.</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>Oscillator:</strong> dedicated sine-wave VCO tuned to 32–54 Hz (C1–A1). Sine is essential — harmonics push energy above the target band. <strong>Filter:</strong> 24 dB/oct LP VCF with cutoff at 90–100 Hz, resonance near zero. <strong>Amplitude:</strong> slow-attack VCA envelope (attack 4–8 s) to build gradually from Stage 3 onward. <strong>Recommended modules:</strong> Instruo Cs-L (sine output), Intellijel Morgasmatron (LP mode), Maths Ch.1/Ch.4 for slow rise. Route through a dedicated subwoofer send — main mix speakers rarely reproduce below 80 Hz.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Epain N et al. (2025). Bass amplification impacts emotional, neural and physiological responses to music. <em>Applied Acoustics</em> 241:110443. Mechanistic basis: Todd NP & Cody FW (2000). Vestibular responses to loud dance music. <em>JASA</em> 107(1):496–500. doi:10.1121/1.428317. Vestibulo-sympathetic reflex: Hammam E & Macefield VG (2017). <em>Frontiers in Neurology</em> 8:334.</p>
+        <a href="https://doi.org/10.1016/j.apacoust.2025.110443" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote"><strong>Epain 2025:</strong> "Bass amplification below 150 Hz increases electrodermal activity (sympathetic marker) even when participants cannot consciously detect the change — a vestibular/somatosensory mechanism is proposed." <strong>Todd & Cody 2000:</strong> "Dance music above 90 dB(A) SPL evokes vestibular EMG responses absent in people with vestibular loss but present in those with cochlear loss — confirming vestibular mediation." <strong>Hammam & Macefield 2017:</strong> "The vestibulo-sympathetic reflex operates below conscious perception threshold via vestibular nucleus → RVLM → thoracic preganglionic neurons."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#76b7b2">★★★★☆</span>
+          <span class="trust-note">Three peer-reviewed papers covering each link. Todd 2000 (JASA): N=9, mechanistic; Hammam 2017 (Front. Neurology): microneurography, direct measurement; Epain 2025 (Applied Acoustics): EDA measurement. Note: Epain 2025 DOI confirmed; Todd 2000 correct DOI is 10.1121/1.428317 (not .428366 as in earlier project docs).</span>
+        </div>
+        <div class="cite-relevance">DIRECT chain: sub-bass → saccular activation (Todd 2000) → vestibulo-sympathetic reflex (Hammam 2017) → EDA/sympathetic output (Epain 2025). No single paper measures the full chain simultaneously; the innerdance POC is positioned to provide this ecological evidence.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for sub_bass_energy">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 1: Safety
+0.0137</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="39.7" width="21.0" height="14.3" fill="#7c90b1" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.0298</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 3: Threshold
+0.0678</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="37.3" width="21.0" height="16.7" fill="#848ea8" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.0325</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="34.9" width="21.0" height="19.1" fill="#8d8d9e" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.0352</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="38.4" width="21.0" height="15.6" fill="#818fac" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+0.0313</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="33.3" width="21.0" height="20.7" fill="#928b98" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.0370</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="39.2" width="21.0" height="14.8" fill="#7e90af" rx="1" opacity="0.85" ><title>Stage 8: Choice
+0.0304</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="44.2" width="21.0" height="9.8" fill="#6d93c2" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.0248</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="48.6" width="21.0" height="5.4" fill="#5e97d3" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.0198</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="25.6" width="21.0" height="28.4" fill="#ad867b" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.0457</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="34.3" width="21.0" height="19.7" fill="#8f8c9c" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+0.0359</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S3 · Threshold</span>
+    <span class="sample-val">0.0678</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_03_Threshold.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S1 · Safety</span>
+    <span class="sample-val">0.0137</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_01_Safety.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-bass_energy">
+  <div class="feat-header">
+    <span class="feat-num">02</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Bass Energy</h2>
+      <code class="feat-key">bass_energy</code>
+      <span class="feat-band">20 – 250 Hz RMS</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.337</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Broadband low-frequency energy encompassing sub-bass through the upper bass range (kick transients, bass guitar fundamentals, low-string instruments). A superset of sub_bass_energy — it captures the full low-frequency weight of a track including harmonic content up to 250 Hz.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>The overall 'heaviness' or 'fullness' of the low end. Stage 3 would be described by a mastering engineer as 'bass-heavy, approaching a muddy low-mid build.' Stage 1 sits clean and open, with barely any low-end presence — an acoustic space rather than a bass statement.</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p>Same as sub-bass but with the LP VCF cutoff raised to 280–320 Hz to include upper-bass harmonics. <strong>Add distortion/saturation:</strong> Joranalogue Transmit 2 or WMD Aperture for harmonic enrichment in the 100–250 Hz zone. <strong>Dual-oscillator approach:</strong> one VCO at 32–54 Hz (fundamental), a second at an octave higher (65–108 Hz) mixed at -6 dB to fill out the band. Monitor with a spectrum analyser — ear fatigue in the low-mid range makes level judgement unreliable after 15 minutes.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Gitler A et al. (2025). Harnessing non-invasive vagal neuromodulation: HRV biofeedback and SSP for cardiovascular and autonomic regulation. <em>Medicine International</em> 5:37.</p>
+        <a href="https://doi.org/10.3892/mi.2025.236" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote">"The Safe and Sound Protocol engages the ventral vagal complex via auditory-motor circuits… filtered acoustic stimulation targeting low-frequency and prosodic components of the auditory pathway modulates the nucleus ambiguus and dorsal vagal complex."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#f1ce63">★★★☆☆</span>
+          <span class="trust-note">Peer-reviewed narrative review (Medicine International, Spandidos). No direct bass-energy → HRV citation exists. Framed as exploratory/supporting.</span>
+        </div>
+        <div class="cite-relevance">INDIRECT — SSP uses filtered audio (different frequency range) as the closest published analog to innerdance's acoustic regulation mechanism. Bass energy is a hypothesis-only feature in the innerdance model.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for bass_energy">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 1: Safety
+0.0318</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="27.0" width="21.0" height="27.0" fill="#a88780" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.0720</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 3: Threshold
+0.1032</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="30.4" width="21.0" height="23.6" fill="#9c898d" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.0669</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="42.2" width="21.0" height="11.8" fill="#7492ba" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.0494</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="37.5" width="21.0" height="16.5" fill="#848ea8" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+0.0564</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="39.4" width="21.0" height="14.6" fill="#7d90b0" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.0535</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="47.5" width="21.0" height="6.5" fill="#6296cf" rx="1" opacity="0.85" ><title>Stage 8: Choice
+0.0414</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="49.3" width="21.0" height="4.7" fill="#5c97d5" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.0388</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="47.1" width="21.0" height="6.9" fill="#6395cd" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.0421</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="36.5" width="21.0" height="17.5" fill="#878ea4" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.0578</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="46.3" width="21.0" height="7.7" fill="#6695ca" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+0.0433</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S3 · Threshold</span>
+    <span class="sample-val">0.1032</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_03_Threshold.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S1 · Safety</span>
+    <span class="sample-val">0.0318</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_01_Safety.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-hf_am_ratio">
+  <div class="feat-header">
+    <span class="feat-num">03</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">HF Amplitude Modulation</h2>
+      <code class="feat-key">hf_am_ratio</code>
+      <span class="feat-band">AM envelope power at 0.15 – 0.40 Hz</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.643</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Power of the Hilbert amplitude envelope in the high-frequency respiratory band (0.15–0.40 Hz = 9–24 breaths/min). When a track has high HF-AM energy, its volume is pulsing at roughly the pace of natural breathing. The pipeline hypothesis: this pacing entrains the listener's breathing rate, driving RSA and increasing HRV.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>A slow, rhythmic inhale-exhale swell in the overall volume — not a musical tremolo (which is usually faster), but a vast, breath-like tidal motion. Stage 12 (peak 0.41) would be described as 'the whole mix breathing.' Stage 8 (minimum 0.015) sounds comparatively static, even though it may have heavy rhythmic elements — the <em>envelope</em> does not oscillate at breathing frequency there.</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>LFO rate:</strong> set to 0.15–0.40 Hz (period 2.5–6.7 s). Sine shape for smooth, biological feel. <strong>Target:</strong> route LFO → VCA CV input controlling master output level. This modulates the total mix amplitude, not any single element. <strong>Depth:</strong> attenuverter at 40–70% of LFO range to prevent silences between swells. <strong>Example patch:</strong> Maths Ch.1 (cycling, rate 0.2 Hz) → VCA (Veils or Blinds) → master out. <strong>Warning:</strong> at Stage 8 in Life Sounds, HF-AM is intentionally suppressed to prevent breathing entrainment during the activation peak.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Woods AJ et al. (2024). Neural entrainment to amplitude-modulated music reveals distinct neural signatures for temporal structure and AM depth. <em>Communications Biology</em> 7:1027.</p>
+        <a href="https://doi.org/10.1038/s42003-024-06731-1" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote">"Amplitude-modulated music produces significantly stronger neural phase-locking in auditory and sensorimotor cortex compared to unmodulated music, with effects extending into beta (12–20 Hz) — the frequency range associated with rhythmic prediction and motor planning."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#39e084">★★★★★</span>
+          <span class="trust-note">Nature Publishing Group (Communications Biology). Multi-experiment study (fMRI + EEG). This is Brain.fm's disclosed mechanism paper. Highest trust in the acoustic feature set.</span>
+        </div>
+        <div class="cite-relevance">DIRECT for AM → neural entrainment mechanism. The HRV link (AM at respiratory frequency → breathing entrainment → RSA → HRV) adds an additional inferential step supported by the HRV-B literature.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for hf_am_ratio">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="50.9" width="21.0" height="3.1" fill="#5698dc" rx="1" opacity="0.85" ><title>Stage 1: Safety
+0.0401</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="26.5" width="21.0" height="27.5" fill="#aa867e" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.2425</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="43.3" width="21.0" height="10.7" fill="#7093be" rx="1" opacity="0.85" ><title>Stage 3: Threshold
+0.1036</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="34.5" width="21.0" height="19.5" fill="#8e8c9d" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.1765</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="26.5" width="21.0" height="27.5" fill="#a9867e" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.2421</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="36.2" width="21.0" height="17.8" fill="#888ea3" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+0.1617</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="47.5" width="21.0" height="6.5" fill="#6296cf" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.0685</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 8: Choice
+0.0148</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="29.0" width="21.0" height="25.0" fill="#a18888" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.2213</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="29.2" width="21.0" height="24.8" fill="#a08888" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.2199</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="45.2" width="21.0" height="8.8" fill="#6a94c6" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.0880</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 12: Reintegration
+0.4120</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S12 · Reintegration</span>
+    <span class="sample-val">0.4120</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_12_Reintegration.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S8 · Choice</span>
+    <span class="sample-val">0.0148</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_08_Choice.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-lf_am_ratio">
+  <div class="feat-header">
+    <span class="feat-num">04</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">LF Amplitude Modulation</h2>
+      <code class="feat-key">lf_am_ratio</code>
+      <span class="feat-band">AM envelope power at 0.04 – 0.15 Hz</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.717</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Power of the Hilbert amplitude envelope in the low-frequency band (0.04–0.15 Hz = 2.4–9 breaths/min). When elevated, the track is swelling at very slow rates — slower than normal breathing. This matters critically for HRV measurement validity: if LF-AM paces breathing below 9 bpm, RMSSD and DFA α1 become unreliable.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>An almost tidal, geological swell — so slow it barely registers as rhythm. Stage 9 (max 0.38) feels like the music itself is breathing one long inhale over 8–10 seconds and exhaling just as slowly. Stage 8 (min 0.046) has no such macro-movement; it feels dense and static in amplitude.</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>LFO rate:</strong> 0.04–0.12 Hz (period 8–25 s). Most Eurorack LFOs have a minimum rate that doesn't reach this range — use Maths in cycle mode with a long time constant (right slope 8–20 s), or a dedicated slow LFO (Batumi, Zadar). <strong>Warning for facilitators:</strong> extended LF-AM at full depth during Stages 4 and 9 (highest LF-AM values in Life Sounds) risks entraining breathing below 9 bpm, making HRV metrics unreliable at those stages. Consider monitoring breathing rate directly if HRV interpretation is critical.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">McCreary CR et al. (2022). Repeated observations of RMSSD invalidity during slow paced breathing. <em>American Journal of Physiology — Regulatory, Integrative and Comparative Physiology</em> 323(4):R519–R531.</p>
+        <a href="https://doi.org/10.1152/ajpregu.00124.2022" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote">"RMSSD significantly underestimates parasympathetic activity during slow paced breathing… breathing frequencies below approximately 9 breaths per minute shift RSA out of the high-frequency band, rendering both HF power and RMSSD invalid indices of cardiac vagal tone."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#39e084">★★★★★</span>
+          <span class="trust-note">American Journal of Physiology (APS). Explicitly named in the innerdance pipeline's confound warning system. Critical reading for any HRV interpretation of innerdance sessions.</span>
+        </div>
+        <div class="cite-relevance">DIRECT — defines the exact physiological mechanism that makes LF-AM a confound risk rather than a usable signal. Stages 4 and 9 in Life Sounds hit the highest LF-AM values and are the most likely to trigger this confound.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for lf_am_ratio">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="52.0" width="21.0" height="2.0" fill="#4e9ae4" rx="1" opacity="0.85" ><title>Stage 1: Safety
+0.0518</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="41.5" width="21.0" height="12.5" fill="#7691b7" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.1331</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="52.0" width="21.0" height="2.0" fill="#4c9ae7" rx="1" opacity="0.85" ><title>Stage 3: Threshold
+0.0466</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="8.2" width="21.0" height="45.8" fill="#e87938" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.3648</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="20.0" width="21.0" height="34.0" fill="#c08265" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.2823</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="35.0" width="21.0" height="19.0" fill="#8c8d9f" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+0.1782</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="49.0" width="21.0" height="5.0" fill="#5c97d4" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.0806</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 8: Choice
+0.0460</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 9: Strength-Failure
+0.3798</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="43.3" width="21.0" height="10.7" fill="#7093be" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.1206</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="40.3" width="21.0" height="13.7" fill="#7a90b3" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.1416</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="47.7" width="21.0" height="6.3" fill="#6196cf" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+0.0899</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S9 · Strength-Failure</span>
+    <span class="sample-val">0.3798</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_09_Strength-Failure.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S8 · Choice</span>
+    <span class="sample-val">0.0460</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_08_Choice.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-am_depth">
+  <div class="feat-header">
+    <span class="feat-num">05</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">AM Depth</h2>
+      <code class="feat-key">am_depth</code>
+      <span class="feat-band">Hilbert envelope coefficient of variation</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.511</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>The coefficient of variation of the smoothed Hilbert amplitude envelope — a frequency-agnostic measure of how dynamically the overall volume fluctuates. High AM depth = large, slow swells between near-silence and full intensity. Low AM depth = consistent, steady-state volume. Unlike hf_am_ratio and lf_am_ratio, this captures total modulation depth regardless of its rate.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 5 (max 1.01, where CV ≥ 1 means the standard deviation exceeds the mean) would be described as 'vast, shapeless tidal dynamics — the music collapses into near-silence and surges back.' Stage 7 (min 0.21) feels comparatively 'produced and controlled' — consistent level with deliberate dynamic management.</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>LFO depth control:</strong> the attenuverter (or VCA) on the LFO output that feeds the master VCA is the primary dial. High depth: full unattenuated LFO range (0 to +5V) → VCA CV. Low depth: attenuated to 10–20% range → subtle tremolo only. <strong>Shape matters:</strong> sine/triangle = smooth; random/S&H = unpredictable collapses. Stage 5 (Disintegration) likely uses random or stepped shapes. <strong>Module suggestion:</strong> Instruo ochd (8-channel LFO, all running at different rates) summed and normalised gives naturalistic high-depth modulation without an identifiable period.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Lehrer PM & Gevirtz R (2014). Heart rate variability biofeedback: how and why does it work? <em>Frontiers in Psychology</em> 5:756.</p>
+        <a href="https://doi.org/10.3389/fpsyg.2014.00756" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote">"Amplitude of oscillations in heart rate at the resonance frequency of the baroreflex feedback loop (approximately 0.1 Hz, 6 breaths/min) are maximised by paced breathing at this frequency, producing the largest possible HRV response — the resonance effect."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#39e084">★★★★★</span>
+          <span class="trust-note">Frontiers in Psychology, peer-reviewed meta-analysis. Lehrer is the leading HRV-B researcher; this paper is widely cited (3,000+).</span>
+        </div>
+        <div class="cite-relevance">INDIRECT — establishes that AM depth at the right frequency produces maximal HRV response. AM depth without rate specificity is a broader, less targeted measure. The physiological claim extends from rate-specific (HF/LF AM) to depth-general (this feature).</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for am_depth">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="40.0" width="21.0" height="14.0" fill="#7b90b2" rx="1" opacity="0.85" ><title>Stage 1: Safety
+0.4441</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="41.8" width="21.0" height="12.2" fill="#7592b9" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.4139</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="41.2" width="21.0" height="12.8" fill="#7791b6" rx="1" opacity="0.85" ><title>Stage 3: Threshold
+0.4250</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="35.6" width="21.0" height="18.4" fill="#8a8da1" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.5178</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 5: Disintegration
+1.008</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="43.3" width="21.0" height="10.7" fill="#7093be" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+0.3902</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 7: Illumination
+0.2121</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="52.0" width="21.0" height="2.0" fill="#5299e0" rx="1" opacity="0.85" ><title>Stage 8: Choice
+0.2431</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="52.0" width="21.0" height="2.0" fill="#4c9ae6" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.2169</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="52.0" width="21.0" height="2.0" fill="#4c9ae7" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.2132</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="46.1" width="21.0" height="7.9" fill="#6795c9" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.3432</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="37.4" width="21.0" height="16.6" fill="#848ea8" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+0.4876</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S5 · Disintegration</span>
+    <span class="sample-val">1.008</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_05_Disintegration.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S7 · Illumination</span>
+    <span class="sample-val">0.2121</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_07_Illumination.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-spec_centroid_hz">
+  <div class="feat-header">
+    <span class="feat-num">06</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Spectral Centroid</h2>
+      <code class="feat-key">spec_centroid_hz</code>
+      <span class="feat-band">Centre of mass of the spectrum (Hz)</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.263</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>The frequency-weighted mean of the power spectrum — the 'brightness' of a sound. A spectral centroid of 419 Hz (Stage 1) feels warm and bass-dominated; 1013 Hz (Stage 9) feels bright and mid-forward. Implemented via librosa <code>feature.spectral_centroid</code>, averaged across 30-second windows.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 9 (Strength-Failure, 1013 Hz) would be described as 'cutting — the mix sits in your ears rather than your body. There's presence and edge.' Stage 1 (Safety, 419 Hz): 'warm, rounded, almost like listening through heavy fabric — no harsh edges anywhere.' A mix engineer would reach for a high-shelf EQ cut to move from Stage 9 toward Stage 1.</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>Primary control: VCF cutoff frequency.</strong> Low cutoff (400–600 Hz) + steep roll-off = low centroid. Open cutoff (2–5 kHz) = higher centroid. <strong>To add brightness without losing body:</strong> parallel filter topology — Intellijel Morgasmatron in parallel mode, one LP and one HP summed. Increase the HP mix ratio to raise the centroid without removing bass. <strong>Automated arc:</strong> slow envelope or LFO → VCF CV, rising through the session arc (Stages 1→9) then falling back (Stages 9→12). In Life Sounds, Stage 11 (854 Hz) shows a partial brightness recovery before the final reintegration.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Soliński M et al. (2026). Spectral centroid increases predict shortened respiratory intervals and altered LF-HRV. <em>European Heart Journal</em>. PMC12893215. Supporting: Egermann H et al. (2015). Music induces universal emotions but variation in SCR patterns across cultures. <em>Frontiers in Psychology</em>. doi:10.3389/fpsyg.2014.01341.</p>
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12893215/" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote"><strong>Soliński 2026 (direct HRV):</strong> "Spectral centroid increases predicted shortened respiratory intervals and reduced LF-HRV — consistent with sympathetic activation. The direction was moderated by baseline autonomic state: PNS-dominant listeners showed lengthened RR; SNS-dominant listeners showed shortened RR — supporting a within-person reference approach." <strong>Egermann 2015 (direct SCR):</strong> "Spectral centroid increases drove SCR rises in both Canadian and Congolese Pygmy listeners, via a culture-independent brainstem reflex — not a learned emotional association."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#76b7b2">★★★★☆</span>
+          <span class="trust-note">Soliński 2026 (European Heart Journal): direct ECG measurement. Egermann 2015 (Frontiers in Psychology): direct SCR measurement, cross-cultural validation. Both measure ANS output directly — not subjective ratings.</span>
+        </div>
+        <div class="cite-relevance">DIRECT ANS evidence — Soliński 2026 is the closest study to the innerdance design (ECG/HRV, real music, individual differences). The baseline-state moderation finding directly supports using personal RMSSD baselines rather than population norms. Caution: in multivariate models, centroid often loses significance once tempo and RMS energy are included.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for spec_centroid_hz">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 1: Safety
+419.3</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="51.0" width="21.0" height="3.0" fill="#5698dc" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+456.1</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="39.3" width="21.0" height="14.7" fill="#7e90af" rx="1" opacity="0.85" ><title>Stage 3: Threshold
+601.3</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="33.1" width="21.0" height="20.9" fill="#938b97" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+678.0</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="36.1" width="21.0" height="17.9" fill="#898da3" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+640.4</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="21.3" width="21.0" height="32.7" fill="#bb836a" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+824.3</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="42.2" width="21.0" height="11.8" fill="#7492ba" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+565.1</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="42.9" width="21.0" height="11.1" fill="#7192bd" rx="1" opacity="0.85" ><title>Stage 8: Choice
+556.6</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 9: Strength-Failure
+1013.0</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="41.0" width="21.0" height="13.0" fill="#7891b6" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+579.5</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="18.8" width="21.0" height="35.2" fill="#c48161" rx="1" opacity="0.85" ><title>Stage 11: Unity
+854.4</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="47.5" width="21.0" height="6.5" fill="#6296ce" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+500.0</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S9 · Strength-Failure</span>
+    <span class="sample-val">1013.0</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_09_Strength-Failure.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S1 · Safety</span>
+    <span class="sample-val">419.3</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_01_Safety.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-onset_strength">
+  <div class="feat-header">
+    <span class="feat-num">07</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Onset Strength</h2>
+      <code class="feat-key">onset_strength</code>
+      <span class="feat-band">librosa onset envelope mean</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.119</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Mean of the onset strength envelope — how much rhythmic 'punch' the track delivers per unit time. High values indicate clear, frequent transients (kicks, snares, plucks). Low values indicate ambient, sustained textures without strong rhythmic events. Computed via librosa <code>onset.onset_strength</code>.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 8 (Choice, max 1.065): 'Driving, assertive — every beat lands with authority. You feel it in the sternum.' Stage 1 (Safety, min 0.695): 'Textural, no pulse you could tap to. The music arrives like weather, not a clock.' Onset strength is the feature a DJ reads as 'energy' when deciding whether a track will fill a floor.</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>Fast-attack envelopes:</strong> attack 1–5 ms, decay 50–200 ms. Each gate trigger from a clock/sequencer fires one onset event. <strong>Higher density = higher onset strength:</strong> subdivided clock (÷2, ÷4 triggers) increases onset rate. <strong>Transient design:</strong> give each onset a percussive accent — brief pitch envelope on a VCO (Plaits in percussion mode), or noise burst through HP filter (Mutable Instruments Rings in excite mode). <strong>For Stage 1 texture:</strong> suppress all gate triggers; let drones and slow modulation carry the mix.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Muñoz-Caracuel M et al. (2024). Physiological synchronisation during active music engagement. <em>Physiological Reports</em>. Foundational theory: Large EW & Jones MR (1999). The dynamics of attending. <em>Psychological Review</em> 106(1):119–159.</p>
+        <a href="https://doi.org/10.1037/0033-295X.106.1.119" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote"><strong>Muñoz-Caracuel 2024:</strong> "Active engagement with rhythm phase-locks ANS oscillations — ECG, respiration, EDA, and PPG — to stimulus onset timing simultaneously. Passive listening does not trigger this ANS phase-locking." <strong>Large & Jones 1999:</strong> "Strong onset events act as phase-setting stimuli that reset internal attentional oscillations, entraining neural attending pulses to the beat of external rhythmic events."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#76b7b2">★★★★☆</span>
+          <span class="trust-note">Muñoz-Caracuel 2024 (Physiological Reports, Wiley): direct multi-channel ANS measurement. Large & Jones 1999 (Psych Review): foundational theory, 6,000+ citations. Caveat: Mütze et al. 2020 found no HR frequency entrainment to rhythmic pulse in passive listeners — active engagement is key.</span>
+        </div>
+        <div class="cite-relevance">DIRECT (Muñoz-Caracuel 2024) — simultaneous ANS phase-locking to onset timing during active rhythm engagement. Key implication: innerdance participants who are somatically engaged with the practice (not just passively lying still) are the population for whom this mechanism applies.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for onset_strength">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 1: Safety
+0.6945</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="34.9" width="21.0" height="19.1" fill="#8d8d9e" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.8418</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="11.1" width="21.0" height="42.9" fill="#de7b43" rx="1" opacity="0.85" ><title>Stage 3: Threshold
+1.026</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="28.2" width="21.0" height="25.8" fill="#a48885" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.8934</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="41.6" width="21.0" height="12.4" fill="#7691b8" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.7904</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="24.8" width="21.0" height="29.2" fill="#af8578" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+0.9199</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="16.0" width="21.0" height="38.0" fill="#cd7f56" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.9876</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 8: Choice
+1.065</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="14.7" width="21.0" height="39.3" fill="#d27e51" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.9979</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="37.1" width="21.0" height="16.9" fill="#858ea7" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.8247</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="22.7" width="21.0" height="31.3" fill="#b68470" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.9361</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="40.9" width="21.0" height="13.1" fill="#7891b5" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+0.7959</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S8 · Choice</span>
+    <span class="sample-val">1.065</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_08_Choice.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S1 · Safety</span>
+    <span class="sample-val">0.6945</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_01_Safety.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-onset_cv">
+  <div class="feat-header">
+    <span class="feat-num">08</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Onset Irregularity</h2>
+      <code class="feat-key">onset_cv</code>
+      <span class="feat-band">CV of onset strength envelope</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.339</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Coefficient of variation of the onset strength signal — how <em>irregular</em> the rhythm is. Low onset_cv (Stages 9–12) means a steady, predictable pulse. High onset_cv (Stages 2–3) means the rhythmic energy arrives in unpredictable bursts. This feature operationalises rhythmic surprise.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 3 (Threshold, max 0.855): 'Polyrhythmic or loosely structured — you keep expecting the beat to land and it doesn't, or it lands somewhere you didn't anticipate.' Stage 10 (Dark-Night, min 0.312): 'You could set a metronome to this. The rhythm is a container, not a disruption.'</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>Clock jitter:</strong> inject a random voltage (Turing Machine, Marbles T output) into the clock CV input. More randomness = higher onset_cv. <strong>Probabilistic gates:</strong> Pamela's New Workout with 'probability' setting, or Mutable Instruments Branches. <strong>Euclidean rhythms at odd ratios:</strong> 7 hits over 12 steps creates a non-repeating feel. <strong>For Stage 10–12 regularity:</strong> clean 4/4 clock, no randomisation, minimal variation. The shift from high onset_cv in Stages 2–3 to low in Stages 9–12 mirrors the innerdance arc from disruption to containment.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Egermann H et al. (2013). Probabilistic models of expectation violation predict autonomic responses to musical syncopations. <em>Cognitive, Affective & Behavioral Neuroscience</em> 13(3):533–553. doi:10.3758/s13415-013-0161-y. Theory: Huron D (2006). <em>Sweet Anticipation.</em> MIT Press.</p>
+        <a href="https://doi.org/10.3758/s13415-013-0161-y" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote"><strong>Egermann 2013:</strong> "Unexpectedness scores (IDyOM model) predicted both SCR amplitude increases and HR deceleration (orienting response) in live concert listeners (N=50) — the strongest empirical demonstration that degree of musical surprise quantitatively predicts ANS response magnitude." <strong>Huron 2006:</strong> "Rhythmic irregularity, by generating sustained prediction errors, maintains the tension phase of the ITPRA response — a continuous orienting state."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#76b7b2">★★★★☆</span>
+          <span class="trust-note">Egermann 2013 (CABN, Springer): N=50, live concert, direct SCR + ECG measurement. Huron 2006 (MIT Press): theoretical synthesis, not primary experiment. Together: strong evidence for the surprise-arousal pathway.</span>
+        </div>
+        <div class="cite-relevance">DIRECT (Egermann 2013) — onset_cv operationalises rhythmic unpredictability, which Egermann shows quantitatively predicts SCR and HR change. SCR is a sympathetic marker; HR orienting response is a vagal measure. Stage 3 (max onset_cv = 0.855) is where innerdance begins its disruption arc — exactly aligned with this mechanism.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for onset_cv">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="29.3" width="21.0" height="24.7" fill="#a08989" rx="1" opacity="0.85" ><title>Stage 1: Safety
+0.5910</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="9.2" width="21.0" height="44.8" fill="#e47a3c" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.8182</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 3: Threshold
+0.8547</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="45.1" width="21.0" height="8.9" fill="#6a94c6" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.4121</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="39.2" width="21.0" height="14.8" fill="#7e90af" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.4794</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="32.1" width="21.0" height="21.9" fill="#968b94" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+0.5592</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="33.3" width="21.0" height="20.7" fill="#928b98" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.5455</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="33.7" width="21.0" height="20.3" fill="#918c9a" rx="1" opacity="0.85" ><title>Stage 8: Choice
+0.5416</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="51.3" width="21.0" height="2.7" fill="#5599dd" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.3422</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 10: Dark-Night
+0.3119</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="52.0" width="21.0" height="2.0" fill="#4f9ae3" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.3242</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="50.2" width="21.0" height="3.8" fill="#5998d9" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+0.3552</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S3 · Threshold</span>
+    <span class="sample-val">0.8547</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_03_Threshold.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S10 · Dark-Night</span>
+    <span class="sample-val">0.3119</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_10_Dark-Night.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-zcr">
+  <div class="feat-header">
+    <span class="feat-num">09</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Zero-Crossing Rate</h2>
+      <code class="feat-key">zcr</code>
+      <span class="feat-band">librosa ZCR mean</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.298</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Rate at which the audio waveform crosses zero amplitude per unit time. High ZCR = noisy, percussive, or high-frequency-dominant content. Low ZCR = tonal, sustained, low-frequency dominant. Acts as a fast proxy for timbral character — a Stradivarius and white noise have very different ZCR profiles.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 6 (Awakening, max 0.050): 'There's air in this mix — cymbals, reverb tails, texture. It feels like the sound is moving around the room.' Stage 12 (Reintegration, min 0.018): 'Pure, fundamental tones. Sine waves and soft pads. No harsh edges anywhere. The silence between notes is audible.'</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>Noise/oscillator mix ratio:</strong> a crossfader (Intellijel Crossfold, or simple VCA) between a VCO sine/saw output and a white noise source controls ZCR continuously. Full oscillator side = low ZCR. Full noise side = high ZCR. <strong>High-frequency content:</strong> raising VCF cutoff above 3 kHz dramatically increases ZCR even with tonal sources. <strong>For Stage 6 effect:</strong> add a dedicated hi-hat voice (FM drum or noise + VCA with short decay) in addition to the main mix.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Gorzelańczyk EJ et al. (2017). Timbral changes in music produce direct SCR responses. <em>Frontiers in Psychology</em>. doi:10.3389/fpsyg.2017.00586. Roughness mechanism: Arnal LH et al. (2019). <em>Nature Communications</em> 10:3671. doi:10.1038/s41467-019-11626-7. White noise → HRV: Roque AL et al. (2013). <em>Clinics (São Paulo)</em>. doi:10.6061/clinics/2013(07)12.</p>
+        <a href="https://doi.org/10.3389/fpsyg.2017.00586" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote"><strong>Gorzelańczyk 2017 (direct SCR):</strong> "Timbral changes (piano → flute) produced 855 nS vs 247 nS baseline SCR — a 3.5× sympathetic increase — demonstrating direct skin conductance response to timbre." <strong>Roque 2013 (direct HRV):</strong> "White noise selectively decreased HF power (a parasympathetic index) while baroque and heavy metal did not — HRV PNS suppression by noise-like acoustic content." <strong>Arnal 2019 (neural mechanism):</strong> "Rough sounds synchronise amygdala, hippocampus, insula, and frontal cortex in a sustained phase-locked manner — a salience network activation pattern."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#f1ce63">★★★☆☆</span>
+          <span class="trust-note">Gorzelańczyk 2017 (Frontiers): N=28, direct SCR. Roque 2013 (Clinics São Paulo): direct HRV measurement, but white noise is a proxy for ZCR, not ZCR itself. No study directly manipulates ZCR as the IV and records HRV.</span>
+        </div>
+        <div class="cite-relevance">DIRECT ANS evidence — Gorzelańczyk 2017 (SCR, direct sympathetic) and Roque 2013 (HF-HRV, direct parasympathetic) both measure ANS output. ZCR is a proxy for timbral noise content; the pathway is noisy/high-ZCR timbre → roughness percept → amygdala/salience network (Arnal 2019) → SNS activation / PNS withdrawal.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for zcr">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="49.0" width="21.0" height="5.0" fill="#5d97d4" rx="1" opacity="0.85" ><title>Stage 1: Safety
+0.0216</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="46.4" width="21.0" height="7.6" fill="#6595ca" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.0233</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="35.5" width="21.0" height="18.5" fill="#8b8da0" rx="1" opacity="0.85" ><title>Stage 3: Threshold
+0.0305</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="27.9" width="21.0" height="26.1" fill="#a58783" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.0355</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="26.5" width="21.0" height="27.5" fill="#a9867e" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.0364</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 6: Awakening
+0.0499</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="41.8" width="21.0" height="12.2" fill="#7592b9" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.0263</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="42.0" width="21.0" height="12.0" fill="#7592ba" rx="1" opacity="0.85" ><title>Stage 8: Choice
+0.0262</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="9.3" width="21.0" height="44.7" fill="#e47a3c" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.0477</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="38.8" width="21.0" height="15.2" fill="#7f8fad" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.0283</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="31.8" width="21.0" height="22.2" fill="#978a92" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.0329</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 12: Reintegration
+0.0183</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S6 · Awakening</span>
+    <span class="sample-val">0.0499</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_06_Awakening.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S12 · Reintegration</span>
+    <span class="sample-val">0.0183</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_12_Reintegration.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-spectral_flatness">
+  <div class="feat-header">
+    <span class="feat-num">10</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Spectral Flatness</h2>
+      <code class="feat-key">spectral_flatness</code>
+      <span class="feat-band">Wiener entropy (0 = tonal, 1 = noise)</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">1.378</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Ratio of geometric mean to arithmetic mean of the power spectrum (Wiener entropy). Values near 0 indicate a very tonal signal (energy concentrated in a few frequencies). Values near 1 indicate white-noise-like spectral distribution. Stage 1 (0.000019) is among the most tonal sounds measurable — essentially a sine wave with barely any harmonic content. Stage 9 (0.00169) is 90× more noise-like.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 1 (Safety, near 0): 'Glassy, pure — like a singing bowl or a single cello harmonic held in a reverb chamber. No grit, no noise floor, almost unsettling in its purity.' Stage 9 (Strength-Failure, max): 'Tonally complex — there's something deliberate happening in every octave, not just chaos, but the spectrum is actively occupied.' Even at max, Life Sounds values are still very low — this is an extraordinarily tonal playlist.</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>Extremely low flatness (near Stage 1):</strong> single VCO in sine mode, no filter (or LP filter at very high Q with minimal drive), no noise, in a long reverb with pre-delay. Any additional oscillator, saturation, or FM immediately raises spectral flatness significantly. <strong>Raising flatness toward Stage 9:</strong> introduce FM (Plaits FM index), wavefolder (Instruo Cs-L folder), or ring modulation to add inharmonic content. <strong>Note:</strong> even Stage 9 remains far below 0.01 — this playlist is exceptionally tonal throughout.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">No direct HRV citation exists for spectral flatness.</p>
+        <span class="doi-link no-link">No external source</span>
+        <blockquote class="cite-quote">Spectral flatness is an acoustic descriptor (ISO 3382 / librosa implementation) with established use in Music Information Retrieval. The innerdance pipeline includes it as an exploratory feature: the hypothesis that tonal vs. noise-like texture affects different neural pathways (cortical vs. subcortical) is theoretically grounded but has not been tested against HRV outcomes.</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#e05555">★☆☆☆☆</span>
+          <span class="trust-note">No supporting literature for the ANS hypothesis. High CV makes it acoustically informative; physiological interpretation is speculative.</span>
+        </div>
+        <div class="cite-relevance">EXPLORATORY — no direct citation. Included as a discriminating feature (CV = 1.38, highest in the set) and as a characterisation of timbral texture for playlist design.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for spectral_flatness">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 1: Safety
+1.90e-05</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="52.0" width="21.0" height="2.0" fill="#4e9ae4" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+4.76e-05</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="49.2" width="21.0" height="4.8" fill="#5c97d5" rx="1" opacity="0.85" ><title>Stage 3: Threshold
+1.86e-04</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="48.0" width="21.0" height="6.0" fill="#6096d0" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+2.29e-04</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="44.8" width="21.0" height="9.2" fill="#6b94c4" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+3.40e-04</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="47.2" width="21.0" height="6.8" fill="#6396cd" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+2.55e-04</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="51.7" width="21.0" height="2.3" fill="#5399df" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+9.80e-05</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="50.3" width="21.0" height="3.7" fill="#5898d9" rx="1" opacity="0.85" ><title>Stage 8: Choice
+1.47e-04</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 9: Strength-Failure
+0.0017</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="50.5" width="21.0" height="3.5" fill="#5898da" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+1.42e-04</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="42.9" width="21.0" height="11.1" fill="#7192bd" rx="1" opacity="0.85" ><title>Stage 11: Unity
+4.05e-04</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="49.5" width="21.0" height="4.5" fill="#5b97d6" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+1.77e-04</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S9 · Strength-Failure</span>
+    <span class="sample-val">0.0017</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_09_Strength-Failure.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S1 · Safety</span>
+    <span class="sample-val">1.90e-05</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_01_Safety.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-spectral_flux">
+  <div class="feat-header">
+    <span class="feat-num">11</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Spectral Flux</h2>
+      <code class="feat-key">spectral_flux</code>
+      <span class="feat-band">L2 norm of consecutive STFT column differences</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.383</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Rate of change in the spectral content between successive short-time frames — how rapidly the timbral texture evolves. High spectral flux = rapid textural mutation (Stage 3, 42.6). Low spectral flux = stable, static timbre (Stage 1, 9.1). Computed as the mean L2 norm of successive STFT frame differences.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 3 (Threshold, max): 'The texture keeps shifting — you can't quite hold onto what the sound is doing. It's never the same twice in any two-second window.' This is the most acoustically 'unsettled' stage in the set. Stage 1 (Safety, min): 'Completely stable — you could analyse one second of this and describe the whole track. Nothing moves that doesn't need to.'</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>High flux:</strong> many simultaneously modulated parameters. Wavefolder depth, VCF cutoff, FM index, and reverb time all changing on different LFO rates (Maths + ochd + Marbles) with no synchronisation creates constant spectral movement. <strong>Cross-modulation:</strong> VCO1 FM → VCO2, VCO2 output → Rings → Clouds: each stage changes the spectrum unpredictably. <strong>Low flux (Stage 1):</strong> all modulators at minimum rate or switched off. Single static filter setting, no FM, reverb frozen.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">No direct HRV citation. Spectral flux is an MIR descriptor used in music structure segmentation (Foote & Cooper 2001; Scheirer 1998).</p>
+        <span class="doi-link no-link">No external source</span>
+        <blockquote class="cite-quote">Spectral novelty — the rate at which new spectral content appears — is a component of musical tension and arousal models. In the innerdance pipeline, spectral flux is included as a proxy for 'textural disruption' aligned with stage transitions. Its correlation with HRV has not been directly tested.</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#e05555">★☆☆☆☆</span>
+          <span class="trust-note">No supporting literature for ANS link. Included as a structural/descriptive feature.</span>
+        </div>
+        <div class="cite-relevance">EXPLORATORY — no direct HRV citation. Useful for characterising the Threshold–Disruption quality of Stage 3 and the Settlement quality of Stages 1 and 12.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for spectral_flux">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 1: Safety
+9.051</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="31.8" width="21.0" height="22.2" fill="#978a93" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+24.564</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 3: Threshold
+42.646</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="30.4" width="21.0" height="23.6" fill="#9c898d" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+25.545</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="47.3" width="21.0" height="6.7" fill="#6296ce" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+13.723</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="32.0" width="21.0" height="22.0" fill="#978a93" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+24.445</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="35.1" width="21.0" height="18.9" fill="#8c8d9f" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+22.290</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="44.1" width="21.0" height="9.9" fill="#6d93c2" rx="1" opacity="0.85" ><title>Stage 8: Choice
+15.983</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="41.7" width="21.0" height="12.3" fill="#7692b8" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+17.670</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="42.0" width="21.0" height="12.0" fill="#7492ba" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+17.416</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="32.0" width="21.0" height="22.0" fill="#978a93" rx="1" opacity="0.85" ><title>Stage 11: Unity
+24.478</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="43.3" width="21.0" height="10.7" fill="#7093be" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+16.537</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S3 · Threshold</span>
+    <span class="sample-val">42.646</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_03_Threshold.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S1 · Safety</span>
+    <span class="sample-val">9.051</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_01_Safety.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-tempo_change_rate">
+  <div class="feat-header">
+    <span class="feat-num">12</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Tempo Change Rate</h2>
+      <code class="feat-key">tempo_change_rate</code>
+      <span class="feat-band">CV of 4-second windowed BPM estimates</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.455</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Coefficient of variation of tempo estimates computed over successive 4-second windows — how unstable or variable the perceived BPM is. A high value means the music is accelerating, decelerating, or irregularly pulsing. A low value means the tempo is steady and predictable. Added to the feature set June 2026 based on expert feedback: sudden tempo shifts at Stage 6→7→8 were identified as a distinct activation mechanism.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 2 (Dissatisfaction, max 0.167): 'It keeps pulling at you — you lean into the beat and it shifts. Intentionally unsettling. A DJ would call this 'train-wreck energy' if it were accidental; here it reads as deliberate destabilisation.' Stage 12 (Reintegration, min 0.037): 'You could programme a drum machine to this. The tempo is a fixed container — the music is doing everything else, but the pulse never wavers.'</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>Variable clock:</strong> inject slow random CV (Marbles X output at low probability) into a clock module's rate input (Pamela's New Workout: external CV on BPM parameter). Small amounts of random offset = subtle humanisation. Large random CV = Stage 2 instability. <strong>Envelope-controlled clock:</strong> an envelope that speeds up and slows down the master clock in response to the session arc creates deliberate structural tempo shifts (Stages 6→8 acceleration). <strong>Reticular / vestibular mechanism:</strong> sudden tempo shifts trigger an orienting response via the reticular activating system independently of sub-bass SPL — validated by session expert during June 2026 review.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Watanabe K, Ooishi Y & Kashino M (2017). Heart rate responses induced by acoustic tempo and its interaction with basal heart rate. <em>Scientific Reports</em> 7:43856. doi:10.1038/srep43856. Supporting: Bretherton B, Deuchars J & Windsor WL (2019). Effects of exposure to musical beats on heart rate variability. <em>Music & Science</em> 2:1–16. doi:10.1177/2059204319858281.</p>
+        <a href="https://doi.org/10.1038/srep43856" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote"><strong>Watanabe 2017 (direct HR):</strong> "Heart rate follows acoustic tempo only within approximately ±2%/minute. Exceeding +3%/minute breaks cardiac following entirely — abrupt tempo changes trigger a brainstem reflex/orienting response instead of entrainment." <strong>Bretherton 2019 (direct HRV):</strong> "Decelerating tempo produced parasympathetic dominance (HF power ↑, SD1 ↑). Baseline LF power predicted the individual response direction."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#76b7b2">★★★★☆</span>
+          <span class="trust-note">Watanabe 2017 (Scientific Reports, Nature): direct HR measurement across tempo conditions. Bretherton 2019 (Music & Science, SAGE): direct HRV (Poincaré SD1/SD2) measurement. Both target ANS output directly, not subjective ratings.</span>
+        </div>
+        <div class="cite-relevance">DIRECT ANS evidence — Watanabe 2017 (direct HR measurement) defines the ±3%/min threshold that separates cardiac entrainment (slow ramps) from orienting reflex (abrupt transitions). Innerdance stage transitions likely exceed this threshold, making tempo_change_rate a marker for brainstem-reflex activation rather than cardiac entrainment. Bretherton 2019 adds direct HRV evidence that deceleration specifically drives PNS.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for tempo_change_rate">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="32.4" width="21.0" height="21.6" fill="#958b95" rx="1" opacity="0.85" ><title>Stage 1: Safety
+0.0954</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 2: Dissatisfaction
+0.1671</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="46.9" width="21.0" height="7.1" fill="#6495cc" rx="1" opacity="0.85" ><title>Stage 3: Threshold
+0.0560</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="40.3" width="21.0" height="13.7" fill="#7a91b3" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.0739</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="47.7" width="21.0" height="6.3" fill="#6196cf" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.0538</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="25.7" width="21.0" height="28.3" fill="#ac867b" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+0.1136</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="48.2" width="21.0" height="5.8" fill="#5f96d1" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.0524</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="32.2" width="21.0" height="21.8" fill="#968b94" rx="1" opacity="0.85" ><title>Stage 8: Choice
+0.0960</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="45.8" width="21.0" height="8.2" fill="#6795c8" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.0589</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="45.9" width="21.0" height="8.1" fill="#6795c8" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.0587</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="47.3" width="21.0" height="6.7" fill="#6396ce" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.0550</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 12: Reintegration
+0.0367</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S2 · Dissatisfaction</span>
+    <span class="sample-val">0.1671</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_02_Dissatisfaction.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S12 · Reintegration</span>
+    <span class="sample-val">0.0367</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_12_Reintegration.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+</main>
+
+</body>
+</html>
