@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session Report V2 — P_11 · Life Sounds · 04.06.26</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <style>
+    body{background:#0d0d1a;color:#e0e0e0;font-family:'Segoe UI',sans-serif;font-size:13px}
+    .section-title{color:#76b7b2;border-bottom:1px solid #2a2a4a;padding-bottom:6px;
+                    margin-bottom:16px;font-size:1rem}
+    .card-dark{background:#141428;border:1px solid #2a2a4a;border-radius:10px;padding:18px}
+    .metric-big{font-size:2.2rem;font-weight:700;line-height:1.1}
+    .metric-label{font-size:11px;color:#888;margin-top:2px}
+    .table th{color:#76b7b2;font-size:11px;border-color:#2a2a4a}
+    .table td{border-color:#2a2a4a;vertical-align:middle;font-size:11px}
+    .guide-box{background:#0d1218;border-left:3px solid #76b7b2;border-radius:0 6px 6px 0;
+                padding:10px 14px;font-size:11px;color:#aaa;margin-bottom:20px;line-height:1.7}
+    section{padding:28px 0}
+    .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    summary{list-style:none}
+    summary::-webkit-details-marker{display:none}
+    .hscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .swipe-hint{display:none}
+    @media (max-width:640px){
+      .stage-grid{grid-template-columns:1fr}
+      section{padding:18px 0}
+      .hscroll > div{min-width:720px}
+      .swipe-hint{display:block;color:#888;font-size:10px;margin-bottom:6px}
+    }
+  </style>
+</head>
+<body>
+<div style="background:#1a0a00;border-bottom:2px solid #e67e22;padding:10px 20px;
+            font-size:12px;color:#f0c080;position:sticky;top:0;z-index:1000">
+  <strong>⚠ AI-Generated Research Mockup — Not a Medical Device.</strong>
+  Pending testing and validation with users, data scientists, and clinicians.
+  Generated: 2026-06-12 14:18 UTC
+</div>
+<div style="background:#0d1a2e;border-bottom:2px solid #4c9be8;padding:12px 20px;
+            font-size:11px;color:#8ab4d4">
+  <strong>📋 Mock report — research prototype.</strong>
+  We have not validated whether these metrics are fully reliable within innerdance sessions.
+  This report exists to explore whether such an outcome could be useful to participants
+  or medical practitioners — your feedback is what drives the next iteration.
+</div>
+<div style="background:#3d0000;border-bottom:2px solid #e74c3c;
+      padding:8px 20px;font-size:11px;color:#f0a080">
+      <strong>DEVELOPER NOTICE:</strong> REVIEW_REQUIRED_BEFORE_DEPLOYMENT = True.
+      Do not distribute externally until medical review complete.
+    </div>
+
+<div class="container" style="max-width:1000px;margin:0 auto;padding:0 20px">
+
+  <!-- HERO -->
+  <section style="padding:40px 0 16px">
+    <div style="font-size:1.6rem;font-weight:700;background:linear-gradient(135deg,#76b7b2,#4c9be8);
+                -webkit-background-clip:text;-webkit-text-fill-color:transparent">
+      Session Report
+    </div>
+    <div style="color:#aaa;font-size:13px;margin-top:4px">P_11 · Life Sounds · 04.06.26</div>
+    <div style="margin-top:8px;font-size:10px;color:#555">
+      <span style="background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:2px 8px;margin:2px">3288 clean beats</span>
+      <span style="background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:2px 8px;margin:2px">59.8 min</span>
+      <span style="background:#1a1a2e;border:1px solid #f39c12;border-radius:12px;padding:2px 8px;margin:2px;color:#f39c12">18% artifact</span>
+      <span style="background:#1a1a2e;border:1px solid #76b7b2;border-radius:12px;padding:2px 8px;margin:2px;color:#76b7b2">9 of 14 acoustic features selected</span>
+    </div>
+  </section>
+
+  <!-- HOW TO READ -->
+  <div class="guide-box">
+    <strong style="color:#76b7b2">How to read this report</strong><br>
+    Start at the top: your four key numbers give an instant snapshot. The explainer tables
+    below explain each HRV metric and acoustic feature used. The trend chart shows how your
+    heart rhythm changed throughout the session. The stage arc shows the journey through all
+    12 stages. Expand any stage card for acoustic detail and ANS signals using the same
+    9 selected features. The correlation map at the bottom shows which sounds drove
+    which physiological responses.
+  </div>
+
+  <!-- SECTION 1: YOUR NUMBERS -->
+  <section id="numbers">
+    <h2 class="section-title">📊 Your Numbers at a Glance</h2>
+    <div class="row g-3 mb-2">
+      <div class="col-6 col-md-3">
+        <div class="card-dark text-center" style="border-color:#4c9be8">
+          <div class="metric-big" style="color:#4c9be8">58</div>
+          <div class="metric-label">RMSSD ms · Pre-session</div>
+          <div style="font-size:9px;color:#666;margin-top:4px">Age 42 norm median: 38 ms</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card-dark text-center" style="border-color:#e74c3c">
+          <div class="metric-big" style="color:#e74c3c">71</div>
+          <div class="metric-label">Heart Rate bpm · Pre-session</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card-dark text-center" style="border-color:#f39c12">
+          <div class="metric-big" style="color:#f39c12">0.86</div>
+          <div class="metric-label">DFA α1 · Pre-session</div>
+          <div style="font-size:9px;color:#666;margin-top:4px">scale 4–16 · healthy ≈ 1.0</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card-dark text-center" style="border-color:#f39c12">
+          <div class="metric-big" style="color:#f39c12">0.78</div>
+          <div class="metric-label">DFA α1 · Post-session</div>
+          <div style="font-size:9px;color:#f39c12;margin-top:4px">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: HRV EXPLAINER -->
+  
+<section id="hrv-explainer">
+  <h2 class="section-title">📖 Understanding the HRV Metrics</h2>
+  <p style="color:#aaa;font-size:11px;margin-bottom:12px">
+    Heart Rate Variability (HRV) measures the fluctuation in time between consecutive heartbeats
+    (R-R intervals). A healthy autonomic nervous system produces <em>irregular</em> intervals —
+    this variability is adaptive, not noise. Four metrics were chosen because together they cover
+    the time domain, Poincaré geometry, and nonlinear fractal structure of the heartbeat — and
+    each remains interpretable under the specific constraints of innerdance data (short windows,
+    slow breathing, single-sensor Polar H10).
+  </p>
+  <div style="overflow-x:auto">
+  <table class="table table-sm" style="font-size:11px;min-width:900px">
+    <thead><tr style="background:#1a1a2e">
+      <th style="width:130px">Metric</th>
+      <th>What it measures</th>
+      <th>Why chosen for this study</th>
+      <th>Clinical evidence</th>
+      <th>Subjective experience</th>
+      <th style="width:160px">Validity caveat</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:#4c9be8">RMSSD</strong><br>
+            <span style="color:#666;font-size:9px">Root Mean Square of<br>Successive Differences · ms</span></td>
+        <td>Beat-to-beat parasympathetic (vagal) tone. Captures how much each heartbeat deviates
+            from the one before it.</td>
+        <td>Gold-standard resting vagal marker; simple to compute; provides the pre-session
+            baseline anchor and the personal RMSSD reference. Requires 5-min resting window
+            (Task Force ESC/NASPE 1996).</td>
+        <td>Higher resting RMSSD associated with lower all-cause mortality (Shaffer &amp; Ginsberg
+            2017, <em>Front. Public Health</em> 5:258), reduced depression and anxiety risk,
+            better cardiovascular resilience. Age-stratified population norms: median age 40–50
+            = 38 ms (Nunan et al. 2010, <em>Ann Clin Biochem</em> 47(2):99–111).
+            Athletes typically 60–100 ms; sedentary adults 20–40 ms.</td>
+        <td><em>When high:</em> chest opens, breathing deepens, a felt sense of ease and safety.
+            <em>When low:</em> a subtle tightening, more rigid rhythm — the body is mobilising,
+            not distressed.</td>
+        <td style="color:#f39c12">⚠ Invalid during innerdance when breathing &lt;9 bpm — RSA
+            moves out of the HF band, corrupting RMSSD (McCreary et al. 2022,
+            <em>Am J Physiol</em> 323:R519–R531, doi:10.1152/ajpregu.00124.2022).
+            Use only against resting baseline.</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#2ecc71">SD2</strong><br>
+            <span style="color:#666;font-size:9px">Poincaré long-axis · ms</span></td>
+        <td>Total autonomic flexibility — captures both sympathetic and parasympathetic
+            contributions to long-range R-R variability. The "operating range" of the ANS.
+            Derived from the long axis of the Poincaré plot (Brennan et al. 2001).</td>
+        <td>Unlike RMSSD, SD2 remains valid during slow breathing. It is the primary
+            within-session flexibility marker in this dataset. Stage 10 peak (SD2=241 ms, P1)
+            is the clearest single data point in the study.</td>
+        <td>Reduced SD2 in chronic stress, burnout, and depression (Laborde et al. 2017,
+            <em>Front. Psychol.</em> 8:213, doi:10.3389/fpsyg.2017.00213).
+            Mathematical derivation: Brennan et al. 2001, <em>Ann Biomed Eng</em> 29(9):799–804,
+            doi:10.1114/1.1395573. Normal range: 60–250 ms.</td>
+        <td><em>When high:</em> a sense of spaciousness, inner room — able to be both alert and
+            calm within the same session. <em>When low:</em> "locked in" to a state, less able
+            to shift; not necessarily bad if it means deep, sustained focus.</td>
+        <td style="color:#2ecc71">✓ Valid across all stages. Primary within-session metric.</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#76b7b2">SD1/SD2</strong><br>
+            <span style="color:#666;font-size:9px">Poincaré ratio · unitless</span></td>
+        <td>Balance between beat-to-beat (SD1, PNS) and long-range (SD2, SNS-mediated)
+            variability. High = parasympathetic dominance. Low = sympathetic activation
+            or loss of variability. SD1 ≈ RMSSD/√2 (Brennan et al. 2001).</td>
+        <td>Provides a directional indicator of sympathovagal balance without frequency-domain
+            analysis. Healthy resting ≈0.3. Drops during activation (S4: 0.479 → approaches
+            SNS range).</td>
+        <td>SD1 and SD2 geometry: Brennan et al. 2001, <em>Ann Biomed Eng</em> 29(9):799–804,
+            doi:10.1114/1.1395573. Biofeedback + stress research context: Laborde et al. 2017,
+            <em>Front. Psychol.</em> 8:213. Chronic low SD1/SD2 associated with autonomic
+            imbalance and cardiovascular risk.</td>
+        <td><em>When high:</em> soft, receptive — jaw relaxes, shoulders drop, easier to be
+            moved by music. <em>When low:</em> alert, energised, or slightly on-edge —
+            ready for action, less receptive.</td>
+        <td style="color:#2ecc71">✓ Valid across all stages. Interpret alongside SD2
+            for fuller picture.</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#f39c12">DFA α1</strong><br>
+            <span style="color:#666;font-size:9px">Detrended Fluctuation<br>Analysis · exponent</span></td>
+        <td>Short-range fractal scaling of the R-R series (scales 4–16 beats). Measures
+            whether the heartbeat has self-similar temporal structure (≈1.0) or is losing
+            that organisation (&lt;0.75).</td>
+        <td>The only nonlinear metric in the set. Uniquely sensitive to loss of autonomic
+            regulation at SNS peaks. S4 (α1=0.727) and S10 (α1=1.043) are the clearest
+            markers of the autonomic arc. Less affected by slow breathing than RMSSD.</td>
+        <td>DFA α1 &lt;0.75 associated with cardiac arrhythmia, overtraining syndrome, and
+            acute autonomic dysregulation. Healthy resting ≈1.0. Rigid/elderly &gt;1.5.
+            Used in sport science to detect non-functional overreaching before it becomes
+            overtraining. Original method: Peng et al. 1995, <em>Chaos</em> 5(1):82–87,
+            doi:10.1063/1.166141; clinical HRV complexity framework: Goldberger et al. 2002,
+            <em>PNAS</em> 99(suppl 1):2466–72, doi:10.1073/pnas.012579499.</td>
+        <td>Around 1.0: flow, timelessness — the heartbeat organises itself effortlessly.
+            Below 0.75: maximum energy, minimum order — like the moment before a wave breaks.
+            Above 1.3: deep rest or rigidity — the system is no longer adapting, just
+            sustaining.</td>
+        <td style="color:#f39c12">⚠ Needs ≥150 beats for reliable estimates (Peng 1995).
+            Slow breathing artificially lowers α1 — ambiguous without respiratory rate
+            (McCreary 2022). Scale 4–16 beats validated vs. neurokit2 (diff &lt; 0.002).</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+
+  <!-- SECTION 3: TREND -->
+  <section id="trend">
+    <h2 class="section-title">📈 Full Session: RMSSD · Heart Rate</h2>
+    <p style="color:#aaa;font-size:11px;margin-bottom:8px">
+      Green shaded area = pre-session baseline (first 5 min).
+      Coloured bands show stage boundaries.
+    </p>
+    <div id="chart-trend" style="margin-bottom:4px"></div>
+  </section>
+
+  <!-- SECTION 4: BEFORE / AFTER -->
+  <section id="before-after">
+    <h2 class="section-title">⚖ Before vs After</h2>
+    <p style="color:#aaa;font-size:11px;margin-bottom:8px">
+      5-minute resting window before the playlist vs. 5-minute rest after.
+      <strong style="color:#2ecc71">Top panel:</strong> RMSSD and SD2 higher after = more relaxed; HR lower after = recovery.
+      <strong style="color:#f39c12">Bottom panel:</strong> DFA α1 closer to 1.0 after = healthier fractal complexity;
+      SD1/SD2 higher after = parasympathetic dominance. Note: RMSSD is only valid at resting breathing rate.
+    </p>
+    <div id="chart-ba"></div>
+  </section>
+
+  <!-- SECTION 5: SESSION ARC -->
+  <section id="arc">
+    <h2 class="section-title">🌊 Session Arc — 12 Stages</h2>
+    <p style="color:#aaa;font-size:11px;margin-bottom:12px">
+      DFA α1 coloured:
+      <span style="color:#e74c3c">red &lt;0.5</span> ·
+      <span style="color:#f39c12">amber 0.5–0.9</span> ·
+      <span style="color:#2ecc71">green ≥0.9 healthy complexity</span>.
+    </p>
+    <div id="chart-arc" style="margin-bottom:20px"></div>
+    <div class="table-responsive">
+    <table class="table table-sm">
+      <thead><tr style="background:#1a1a2e">
+        <th>Stage</th><th>Character</th><th>RMSSD</th><th>SD2</th>
+        <th>DFA α1</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S1</td>
+          <td style="font-size:10px;color:#888">Stage 1 — Orientation</td>
+          <td>66.4 ms</td>
+          <td>74.3 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.815</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S2</td>
+          <td style="font-size:10px;color:#888">Stage 2 — Disruption</td>
+          <td>63.2 ms</td>
+          <td>59.9 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.781</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S3</td>
+          <td style="font-size:10px;color:#888">Stage 3 — Amplification</td>
+          <td>66.2 ms</td>
+          <td>68.3 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.889</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S4</td>
+          <td style="font-size:10px;color:#888">Stage 4 — Apoptosis</td>
+          <td>61.8 ms</td>
+          <td>70.0 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.773</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S5</td>
+          <td style="font-size:10px;color:#888">Stage 5 — Disintegration</td>
+          <td>62.5 ms</td>
+          <td>67.1 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.852</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S6</td>
+          <td style="font-size:10px;color:#888">Stage 6 — Renewal</td>
+          <td>62.4 ms</td>
+          <td>60.7 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.699</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S7</td>
+          <td style="font-size:10px;color:#888">Stage 7 — Insight</td>
+          <td>52.8 ms</td>
+          <td>52.0 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.747</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S8</td>
+          <td style="font-size:10px;color:#888">Stage 8 — Stabilization</td>
+          <td>58.7 ms</td>
+          <td>49.8 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.591</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S9</td>
+          <td style="font-size:10px;color:#888">Stage 9 — Polarization</td>
+          <td>62.6 ms</td>
+          <td>66.2 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.796</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S10</td>
+          <td style="font-size:10px;color:#888">Stage 10 — Internalization</td>
+          <td>60.1 ms</td>
+          <td>57.2 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.788</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S11</td>
+          <td style="font-size:10px;color:#888">Stage 11 — Synchronization</td>
+          <td>57.4 ms</td>
+          <td>68.7 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.873</td>
+        </tr>
+        <tr>
+          <td style="color:#76b7b2;font-weight:600">S12</td>
+          <td style="font-size:10px;color:#888">Stage 12 — Reintegration</td>
+          <td>52.5 ms</td>
+          <td>57.5 ms</td>
+          <td style="color:#f39c12;font-weight:600">0.876</td>
+        </tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- SECTION 6: ACOUSTIC EXPLAINER -->
+  
+<section id="acoustic-explainer">
+  <h2 class="section-title">🎵 Why These Acoustic Features?</h2>
+  <p style="color:#aaa;font-size:11px;margin-bottom:12px">
+    These features were selected because each maps onto a distinct dimension of auditory
+    perception known to drive autonomic nervous system responses. Only features with
+    <strong style="color:#76b7b2">CV ≥ 0.25</strong> (discriminates across stages) and
+    <strong style="color:#76b7b2">|r| ≥ 0.35</strong> (correlated with at least one HRV
+    metric across this session's stages) are shown, ranked by correlation strength.
+  </p>
+  <div style="overflow-x:auto">
+  <table class="table table-sm" style="font-size:11px;min-width:900px">
+    <thead><tr style="background:#1a1a2e">
+      <th style="width:140px">Feature</th>
+      <th>Why it matters physiologically</th>
+      <th style="width:200px">What an innerdance expert hears / feels</th>
+      <th style="width:160px">Key literature</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td style="vertical-align:top">
+          <strong style="color:#76b7b2">Sub-Bass Vibration</strong><br>
+          <span style="color:#555;font-size:9px">RMS amplitude in 20–250 Hz band</span>
+        </td>
+        <td style="vertical-align:top">Sub-bass and low-frequency vibration activates the vestibular system and somatic (tactile) receptors in the chest and abdomen. Strong bass is associated with increased HR and SNS activation, and also with trance-induction via repetitive low-frequency entrainment.</td>
+        <td style="color:#aaa;font-size:10px;vertical-align:top">Felt as physical vibration in the sternum, belly, and legs. Experienced practitioners describe strong bass as 'grounding' or 'destabilising' depending on context. Peak at Stage 7–8.</td>
+        <td style="color:#666;font-size:10px;vertical-align:top">Juslin &amp; Västfjäll (2008) <em>Behav Brain Sci</em> 31(5):559–621; Todd &amp; Cody (2000) <em>J Acoust Soc Am</em> 108(6):2974–82. Vestibular saccular activation: Todd &amp; Cody 2000. Emotion via music: Juslin &amp; Västfjäll 2008.</td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top">
+          <strong style="color:#76b7b2">Sonic Movement / Change</strong><br>
+          <span style="color:#555;font-size:9px">L2 norm of column-to-column STFT difference</span>
+        </td>
+        <td style="vertical-align:top">Rate of spectral change over time. High flux = timbral evolution, novel sonic events, transitions. Spectral novelty drives attention and may produce orienting responses (HR deceleration, then return).</td>
+        <td style="color:#aaa;font-size:10px;vertical-align:top">Does the sound feel like it is constantly changing, evolving (high flux) or sustaining one texture (low flux)? High at S3 and S5; low at S1 (pure drone).</td>
+        <td style="color:#666;font-size:10px;vertical-align:top">Trost et al. (2012) Neuropsychologia; Huron (2006) Sweet Anticipation</td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top">
+          <strong style="color:#76b7b2">Rhythm Clarity</strong><br>
+          <span style="color:#555;font-size:9px">CV of the onset strength envelope (std/mean)</span>
+        </td>
+        <td style="vertical-align:top">Metrically clear rhythm (high CV: strong beats punctuate silence) vs. ambient / drone texture (low CV: steady undifferentiated energy). Clear rhythm enables neural beat-locking (motor–auditory coupling) which modulates HR and can sustain SNS activation.</td>
+        <td style="color:#aaa;font-size:10px;vertical-align:top">Does the track have a clear, identifiable beat (High) or is it a continuous texture where you cannot tap along (Low)? S3 and S11+12 score High via different mechanisms.</td>
+        <td style="color:#666;font-size:10px;vertical-align:top">Grahn &amp; Brett (2007) Neuropsychologia; Nozaradan et al. (2011) J Neurosci</td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top">
+          <strong style="color:#76b7b2">Bass Vibration</strong><br>
+          <span style="color:#555;font-size:9px">RMS amplitude in 20–250 Hz band (broader low-frequency band)</span>
+        </td>
+        <td style="vertical-align:top">Broader low-frequency energy — includes sub-bass and upper bass. Complementary to sub_bass_energy; less specific vestibular mechanism but captures overall somatic presence of low-end content.</td>
+        <td style="color:#aaa;font-size:10px;vertical-align:top">How 'heavy' or 'weighty' does the track feel? Felt in chest and floor. Overlaps with sub-bass but also picks up kick drums and bass instruments.</td>
+        <td style="color:#666;font-size:10px;vertical-align:top">Juslin &amp; Västfjäll (2008) Behav Brain Sci</td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top">
+          <strong style="color:#76b7b2">Tempo Instability</strong><br>
+          <span style="color:#555;font-size:9px">CV of beat-period estimates across overlapping 4 s windows</span>
+        </td>
+        <td style="vertical-align:top">Sudden tempo shifts disrupt hippocampal time-cell prediction loops, triggering subcortical/reticular/vestibular activation. The nervous system can't predict 'when next' — this generates arousal independently of volume.</td>
+        <td style="color:#aaa;font-size:10px;vertical-align:top">Does the rhythm feel unpredictable or unstable? High instability = the track keeps surprising the body's motor system; low = steady hypnotic pulse.</td>
+        <td style="color:#666;font-size:10px;vertical-align:top">Expert feedback June 2026. Beat induction / basal ganglia: Grahn &amp; Rowe (2009) <em>J Neurosci</em> 29(23):7540–8. Neural entrainment: Nozaradan et al. (2011) <em>J Neurosci</em> 31(27):10234–40.</td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top">
+          <strong style="color:#76b7b2">Tonal Brightness</strong><br>
+          <span style="color:#555;font-size:9px">Hz frequency of the spectral centre of mass</span>
+        </td>
+        <td style="vertical-align:top">High-frequency content is perceived as 'sharp' or 'harsh' and triggers alerting responses via the auditory brainstem reflex. Correlated with increased skin conductance and cortisol. Low brightness (warm, muffled) is associated with parasympathetic relaxation.</td>
+        <td style="color:#aaa;font-size:10px;vertical-align:top">The tonal 'colour' of the track — dark and warm (low) vs. bright and piercing (high). S8+9 (highest centroid ≈1431 Hz) sounds metallic and intense; S11+12 (≈378 Hz) sounds warm and rounded.</td>
+        <td style="color:#666;font-size:10px;vertical-align:top">Leman et al. (2005) Musicae Scientiae; Eerola &amp; Vuoskoski (2011) Music Percept</td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top">
+          <strong style="color:#76b7b2">Brightness / Presence</strong><br>
+          <span style="color:#555;font-size:9px">RMS amplitude in 2–8 kHz band</span>
+        </td>
+        <td style="vertical-align:top">High-frequency band energy. Bright, present, cutting sound. Correlated with alertness and SNS arousal. H8 hypothesis: brightness above ~1100 Hz independently predicts sympathetic activation.</td>
+        <td style="color:#aaa;font-size:10px;vertical-align:top">The 'air' and 'presence' of the track — does it cut through and feel immediate? High = sharp, forward, attention-grabbing. Low = recessed, warm.</td>
+        <td style="color:#666;font-size:10px;vertical-align:top">Leman et al. (2005) Musicae Scientiae</td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top">
+          <strong style="color:#76b7b2">Tonal vs. Noise Quality</strong><br>
+          <span style="color:#555;font-size:9px">Ratio of geometric to arithmetic mean of power spectrum</span>
+        </td>
+        <td style="vertical-align:top">Near 0 = strongly tonal (pure tone-like). Near 1 = noise-like / white noise. Tonal signals trigger pitch-processing and melodic expectation; noise-like signals activate diffuse arousal systems without melodic expectation.</td>
+        <td style="color:#aaa;font-size:10px;vertical-align:top">Stage 1 is almost a pure tone (flatness ≈0) — resonant bowl or sine-wave drone. Stages with high flatness feel 'textured', 'rough', or 'oceanic' — no single pitch to latch onto.</td>
+        <td style="color:#666;font-size:10px;vertical-align:top">McAdams &amp; Bregman (1979) J Acoust Soc Am; Leman et al. (2005) Musicae Scientiae</td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top">
+          <strong style="color:#76b7b2">Vocal / Harmonic Content</strong><br>
+          <span style="color:#555;font-size:9px">RMS amplitude in 250 Hz – 2 kHz band</span>
+        </td>
+        <td style="vertical-align:top">The midrange band covers human voice and most melodic content. Vocal presence activates mirror-neuron and social-affective processing networks, modulating vagal tone. High mid-energy stages tend to feel interpersonally connected.</td>
+        <td style="color:#aaa;font-size:10px;vertical-align:top">Can you hear a voice, a melody, or a harmonic instrument? High = present and melodic; Low = bass-heavy drone or ambient wash with no tonal identity.</td>
+        <td style="color:#666;font-size:10px;vertical-align:top">Juslin &amp; Västfjäll (2008) Behav Brain Sci; Trost et al. (2012) Neuropsychologia</td>
+      </tr></tbody>
+  </table>
+  </div>
+</section>
+
+
+  <!-- SECTION 7: STAGE CARDS -->
+  <section id="stages">
+    <h2 class="section-title">🎵 Stage-by-Stage: Sound × Body Response</h2>
+    <p style="color:#aaa;font-size:11px;margin-bottom:12px">
+      Click any stage to expand. Showing <strong style="color:#76b7b2">9 acoustic features</strong>
+      (CV ≥ 0.25 and |r| ≥ 0.35 with HRV). Feature bars show relative level within
+      this playlist — not absolute values.
+    </p>
+    
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S1 — Stage 1 — Orientation</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 74ms ·
+                  DFA <span style="color:#f39c12">0.815</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0138)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#4c9be8">Low (10.6948)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#f39c12">Med (0.5504)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:45%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0420)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#4c9be8">Low (0.0717)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:19%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#4c9be8">Low (413.0772)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#4c9be8">Low (0.0011)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#4c9be8">Low (0.0000)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#4c9be8">Low (0.0279)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>Mixed ANS state</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 66ms · SD2 74ms ·
+                  SD1/SD2 0.632
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Delta wave entrainment. Sustained low-frequency tones initiate an early parasympathetic shift, reducing sympathetic arousal to prepare the body for deeper states.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S2 — Stage 2 — Disruption</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 60ms ·
+                  DFA <span style="color:#f39c12">0.781</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0299)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:15%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#4c9be8">Low (26.9248)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:30%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#e74c3c">High (0.7872)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:89%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0769)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:33%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#e74c3c">High (0.1542)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#4c9be8">Low (452.0811)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:6%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#4c9be8">Low (0.0023)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:10%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#4c9be8">Low (0.0000)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:1%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#4c9be8">Low (0.0435)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:31%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>Mixed ANS state</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 63ms · SD2 60ms ·
+                  SD1/SD2 0.747
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Theta range. Subtle dissonance and unresolved harmonic tension are introduced to gently disrupt baseline comfort — allowing subconscious material to surface without forcing it.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S3 — Stage 3 — Amplification</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 68ms ·
+                  DFA <span style="color:#f39c12">0.889</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#f39c12">Med (0.0678)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:51%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#f39c12">Med (44.9479)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:63%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#e74c3c">High (0.8424)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#f39c12">Med (0.1079)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:62%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#4c9be8">Low (0.0659)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:13%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#4c9be8">Low (566.2366)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:26%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#f39c12">Med (0.0069)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:49%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#4c9be8">Low (0.0001)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:9%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#f39c12">Med (0.0538)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:52%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>Mixed ANS state</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 66ms · SD2 68ms ·
+                  SD1/SD2 0.685
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Theta → alpha/beta transition. A liminal threshold where activating and settling frequencies alternate, bringing the autonomic system to the edge of its familiar regulation range.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S4 — Stage 4 — Apoptosis</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 70ms ·
+                  DFA <span style="color:#f39c12">0.773</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0326)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:17%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#f39c12">Med (29.2522)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:34%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#4c9be8">Low (0.4029)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:17%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0745)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:30%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#4c9be8">Low (0.0740)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:21%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#f39c12">Med (641.3123)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:39%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#f39c12">Med (0.0057)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:39%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#4c9be8">Low (0.0002)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:14%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#f39c12">Med (0.0495)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:43%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>Mixed ANS state</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 62ms · SD2 70ms ·
+                  SD1/SD2 0.624
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Alpha/beta. The primary sympathetic activation phase. Tempo, intensity, and sonic complexity are deliberately peaked to elicit an SNS stress-response arc. Expected HRV signature: RMSSD dip — the first pivot of the resilience arc.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S5 — Stage 5 — Disintegration</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 67ms ·
+                  DFA <span style="color:#f39c12">0.852</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0352)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:20%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#4c9be8">Low (17.3194)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:12%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#4c9be8">Low (0.4433)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:25%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0567)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:13%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#4c9be8">Low (0.0566)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:4%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#4c9be8">Low (534.7654)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:21%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#4c9be8">Low (0.0036)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:21%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#4c9be8">Low (0.0001)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:7%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#4c9be8">Low (0.0336)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:11%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>Mixed ANS state</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 63ms · SD2 67ms ·
+                  SD1/SD2 0.659
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Delta. A suspension stage following peak activation. The soundscape withdraws structure and holds a deep, still quality — creating space for the system to process without driving further arousal or immediate resolution.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S6 — Stage 6 — Renewal</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 61ms ·
+                  DFA <span style="color:#f39c12">0.699</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0386)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:23%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#f39c12">Med (29.5957)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:35%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#f39c12">Med (0.5618)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:47%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#4c9be8">Low (0.0704)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:26%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#e74c3c">High (0.1218)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:68%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#f39c12">Med (786.2743)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:64%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#e74c3c">High (0.0122)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:94%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#4c9be8">Low (0.0002)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:16%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#f39c12">Med (0.0459)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:36%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>↓ DFA α1 below 0.75 — regulatory load signal</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 62ms · SD2 61ms ·
+                  SD1/SD2 0.728
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Theta → alpha. Recovery begins. Organised rhythmic structure re-emerges, signalling to the autonomic nervous system that the activation phase has passed.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S7 — Stage 7 — Insight</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 52ms ·
+                  DFA <span style="color:#f39c12">0.747</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#e74c3c">High (0.1101)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:91%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#e74c3c">High (56.8669)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:86%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#f39c12">Med (0.6163)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:57%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#e74c3c">High (0.1450)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:97%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#4c9be8">Low (0.0519)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#4c9be8">Low (562.2757)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:25%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#f39c12">Med (0.0077)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:56%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#4c9be8">Low (0.0001)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:7%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#f39c12">Med (0.0547)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:54%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>↓ DFA α1 below 0.75 — regulatory load signal</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 53ms · SD2 52ms ·
+                  SD1/SD2 0.717
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Alpha → beta. Rhythmic coherence increases. The acoustic design supports the emergence of ordered neural activity and the early stages of parasympathetic rebound.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S8 — Stage 8 — Stabilization</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 50ms ·
+                  DFA <span style="color:#f39c12">0.591</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#e74c3c">High (0.1194)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#e74c3c">High (57.1011)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:86%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#f39c12">Med (0.5736)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:49%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#e74c3c">High (0.1472)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#f39c12">Med (0.0899)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:37%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#4c9be8">Low (554.6158)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:24%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#f39c12">Med (0.0066)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:47%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#4c9be8">Low (0.0001)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:7%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#f39c12">Med (0.0615)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:67%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>↓ DFA α1 below 0.75 — regulatory load signal</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 59ms · SD2 50ms ·
+                  SD1/SD2 0.833
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Alpha/theta with Mu rhythm. Activating and settling qualities are held simultaneously — a dual-state phase neurologically associated with motor cortex relaxation and open-state awareness.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S9 — Stage 9 — Polarization</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 66ms ·
+                  DFA <span style="color:#f39c12">0.796</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#f39c12">Med (0.0720)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:55%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#f39c12">Med (42.2824)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:58%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#4c9be8">Low (0.3616)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:10%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#f39c12">Med (0.0958)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:51%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#4c9be8">Low (0.0597)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:7%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#e74c3c">High (992.1885)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#e74c3c">High (0.0122)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:94%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#e74c3c">High (0.0011)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#e74c3c">High (0.0727)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:90%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>Mixed ANS state</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 63ms · SD2 66ms ·
+                  SD1/SD2 0.668
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Mu rhythm. The acoustic design amplifies whatever state the nervous system has consolidated into — a reinforcing rather than a directional phase.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S10 — Stage 10 — Internalization</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 57ms ·
+                  DFA <span style="color:#f39c12">0.788</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#f39c12">Med (0.0514)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:35%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#f39c12">Med (41.5966)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:57%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#4c9be8">Low (0.3190)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:2%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#f39c12">Med (0.1028)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:57%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#4c9be8">Low (0.0660)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:14%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#4c9be8">Low (578.0788)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:28%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#4c9be8">Low (0.0045)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:29%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#4c9be8">Low (0.0001)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:8%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#e74c3c">High (0.0662)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:77%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>Mixed ANS state</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 60ms · SD2 57ms ·
+                  SD1/SD2 0.743
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Delta. The primary parasympathetic rebound point and counterpart to Stage 4. Deep, slow waveforms are designed to drive maximum vagal tone recovery. Expected HRV signature: RMSSD peak — the completion of the resilience arc.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S11 — Stage 11 — Synchronization</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 69ms ·
+                  DFA <span style="color:#f39c12">0.873</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#e74c3c">High (0.1170)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:97%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#e74c3c">High (64.3577)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#4c9be8">Low (0.3064)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#e74c3c">High (0.1461)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#4c9be8">Low (0.0515)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:0%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#e74c3c">High (972.5434)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:96%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#e74c3c">High (0.0128)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#f39c12">Med (0.0007)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:58%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#e74c3c">High (0.0775)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:99%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>Mixed ANS state</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 57ms · SD2 69ms ·
+                  SD1/SD2 0.591
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Theta/alpha. Harmonic consonance, slow modulation, and minimal percussive onset support heart-brain coherence and integrated autonomic balance.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;margin-bottom:6px">
+          <summary style="padding:10px 14px;cursor:pointer;user-select:none">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="color:#e0e0e0">S12 — Stage 12 — Reintegration</strong>
+                <span style="font-size:10px;color:#888;margin-left:8px">
+                  SD2 57ms ·
+                  DFA <span style="color:#f39c12">0.876</span>
+                </span>
+              </div>
+              <span style="color:#555;font-size:11px">▶</span>
+            </div>
+          </summary>
+          <div style="padding:0 14px 14px">
+            <div class="stage-grid">
+              <div>
+                <div style="font-size:10px;color:#76b7b2;font-weight:600;margin-bottom:6px">🎵 Acoustic Features (9 selected)</div>
+                
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sub-Bass Vibration</span>
+                    <span style="color:#f39c12">Med (0.0716)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:54%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Sonic Movement / Change</span>
+                    <span style="color:#f39c12">Med (31.4125)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:38%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Rhythmic Pulse Clarity</span>
+                    <span style="color:#4c9be8">Low (0.3371)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:5%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Bass Vibration</span>
+                    <span style="color:#f39c12">Med (0.0854)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:41%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tempo Instability</span>
+                    <span style="color:#4c9be8">Low (0.0669)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:15%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal Brightness</span>
+                    <span style="color:#e74c3c">High (873.1750)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:79%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Brightness / Presence</span>
+                    <span style="color:#f39c12">Med (0.0068)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#f39c12;width:48%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Tonal vs. Noise Quality</span>
+                    <span style="color:#e74c3c">High (0.0010)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#e74c3c;width:88%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+                <div style="margin-bottom:4px">
+                  <div style="display:flex;justify-content:space-between;font-size:10px">
+                    <span style="color:#ccc">Vocal / Harmonic Content</span>
+                    <span style="color:#4c9be8">Low (0.0379)</span>
+                  </div>
+                  <div style="background:#2a2a4a;border-radius:3px;height:4px;margin-top:2px">
+                    <div style="background:#4c9be8;width:20%;height:4px;border-radius:3px"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:#f39c12;font-weight:600;margin-bottom:6px">💓 HRV / ANS signals</div>
+                <div style='font-size:11px;color:#ccc;margin-bottom:4px'>Mixed ANS state</div>
+                <div style="margin-top:8px;font-size:10px;color:#555">
+                  RMSSD 52ms · SD2 57ms ·
+                  SD1/SD2 0.645
+                </div>
+                <div style="font-size:11px;color:#aaa;line-height:1.55;border-left:3px solid #b07aa1;padding-left:10px;margin-top:10px">Delta/alpha. The closing stage features the highest respiratory entrainment signal in the playlist — slow pacing at ≈0.1 Hz is designed to consolidate HRV gains and ease the system back toward ordinary consciousness.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+  </section>
+
+  <!-- SECTION 8: ACOUSTIC HEATMAP -->
+  
+  <section id="acoustic">
+    <h2 class="section-title">🗺 Acoustic Profile — 9 Selected Features × All Stages</h2>
+    <p style="color:#aaa;font-size:11px;margin-bottom:8px">
+      Each cell shows one acoustic feature's relative level at each stage
+      (Low / Med / High within this playlist). Values are normalised within
+      each feature row — this shows the <em>pattern across stages</em>, not
+      absolute energy levels. These are the same 9 features shown in the per-stage cards
+      (selected by CV ≥ 0.25 and |r| ≥ 0.35 with at least one HRV metric).
+    </p>
+    <div class="hscroll"><div id="chart-acoustic"></div></div>
+  </section>
+
+  <!-- SECTION 9: INSIGHTS / IMPROVE / CAUTIOUS -->
+  
+<section id="insights">
+  <h2 class="section-title">🔑 Key Insights</h2>
+  <div style="background:#1a1200;border:1px solid #f39c12;border-radius:6px;
+              padding:8px 14px;margin-bottom:12px;font-size:10px;color:#f39c12">
+    ⚠ <strong>Mockup — for discussion only.</strong>
+    These observations are generated from a single session with no validated baseline.
+    Insights will only become meaningful once we have historical data across multiple sessions
+    and the method has been reviewed by clinicians.
+  </div>
+  <div style="background:#0b1a0b;border:1px solid #2ecc71;border-radius:10px;padding:16px">
+    <ul style="padding-left:16px;margin:0;font-size:11px">
+      <li style='margin-bottom:8px;color:#ddd;line-height:1.5'>RMSSD changed <strong>-5ms (-9%)</strong> from pre to post — recovery was limited in this session; consider a longer post-session rest.</li><li style='margin-bottom:8px;color:#ddd;line-height:1.5'>Activation peak at <strong>Stage 8</strong> (DFA α1 = 0.591) — lowest autonomic complexity of the session; consistent with the SNS activation expected at the Apoptosis stage.</li><li style='margin-bottom:8px;color:#ddd;line-height:1.5'>Recovery peak at <strong>Stage 1</strong> (SD2 = 74ms) — highest total autonomic flexibility; consistent with the PNS rebound at Internalization.</li>
+    </ul>
+  </div>
+</section>
+
+
+  <!-- FOOTER -->
+  <!-- FEEDBACK -->
+  <section id="feedback" style="margin-top:40px">
+    <h2 class="section-title">💬 Help Us Improve — Share Your Feedback</h2>
+    <p style="color:#aaa;font-size:11px;margin-bottom:20px">
+      This is a research prototype. Your answers help us decide what to build next,
+      what to validate, and whether reports like this are useful at all.
+      There are no right or wrong answers.
+    </p>
+    <form id="feedback-form" style="display:flex;flex-direction:column;gap:20px">
+
+      <div style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;padding:16px">
+        <p style="color:#ccc;font-size:12px;margin-bottom:10px">
+          <strong>1.</strong> How easy was it to understand the information in this report?
+        </p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q1" value="1" style="margin-right:4px">very hard</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q1" value="2" style="margin-right:4px">hard</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q1" value="3" style="margin-right:4px">ok</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q1" value="4" style="margin-right:4px">easy</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q1" value="5" style="margin-right:4px">very easy</label>
+        </div>
+      </div>
+
+      <div style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;padding:16px">
+        <p style="color:#ccc;font-size:12px;margin-bottom:10px">
+          <strong>2.</strong> Which section was most relevant or interesting to you?
+        </p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q2" value="overview" style="margin-right:6px">Your Numbers at a Glance</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q2" value="trend" style="margin-right:6px">Full Session Trend</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q2" value="before_after" style="margin-right:6px">Before vs After</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q2" value="stage_cards" style="margin-right:6px">Stage Cards (expandable)</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q2" value="acoustic" style="margin-right:6px">Acoustic Profile</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q2" value="insights" style="margin-right:6px">Key Insights</label>
+        </div>
+      </div>
+
+      <div style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;padding:16px">
+        <p style="color:#ccc;font-size:12px;margin-bottom:10px">
+          <strong>3.</strong> Did the stage descriptions match what you experienced during the session?
+        </p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q3" value="yes" style="margin-right:4px">Yes, closely</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q3" value="partly" style="margin-right:4px">Partly</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q3" value="no" style="margin-right:4px">Not really</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q3" value="no_memory" style="margin-right:4px">I don't remember the stages</label>
+        </div>
+      </div>
+
+      <div style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;padding:16px">
+        <p style="color:#ccc;font-size:12px;margin-bottom:10px">
+          <strong>4.</strong> Would you find it useful to receive a report like this after every session?
+        </p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q4" value="yes" style="margin-right:4px">Yes</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q4" value="maybe" style="margin-right:4px">Maybe, if simplified</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q4" value="no" style="margin-right:4px">No</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q4" value="unsure" style="margin-right:4px">Not sure yet</label>
+        </div>
+      </div>
+
+      <div style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;padding:16px">
+        <p style="color:#ccc;font-size:12px;margin-bottom:10px">
+          <strong>5.</strong> Would you be comfortable sharing this report with a doctor or health practitioner?
+        </p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q5" value="yes" style="margin-right:4px">Yes</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q5" value="maybe" style="margin-right:4px">Maybe</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q5" value="no" style="margin-right:4px">No</label><label style="color:#aaa;font-size:11px;cursor:pointer"><input type="radio" name="q5" value="no_practitioner" style="margin-right:4px">I don't see a practitioner</label>
+        </div>
+      </div>
+
+      <div style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;padding:16px">
+        <p style="color:#ccc;font-size:12px;margin-bottom:10px">
+          <strong>6.</strong> What is missing, confusing, or would make this report more useful to you?
+        </p>
+        <textarea name="q6" rows="4"
+          placeholder="Any thoughts welcome — missing information, confusing sections, things you'd want to track over time…"
+          style="width:100%;background:#0d0d1a;border:1px solid #2a2a4a;border-radius:6px;
+                 color:#ccc;font-size:11px;padding:10px;resize:vertical;box-sizing:border-box"></textarea>
+      </div>
+
+      <button type="button" onclick="submitFeedback()"
+        style="align-self:flex-start;background:#76b7b2;color:#000;border:none;
+               border-radius:6px;padding:10px 24px;font-size:12px;font-weight:600;cursor:pointer">
+        Submit feedback
+      </button>
+      <div id="feedback-thanks" style="display:none;color:#2ecc71;font-size:12px">
+        ✓ Thank you — your feedback has been recorded locally.
+      </div>
+    </form>
+  </section>
+
+  <div style="background:#141428;border:1px solid #2a2a4a;border-radius:8px;
+              padding:12px 16px;margin:24px 0;font-size:11px;color:#666">
+    Pipeline: hrv_core.py (DFA scale 4–16, neurokit2-validated) ·
+    acoustic_core.py (9/14 features selected, librosa+scipy) ·
+    2026-06-12 14:18 UTC · not for clinical use
+  </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function draw(id, fig){ Plotly.newPlot(id, fig.data||[], fig.layout||{}, {responsive:true}); }
+  draw('chart-trend', {"data":[{"line":{"color":"#4c9be8","width":2},"mode":"lines","name":"RMSSD","x":[1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0,12.0,13.0,14.0,15.0,16.0,17.0,18.0,19.0,20.0,21.0,22.0,23.0,24.0,25.0,26.0,27.0,28.0,29.0,30.0,31.0,32.0,33.0,34.0,35.0,36.0,37.0,38.0,39.0,40.0,41.0,42.0,43.0,44.0,45.0,46.0,47.0,48.0,49.0,50.0,51.0,52.0,53.0,54.0,55.0,56.0,57.0,58.0],"y":[56.87315898574465,54.822677265788094,60.05291967097659,57.37863445837266,64.09044174421761,67.46628735743832,60.64802436456167,66.25891564489909,69.6661430006672,63.87418061843097,58.63335076973068,62.86437482750145,68.21687475084902,66.5446256088199,63.03650025288817,59.063176963946475,57.43314235647412,61.96522994421976,65.46417147643203,62.66567222224007,64.84670850319596,64.59004672494216,58.91380869927215,53.19199714392788,53.818674306813456,58.08011806283386,63.88056797917394,67.44235271368652,56.38596990790823,57.10970348312948,61.60827729358535,64.71756267919866,58.603067553050934,53.21854393827154,57.377219002606914,57.64452521007707,56.42191021810684,55.87915506412136,57.77849040728972,58.02337617963231,53.80824736218554,55.007457071864785,52.53858700684689,49.83138268876996,49.90269483523406,48.70740439201152,49.3062608011506,39.50643090052329,47.94689193947994,51.044483121338615,53.63749005836325,59.403891238976,54.87783752768104,48.320588344475226,54.075435923392185,58.87972180558362,53.04140187999227,42.08404839318635],"type":"scatter","xaxis":"x","yaxis":"y"},{"line":{"color":"#e74c3c","width":2},"mode":"lines","name":"HR","x":[1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0,12.0,13.0,14.0,15.0,16.0,17.0,18.0,19.0,20.0,21.0,22.0,23.0,24.0,25.0,26.0,27.0,28.0,29.0,30.0,31.0,32.0,33.0,34.0,35.0,36.0,37.0,38.0,39.0,40.0,41.0,42.0,43.0,44.0,45.0,46.0,47.0,48.0,49.0,50.0,51.0,52.0,53.0,54.0,55.0,56.0,57.0,58.0],"y":[70.79671517072468,71.05204211155083,71.49119311389178,72.30176211453744,70.5623471882641,69.04708770363753,66.4913394395574,64.74647464746478,65.11205879684222,65.70319596993944,66.96573594245487,67.60948905109478,67.80424983902115,68.58365019011421,68.00650214275164,66.7175805712539,68.17981489643019,68.21660228846294,68.5479319519468,69.89690721649485,68.47521047708162,68.15533980582524,69.76626445025707,70.83990092321534,71.51083497499629,71.81745396317054,70.95475768797253,71.11261185210142,71.04537478064668,69.14581924723899,68.39563052686317,68.37148652564471,68.51645287228104,69.94197875065956,69.03841196184598,68.17140432753466,70.66541705716956,71.74439244795897,71.0837438423646,68.95415043452132,68.75094169052235,68.40483526902129,67.20107881330557,68.38003896298491,68.83689950878278,66.76078708197323,68.17678197710282,74.6513535684996,74.12652566849981,73.29678935003962,73.02276812462541,72.9899685581671,73.994111874387,74.76251604621321,74.86381322957227,73.85002094679508,72.70395074397112,74.51150673035151],"type":"scatter","xaxis":"x2","yaxis":"y2"}],"layout":{"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"matches":"x2","showticklabels":false},"yaxis":{"anchor":"x","domain":[0.56,1.0],"gridcolor":"#2a2a4a"},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"title":{"text":"Time (min)"},"gridcolor":"#2a2a4a"},"yaxis2":{"anchor":"x2","domain":[0.0,0.44],"gridcolor":"#2a2a4a"},"annotations":[{"font":{"size":16},"showarrow":false,"text":"RMSSD (ms)","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"Heart Rate (bpm)","x":0.5,"xanchor":"center","xref":"paper","y":0.44,"yanchor":"bottom","yref":"paper"}],"shapes":[{"fillcolor":"#1a2a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":5.0,"x1":8.25,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#1a2a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":5.0,"x1":8.25,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#1a3a2a","line":{"width":0},"opacity":0.25,"type":"rect","x0":8.25,"x1":11.416666666666666,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#1a3a2a","line":{"width":0},"opacity":0.25,"type":"rect","x0":8.25,"x1":11.416666666666666,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#2a1a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":11.416666666666666,"x1":14.0,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#2a1a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":11.416666666666666,"x1":14.0,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#3a2a1a","line":{"width":0},"opacity":0.25,"type":"rect","x0":14.0,"x1":17.166666666666668,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#3a2a1a","line":{"width":0},"opacity":0.25,"type":"rect","x0":14.0,"x1":17.166666666666668,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#1a3a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":17.166666666666668,"x1":20.5,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#1a3a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":17.166666666666668,"x1":20.5,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#2a1a2a","line":{"width":0},"opacity":0.25,"type":"rect","x0":20.5,"x1":23.0,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#2a1a2a","line":{"width":0},"opacity":0.25,"type":"rect","x0":20.5,"x1":23.0,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#3a1a1a","line":{"width":0},"opacity":0.25,"type":"rect","x0":23.0,"x1":25.333333333333332,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#3a1a1a","line":{"width":0},"opacity":0.25,"type":"rect","x0":23.0,"x1":25.333333333333332,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#1a1a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":25.333333333333332,"x1":27.0,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#1a1a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":25.333333333333332,"x1":27.0,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#2a3a1a","line":{"width":0},"opacity":0.25,"type":"rect","x0":27.0,"x1":30.0,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#2a3a1a","line":{"width":0},"opacity":0.25,"type":"rect","x0":27.0,"x1":30.0,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#1a2a2a","line":{"width":0},"opacity":0.25,"type":"rect","x0":30.0,"x1":34.0,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#1a2a2a","line":{"width":0},"opacity":0.25,"type":"rect","x0":30.0,"x1":34.0,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#3a2a2a","line":{"width":0},"opacity":0.25,"type":"rect","x0":34.0,"x1":40.666666666666664,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#3a2a2a","line":{"width":0},"opacity":0.25,"type":"rect","x0":34.0,"x1":40.666666666666664,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#2a2a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":40.666666666666664,"x1":45.0,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#2a2a3a","line":{"width":0},"opacity":0.25,"type":"rect","x0":40.666666666666664,"x1":45.0,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"fillcolor":"#0a2a0a","line":{"width":0},"opacity":0.4,"type":"rect","x0":0,"x1":5.0,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"fillcolor":"#0a2a0a","line":{"width":0},"opacity":0.4,"type":"rect","x0":0,"x1":5.0,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"}],"title":{"font":{"color":"#e0e0e0","size":12},"text":"Full Session: RMSSD \u00b7 Heart Rate"},"font":{"color":"#e0e0e0","size":10},"margin":{"t":50,"b":45,"l":55,"r":20},"height":380,"paper_bgcolor":"#0d0d1a","plot_bgcolor":"#1a1a2e","legend":{"font":{"size":9},"orientation":"h","y":-0.1},"showlegend":true}});
+  draw('chart-ba',    {"data":[{"legendgroup":"top","marker":{"color":"#4c9be8"},"name":"RMSSD (ms)","opacity":0.85,"text":["58.0","52.6"],"textfont":{"color":"#e0e0e0","size":11},"textposition":"outside","x":["Before","After"],"y":[57.95660002577051,52.60599756742251],"type":"bar","xaxis":"x","yaxis":"y"},{"legendgroup":"top","marker":{"color":"#2ecc71"},"name":"SD2 (ms)","opacity":0.85,"text":["66.0","56.2"],"textfont":{"color":"#e0e0e0","size":11},"textposition":"outside","x":["Before","After"],"y":[66.04385378174169,56.20561568160588],"type":"bar","xaxis":"x","yaxis":"y"},{"legendgroup":"top","marker":{"color":"#e74c3c"},"name":"HR (bpm)","opacity":0.85,"text":["71.3","74.2"],"textfont":{"color":"#e0e0e0","size":11},"textposition":"outside","x":["Before","After"],"y":[71.27129667819412,74.17339752516604],"type":"bar","xaxis":"x","yaxis":"y"},{"legendgroup":"bottom","marker":{"color":"#f39c12"},"name":"DFA \u03b11","opacity":0.85,"text":["0.859","0.780"],"textfont":{"color":"#e0e0e0","size":11},"textposition":"outside","x":["Before","After"],"y":[0.8589192508232659,0.7799331249449006],"type":"bar","xaxis":"x2","yaxis":"y2"},{"legendgroup":"bottom","marker":{"color":"#76b7b2"},"name":"SD1\u002fSD2","opacity":0.85,"text":["0.621","0.662"],"textfont":{"color":"#e0e0e0","size":11},"textposition":"outside","x":["Before","After"],"y":[0.6205195873059184,0.6618210148560137],"type":"bar","xaxis":"x2","yaxis":"y2"}],"layout":{"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0]},"yaxis":{"anchor":"x","domain":[0.5900000000000001,1.0],"gridcolor":"#2a2a4a","range":[0,95.76358798352544]},"xaxis2":{"anchor":"y2","domain":[0.0,1.0]},"yaxis2":{"anchor":"x2","domain":[0.0,0.41000000000000003],"gridcolor":"#2a2a4a","range":[0,1.9]},"annotations":[{"font":{"size":16},"showarrow":false,"text":"RMSSD \u00b7 SD2 \u00b7 Heart Rate","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"DFA \u03b11 \u00b7 SD1\u002fSD2 ratio","x":0.5,"xanchor":"center","xref":"paper","y":0.41000000000000003,"yanchor":"bottom","yref":"paper"}],"title":{"font":{"color":"#e0e0e0","size":12},"text":"Before vs After \u2014 Session Impact"},"font":{"color":"#e0e0e0","size":10},"margin":{"t":50,"b":45,"l":55,"r":20},"height":480,"paper_bgcolor":"#0d0d1a","plot_bgcolor":"#1a1a2e","legend":{"font":{"size":10},"orientation":"h","y":-0.12},"barmode":"group"}});
+  draw('chart-arc',   {"data":[{"marker":{"color":"#4c9be8"},"name":"RMSSD","opacity":0.8,"x":["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"],"y":[66.37899330605015,63.21494804638552,66.16851615310726,61.76507420741659,62.52957879956069,62.44455563207836,52.779866291200605,58.658038271488856,62.60023673801881,60.08087016795421,57.43462898313591,52.45339389953978],"type":"bar","xaxis":"x","yaxis":"y"},{"line":{"color":"#2ecc71","width":2.5},"marker":{"color":"#2ecc71","size":8},"mode":"lines+markers","name":"SD2","x":["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"],"y":[74.26022873836173,59.86751620750144,68.28590738758753,69.98870884963371,67.06732331705184,60.66188625423477,52.03825873390594,49.79020638069998,66.23124374301706,57.182310002561884,68.70321655270844,57.491821496855714],"type":"scatter","xaxis":"x","yaxis":"y"},{"marker":{"color":["#f39c12","#f39c12","#f39c12","#f39c12","#f39c12","#f39c12","#f39c12","#f39c12","#f39c12","#f39c12","#f39c12","#f39c12"]},"name":"DFA \u03b11","opacity":0.85,"x":["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"],"y":[0.8152899116391047,0.7808054927225584,0.8892911824596181,0.7733262933118985,0.851794110869394,0.6993281235035542,0.7467848238344911,0.5911922707694641,0.7964307397673173,0.7884443381294948,0.8729941724831737,0.8759791105968867],"type":"bar","xaxis":"x2","yaxis":"y2"},{"line":{"color":"#2ecc71","dash":"dash","width":1},"mode":"lines","showlegend":false,"x":["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"],"y":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"type":"scatter","xaxis":"x2","yaxis":"y2"},{"line":{"color":"#f39c12","dash":"dot","width":1},"mode":"lines","showlegend":false,"x":["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"],"y":[0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75],"type":"scatter","xaxis":"x2","yaxis":"y2"},{"line":{"color":"#e74c3c","dash":"dot","width":1},"mode":"lines","showlegend":false,"x":["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"],"y":[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5],"type":"scatter","xaxis":"x2","yaxis":"y2"}],"layout":{"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"matches":"x2","showticklabels":false,"gridcolor":"#2a2a4a"},"yaxis":{"anchor":"x","domain":[0.5700000000000001,1.0],"gridcolor":"#2a2a4a"},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"gridcolor":"#2a2a4a"},"yaxis2":{"anchor":"x2","domain":[0.0,0.43],"gridcolor":"#2a2a4a","range":[0,1.35]},"annotations":[{"font":{"size":16},"showarrow":false,"text":"RMSSD (ms) and SD2 (ms) per stage","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"DFA \u03b11 per stage (scale 4\u201316, neurokit2-validated)","x":0.5,"xanchor":"center","xref":"paper","y":0.43,"yanchor":"bottom","yref":"paper"}],"title":{"font":{"color":"#e0e0e0","size":12},"text":"Session Arc Across Stages"},"font":{"color":"#e0e0e0","size":10},"margin":{"t":50,"b":45,"l":55,"r":20},"height":460,"paper_bgcolor":"#0d0d1a","plot_bgcolor":"#1a1a2e","legend":{"font":{"size":9},"orientation":"h","y":-0.15},"barmode":"overlay"}});
+  draw("chart-acoustic",{"data":[{"colorbar":{"tickfont":{"color":"#e0e0e0"},"ticktext":["Low","Med","High"],"tickvals":[0,0.5,1],"title":{"font":{"color":"#e0e0e0","size":10},"text":"Relative"}},"colorscale":[[0,"#1e3d4d"],[0.5,"#7a5a10"],[1.0,"#8b1a1a"]],"showscale":true,"text":[["0.014","0.030","0.068","0.033","0.035","0.039","0.110","0.119","0.072","0.051","0.117","0.072"],["10.695","26.925","44.948","29.252","17.319","29.596","56.867","57.101","42.282","41.597","64.358","31.412"],["0.550","0.787","0.842","0.403","0.443","0.562","0.616","0.574","0.362","0.319","0.306","0.337"],["0.042","0.077","0.108","0.074","0.057","0.070","0.145","0.147","0.096","0.103","0.146","0.085"],["0.072","0.154","0.066","0.074","0.057","0.122","0.052","0.090","0.060","0.066","0.052","0.067"],["413.077","452.081","566.237","641.312","534.765","786.274","562.276","554.616","992.188","578.079","972.543","873.175"],["0.001","0.002","0.007","0.006","0.004","0.012","0.008","0.007","0.012","0.005","0.013","0.007"],["0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.000","0.001","0.000","0.001","0.001"],["0.028","0.043","0.054","0.050","0.034","0.046","0.055","0.061","0.073","0.066","0.078","0.038"]],"textfont":{"color":"white","size":9},"texttemplate":"%{text}","x":["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"],"y":["Sub-Bass Vibration","Sonic Movement \u002f Change","Rhythmic Pulse Clarity","Bass Vibration","Tempo Instability","Tonal Brightness","Brightness \u002f Presence","Tonal vs. Noise Quality","Vocal \u002f Harmonic Content"],"z":[[0.0,0.15216079452626757,0.5111454906622921,0.17757081493116847,0.20281413492492342,0.23460595444085133,0.911624714844284,0.9999999990533788,0.5511772057227098,0.35564880879511424,0.9771726315182818,0.5473026248383962],[0.0,0.30244247875248387,0.6383009589233622,0.34581314503349736,0.12344720992212962,0.35221411476493847,0.8604090994128069,0.8647737297703032,0.5886305143197889,0.5758507537958395,0.9999999999981365,0.3860700517869252],[0.45526497170002095,0.8970088345608747,0.9999999998134209,0.17989712868531818,0.25528107491510904,0.47644298587620765,0.5781208747039399,0.49855004664845626,0.10289941717476901,0.023513086162960998,0.0,0.05727743527800384],[0.0,0.33191679196273394,0.626552154821406,0.3088616991004518,0.13966389050952685,0.26991953607298397,0.9789269389881127,0.9999999990493799,0.5109804595118278,0.5778065215483204,0.9900399059940197,0.41274597285139486],[0.1968766329205989,0.9999999990264097,0.13971213447394057,0.21914204906893592,0.049844430423065356,0.6841414709603358,0.003977963279084552,0.37323213599775273,0.079259749852502,0.1412260064212615,0.0,0.15008045422953964],[0.0,0.06735131261709028,0.264473157441191,0.39411271861156666,0.21012920151546075,0.6444307708911974,0.2576336269158697,0.24440661378460185,0.9999999999998272,0.28492220335831336,0.9660772357897924,0.7944895506422098],[0.0,0.10411258746250734,0.4931694423066575,0.39135290303046366,0.21572884739802192,0.9461976811382501,0.5605626229557713,0.47155480246536746,0.9462570077808548,0.29207491142768616,0.9999999914392286,0.4820328211263323],[0.0,0.01917480215789576,0.09381927432520405,0.14821029225929638,0.07657907623700455,0.1697487568306692,0.07923551663469758,0.0770298687465442,0.9999999111900997,0.0855938150032366,0.585577297121601,0.8800845416424378],[0.0,0.3138358380036401,0.5231829568295441,0.4357300168274318,0.11647906239662892,0.3628690050210409,0.5410111551123342,0.6766092791893266,0.9036726163116241,0.7716881876517061,0.9999999979866105,0.20292921950173795]],"type":"heatmap"}],"layout":{"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"font":{"color":"#e0e0e0","size":12},"text":"Acoustic Profile \u2014 9 Selected Features \u00d7 All Stages"},"font":{"color":"#e0e0e0","size":10},"margin":{"t":50,"b":60,"l":160,"r":90},"height":328,"paper_bgcolor":"#0d0d1a","plot_bgcolor":"#1a1a2e","xaxis":{"tickfont":{"size":11}},"yaxis":{"tickfont":{"size":10},"autorange":"reversed"}}});
+
+  function submitFeedback() {
+    const form = document.getElementById('feedback-form');
+    const data = {};
+    ['q1','q2','q3','q4','q5'].forEach(name => {
+      const el = form.querySelector('input[name="'+name+'"]:checked');
+      if (el) data[name] = el.value;
+    });
+    data['q6'] = form.querySelector('textarea[name="q6"]').value;
+    data['submitted_at'] = new Date().toISOString();
+    localStorage.setItem('innerdance_feedback_p_11___life_sounds___04_06_26', JSON.stringify(data));
+    document.getElementById('feedback-thanks').style.display = 'block';
+    form.querySelectorAll('input,textarea,button').forEach(el => el.disabled = true);
+  }
+</script>
+</body></html>
