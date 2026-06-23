@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psychoacoustic Roughness & Autonomic Arousal — Literature Synthesis</title>
+<style>
+  :root {
+    --ground: #1A0F14;
+    --ground-raised: #231318;
+    --ground-border: #2E1A20;
+    --text: #E8E0D8;
+    --text-dim: #9A8F89;
+    --text-muted: #5A5050;
+    --accent: #4B8FA6;
+    --accent-dim: #2E5F72;
+    --accent-2: #C4894A;
+    --accent-2-dim: #7A5530;
+    --confirmed: #5A9E6E;
+    --partial: #B8A040;
+    --gap-xs: 4px;
+    --gap-s: 8px;
+    --gap-m: 16px;
+    --gap-l: 28px;
+    --gap-xl: 48px;
+    --gap-xxl: 80px;
+    --radius: 0px;
+    --font-display: 'Arial Narrow', 'Helvetica Neue Condensed', Impact, sans-serif;
+    --font-body: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  .page-header {
+    padding: var(--gap-xl) var(--gap-xl) var(--gap-l);
+    border-bottom: 1px solid var(--ground-border);
+    max-width: 1040px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .header-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: var(--gap-m);
+    display: flex;
+    align-items: center;
+    gap: var(--gap-m);
+  }
+
+  .header-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--accent-dim);
+    opacity: 0.5;
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: var(--gap-m);
+    max-width: 800px;
+  }
+
+  .page-title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    max-width: 620px;
+    line-height: 1.6;
+    margin-bottom: var(--gap-l);
+  }
+
+  /* WAVEFORM HEADER VISUAL */
+  .waveform-container {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-l);
+    margin-top: var(--gap-l);
+    padding: var(--gap-m) 0;
+    border-top: 1px solid var(--ground-border);
+  }
+
+  .waveform-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    min-width: 60px;
+  }
+
+  .waveform-canvas-wrap {
+    flex: 1;
+    position: relative;
+  }
+
+  canvas.waveform {
+    width: 100%;
+    height: 56px;
+    display: block;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: var(--gap-xl) var(--gap-xl);
+  }
+
+  /* SECTION HEADERS */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: var(--gap-l);
+    padding-bottom: var(--gap-s);
+    border-bottom: 1px solid var(--ground-border);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* VERIFICATION STRIP */
+  .verification-strip {
+    display: flex;
+    gap: var(--gap-m);
+    margin-bottom: var(--gap-xl);
+    flex-wrap: wrap;
+  }
+
+  .verify-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 5px 12px;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .verify-badge.confirmed {
+    border-color: var(--confirmed);
+    color: var(--confirmed);
+  }
+
+  .verify-badge.partial {
+    border-color: var(--partial);
+    color: var(--partial);
+  }
+
+  .verify-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* SOURCE CARDS */
+  .sources-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gap-l);
+    margin-bottom: var(--gap-xxl);
+  }
+
+  .source-card {
+    background: var(--ground-raised);
+    border: 1px solid var(--ground-border);
+    border-left: 3px solid var(--accent);
+    padding: var(--gap-l);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .source-card.primary {
+    border-left-color: var(--accent-2);
+  }
+
+  .source-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: var(--gap-m);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--gap-xs) var(--gap-m);
+    line-height: 1.5;
+  }
+
+  .meta-key { color: var(--text-muted); }
+  .meta-val { color: var(--text-dim); word-break: break-all; }
+
+  .card-type-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--gap-s);
+  }
+
+  .source-card.primary .card-type-tag { color: var(--accent-2); }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: clamp(17px, 2.5vw, 22px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: var(--gap-m);
+  }
+
+  .divider-hairline {
+    height: 1px;
+    background: var(--ground-border);
+    margin: var(--gap-m) 0;
+  }
+
+  /* PULL QUOTE — the definition */
+  .definition-block {
+    border-left: 2px solid var(--accent-dim);
+    padding: var(--gap-m) var(--gap-m);
+    margin: var(--gap-m) 0;
+    background: rgba(75, 143, 166, 0.05);
+  }
+
+  .source-card.primary .definition-block {
+    border-left-color: var(--accent-2-dim);
+    background: rgba(196, 137, 74, 0.05);
+  }
+
+  .definition-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--gap-s);
+  }
+
+  .source-card.primary .definition-label { color: var(--accent-2); }
+
+  .definition-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .definition-text mark {
+    background: transparent;
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .source-card.primary .definition-text mark { color: var(--accent-2); }
+
+  /* FINDINGS LIST */
+  .findings-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: var(--gap-m);
+    margin-bottom: var(--gap-s);
+  }
+
+  .findings-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-s);
+  }
+
+  .findings-list li {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text-dim);
+    padding-left: var(--gap-m);
+    position: relative;
+  }
+
+  .findings-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .findings-list li strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .findings-list li code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(75, 143, 166, 0.12);
+    padding: 1px 5px;
+  }
+
+  .source-card.primary .findings-list li code {
+    color: var(--accent-2);
+    background: rgba(196, 137, 74, 0.12);
+  }
+
+  /* ANS LINK INDICATOR */
+  .ans-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    margin-top: var(--gap-m);
+    padding: 4px 10px;
+    border: 1px solid;
+  }
+
+  .ans-indicator.direct {
+    border-color: var(--confirmed);
+    color: var(--confirmed);
+  }
+
+  .ans-indicator.indirect {
+    border-color: var(--partial);
+    color: var(--partial);
+  }
+
+  .ans-indicator.embodied {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* SYNTHESIS SECTION */
+  .synthesis {
+    background: var(--ground-raised);
+    border: 1px solid var(--ground-border);
+    border-top: 2px solid var(--accent-2);
+    padding: var(--gap-l);
+    margin-bottom: var(--gap-xxl);
+  }
+
+  .synthesis-title {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: var(--gap-m);
+  }
+
+  .chain-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .chain-step {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: var(--gap-m);
+    padding: var(--gap-m) 0;
+    border-bottom: 1px solid var(--ground-border);
+  }
+
+  .chain-step:last-child { border-bottom: none; }
+
+  .chain-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent-2);
+    font-weight: 700;
+    padding-top: 2px;
+  }
+
+  .chain-content {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.65;
+  }
+
+  .chain-content strong { color: var(--text); }
+  .chain-content code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(75, 143, 166, 0.12);
+    padding: 1px 5px;
+  }
+
+  /* TECHNICAL PARAMETERS BOX */
+  .params-box {
+    background: rgba(75, 143, 166, 0.06);
+    border: 1px solid var(--accent-dim);
+    padding: var(--gap-m);
+    margin: var(--gap-l) 0;
+  }
+
+  .params-box-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--gap-m);
+  }
+
+  .params-table {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 24px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  .param-key { color: var(--text-muted); }
+  .param-val { color: var(--text); }
+
+  /* NOTES ON VERIFICATION */
+  .verify-note {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--ground-border);
+    padding-top: var(--gap-m);
+    margin-top: var(--gap-m);
+    line-height: 1.7;
+  }
+
+  .verify-note strong { color: var(--partial); }
+
+  /* FOOTER */
+  .page-footer {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: var(--gap-l) var(--gap-xl) var(--gap-xxl);
+    border-top: 1px solid var(--ground-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--gap-m);
+  }
+
+  .footer-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .footer-meta strong { color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .page-header, .main { padding-left: var(--gap-m); padding-right: var(--gap-m); }
+    .page-footer { padding-left: var(--gap-m); padding-right: var(--gap-m); }
+    .waveform-container { flex-direction: column; align-items: flex-start; gap: var(--gap-s); }
+    .waveform-canvas-wrap { width: 100%; }
+    .card-meta { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .source-card { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="header-eyebrow">Innerdance Biofeedback POC — Literature Synthesis</div>
+  <h1 class="page-title">Psychoacoustic <em>Roughness</em> &amp; Autonomic Arousal</h1>
+  <p class="page-subtitle">A structured review of primary sources on roughness as a perceptual attribute and its documented physiological and autonomic effects. Prepared to ground acoustic feature selection in the innerdance biofeedback pipeline.</p>
+
+  <div class="waveform-container">
+    <span class="waveform-label">Smooth (15 Hz AM)</span>
+    <div class="waveform-canvas-wrap">
+      <canvas class="waveform" id="waveSmooth" width="800" height="56" aria-label="Simulated smooth amplitude modulation envelope"></canvas>
+    </div>
+    <span class="waveform-label" style="text-align:right; color: var(--accent-2);">Rough (70 Hz AM)</span>
+    <div class="waveform-canvas-wrap">
+      <canvas class="waveform" id="waveRough" width="800" height="56" aria-label="Simulated rough amplitude modulation envelope at 70 Hz"></canvas>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- VERIFICATION STATUS -->
+  <div class="section-label">
+    <span>Adversarial verification — 3-vote per claim</span>
+    <span>Sources retrieved: 15</span>
+  </div>
+  <div class="verification-strip">
+    <div class="verify-badge confirmed"><span class="dot"></span>CONFIRMED — Roughness definition: 15–300 Hz AM, peak ~70 Hz, unit asper</div>
+    <div class="verify-badge confirmed"><span class="dot"></span>CONFIRMED — Rough sounds recruit salience/limbic networks, cause aversion</div>
+    <div class="verify-badge partial"><span class="dot"></span>PARTIAL — Leman 2008 covers arousal via embodied cognition, not roughness specifically</div>
+  </div>
+
+  <!-- TECHNICAL PARAMS -->
+  <div class="params-box">
+    <div class="params-box-title">Reference standard — Fastl &amp; Zwicker (2007)</div>
+    <div class="params-table">
+      <span class="param-key">Unit:</span><span class="param-val">asper (Latin: "rough")</span>
+      <span class="param-key">Reference signal:</span><span class="param-val">1 kHz tone, 60 dB SPL, 100% amplitude modulation at 70 Hz = 1 asper</span>
+      <span class="param-key">Perceptual range:</span><span class="param-val">15–300 Hz modulation frequency</span>
+      <span class="param-key">Peak sensitivity:</span><span class="param-val">~70 Hz for high carrier frequencies; shifts to ~30 Hz for low carriers</span>
+      <span class="param-key">Perceptual boundary:</span><span class="param-val">&lt;15 Hz → flutter / fluctuation; &gt;300 Hz → tonal fusion, no roughness percept</span>
+      <span class="param-key">Formula (ISO 532-1):</span><span class="param-val">R = cal · ∫₀²⁴ f_mod · ΔL dz  (integral over 24 critical bands)</span>
+    </div>
+  </div>
+
+  <!-- SOURCE CARDS -->
+  <div class="section-label" style="margin-top: 48px;">
+    <span>Primary sources</span>
+  </div>
+
+  <div class="sources-grid" id="sourcesGrid">
+
+    <!-- SOURCE 1: Fastl & Zwicker -->
+    <div class="source-card primary" data-delay="0">
+      <div class="card-type-tag">Foundational textbook · Psychoacoustics</div>
+      <h2 class="card-title">Psychoacoustics: Facts and Models</h2>
+      <div class="card-meta">
+        <span class="meta-key">Authors:</span><span class="meta-val">Fastl, H., &amp; Zwicker, E.</span>
+        <span class="meta-key">Year:</span><span class="meta-val">2007 (3rd ed.; 1st ed. 1990)</span>
+        <span class="meta-key">Publisher:</span><span class="meta-val">Springer, Berlin/Heidelberg. Series: Springer Series in Information Sciences.</span>
+        <span class="meta-key">ISBN:</span><span class="meta-val">978-3-540-23159-2</span>
+        <span class="meta-key">Chapter:</span><span class="meta-val">Chapter 11 — Roughness</span>
+        <span class="meta-key">URL:</span><span class="meta-val">https://link.springer.com/chapter/10.1007/978-3-540-68888-4_11</span>
+      </div>
+      <div class="divider-hairline"></div>
+      <div class="definition-block">
+        <div class="definition-label">Technical definition of roughness</div>
+        <p class="definition-text">Roughness arises when a sound undergoes <mark>amplitude modulation at rates between 15 and 300 Hz</mark>. Below 15 Hz the sensation is of flutter or fluctuation strength; above 300 Hz the modulations fuse into a steady percept with no roughness quality. Perceived roughness peaks at a modulation frequency of <mark>~70 Hz</mark> for carrier frequencies above 1 kHz (shifts to ~30 Hz for lower carriers). The unit is the <mark>asper</mark>: one asper equals a 1 kHz pure tone at 60 dB SPL with 100% sinusoidal amplitude modulation at 70 Hz.</p>
+      </div>
+      <div class="findings-label">Key findings on arousal and alertness</div>
+      <ul class="findings-list">
+        <li><strong>Alarm signal design:</strong> engineers empirically converge on the roughness range to enhance signal salience — rough sounds <strong>capture attention</strong> more efficiently than smooth tones of equal loudness.</li>
+        <li><strong>Unpleasantness coupling:</strong> roughness and sharpness are the primary contributors to sensory dissonance and perceived unpleasantness; roughness has the stronger effect of the two.</li>
+        <li><strong>Temporal salience:</strong> fast repetitive modulations produce "temporally salient flickering percepts" analogous to strobe lights, <strong>efficiently capturing attention and inducing avoidance</strong>.</li>
+        <li>Roughness is computed as <code>R = cal · ∫ f_mod · ΔL dz</code> — the modulation frequency multiplies the perceived modulation depth across all critical bands, making <code>f_mod</code> a direct scaling factor in the sensation magnitude.</li>
+      </ul>
+      <div class="ans-indicator indirect"><span>⬡</span>ANS link: indirect — via attention/avoidance, not direct ANS measurement</div>
+    </div>
+
+    <!-- SOURCE 2: Arnal et al. 2019 -->
+    <div class="source-card" data-delay="100">
+      <div class="card-type-tag">Empirical study · Neuroscience</div>
+      <h2 class="card-title">The Rough Sound of Salience Enhances Aversion Through Neural Synchronisation</h2>
+      <div class="card-meta">
+        <span class="meta-key">Authors:</span><span class="meta-val">Arnal, L.H., Kleinschmidt, A., Spinelli, L., Giraud, A.-L., &amp; Mégevand, P.</span>
+        <span class="meta-key">Year:</span><span class="meta-val">2019</span>
+        <span class="meta-key">Journal:</span><span class="meta-val">Nature Communications, 10, 3671.</span>
+        <span class="meta-key">DOI:</span><span class="meta-val">https://doi.org/10.1038/s41467-019-11626-7</span>
+        <span class="meta-key">PMC:</span><span class="meta-val">PMC6694125</span>
+      </div>
+      <div class="divider-hairline"></div>
+      <div class="definition-block">
+        <div class="definition-label">Definition of roughness used</div>
+        <p class="definition-text">"An acoustic texture that arises from fast repetitive acoustic transients" in the <mark>30–150 Hz</mark> range. Maximal aversive responses occur in the <mark>40–80 Hz</mark> band — the perceptual boundary between discrete events and continuous pitch. Aversion is nonlinear, peaking in this range regardless of stimulus intensity.</p>
+      </div>
+      <div class="findings-label">Key findings on arousal and neural response</div>
+      <ul class="findings-list">
+        <li><strong>Large-scale network synchronization:</strong> rough sounds produce "sustained, phase-locked responses at the rate of stimulation" that synchronise beyond auditory cortex into <strong>limbic and frontal regions involved in salience and aversion</strong>.</li>
+        <li><strong>Specific recruitment:</strong> the amygdala, hippocampus, and insula are specifically activated — areas associated with threat processing and aversion, not present for smooth tones.</li>
+        <li><strong>Arousal-aversion coupling:</strong> participants with enhanced subjective aversion also show <strong>stronger 40 Hz steady-state EEG responses</strong>, linking the neural signature to subjective arousal state.</li>
+        <li>The brain cannot suppress repetitions spaced &lt;25 ms apart, maintaining <strong>constant alertness</strong> to the rough stimulus — the auditory system is structurally biased to remain aroused.</li>
+        <li>Exact quote: <em>"Rough sounds synchronise activity throughout superior temporal regions, subcortical and cortical limbic areas, and the frontal cortex, a network classically involved in aversion processing."</em></li>
+      </ul>
+      <div class="ans-indicator indirect"><span>⬡</span>ANS link: indirect — limbic network activation implies downstream ANS engagement; no direct ANS measurement</div>
+    </div>
+
+    <!-- SOURCE 3: Taffou et al. 2021 -->
+    <div class="source-card" data-delay="200">
+      <div class="card-type-tag">Empirical study · Behavioral &amp; Cognitive Neuroscience</div>
+      <h2 class="card-title">Auditory Roughness Elicits Defense Reactions</h2>
+      <div class="card-meta">
+        <span class="meta-key">Authors:</span><span class="meta-val">Taffou, M., Suied, C., &amp; Viaud-Delmon, I.</span>
+        <span class="meta-key">Year:</span><span class="meta-val">2021</span>
+        <span class="meta-key">Journal:</span><span class="meta-val">Scientific Reports, 11, 956.</span>
+        <span class="meta-key">DOI:</span><span class="meta-val">https://doi.org/10.1038/s41598-020-79767-0</span>
+        <span class="meta-key">PMC:</span><span class="meta-val">PMC7806762</span>
+      </div>
+      <div class="divider-hairline"></div>
+      <div class="definition-block">
+        <div class="definition-label">Definition and stimulus</div>
+        <p class="definition-text">Roughness was operationalized as <mark>amplitude modulation at 70 Hz</mark> applied to a harmonic tone with 500 Hz fundamental — matching Fastl &amp; Zwicker's reference standard. The study specifically tested whether roughness constitutes an <mark>innate threat cue</mark> triggering defensive behavior, independent of learned associations.</p>
+      </div>
+      <div class="findings-label">Key findings on defense and arousal</div>
+      <ul class="findings-list">
+        <li><strong>Expanded peripersonal space:</strong> rough sounds speeded tactile reaction times at <strong>farther distances from the body</strong> than non-rough sounds — indicating the defensive safety zone around participants expanded in response to roughness.</li>
+        <li>Conclusion: auditory roughness "modifies the behavioral relevance of simple auditory events in relation to the body" and constitutes <strong>"an innate threat cue that elicits defensive responses."</strong></li>
+        <li><strong>Subjective arousal confirmed:</strong> participants rated rough sounds as significantly <strong>more negative and more arousing</strong> (valence–arousal ratings), even when both rough and non-rough sounds were matched for loudness.</li>
+        <li>The defense reaction is <strong>not conditioned</strong> — it occurs without prior threat association, consistent with an evolutionarily conserved alarm response mechanism.</li>
+      </ul>
+      <div class="ans-indicator indirect"><span>⬡</span>ANS link: behavioral defense proxy — no heart rate or SC measured directly; arousal confirmed via self-report</div>
+      <div class="verify-note">
+        <strong>Note:</strong> Direct ANS measures (heart rate variability, skin conductance) were not included in this study. The defense response was measured behaviorally via peripersonal space expansion. Arousal was self-reported.
+      </div>
+    </div>
+
+    <!-- SOURCE 4: Anikin 2025 -->
+    <div class="source-card" data-delay="300">
+      <div class="card-type-tag">Empirical study · Psychophysics</div>
+      <h2 class="card-title">Acoustic Estimation of Voice Roughness</h2>
+      <div class="card-meta">
+        <span class="meta-key">Authors:</span><span class="meta-val">Anikin, A.</span>
+        <span class="meta-key">Year:</span><span class="meta-val">2025</span>
+        <span class="meta-key">Journal:</span><span class="meta-val">Attention, Perception, &amp; Psychophysics, 87(5), 1771–1787.</span>
+        <span class="meta-key">DOI:</span><span class="meta-val">https://doi.org/10.3758/s13414-025-03060-3</span>
+      </div>
+      <div class="divider-hairline"></div>
+      <div class="definition-block">
+        <div class="definition-label">Updated technical definition</div>
+        <p class="definition-text">"Sounds are perceived as rough if the envelopes of cochlear filters contain modulation frequencies between about <mark>15 and 300 Hz</mark>." Refines the peak sensitivity estimate to <mark>50–200 Hz</mark> (lognormal weighting). Confirms Fastl &amp; Zwicker's 70 Hz reference while narrowing the most perceptually relevant band.</p>
+      </div>
+      <div class="findings-label">Key findings on arousal link</div>
+      <ul class="findings-list">
+        <li><strong>Arousal–valence coupling confirmed:</strong> "Rough-sounding noise was associated with <strong>higher perceived arousal and more negative valence</strong> in music" — direct measurement of the roughness–arousal association.</li>
+        <li><strong>Salience correlation:</strong> "Auditory salience strongly correlates with the roughness of stimuli" — roughness is a primary driver of attention capture independent of loudness.</li>
+        <li>Vocal roughness in mammalian alarm calls is argued to be <strong>evolutionarily conserved</strong>, functioning as a cross-species arousal signal (screams, growls, distress vocalizations).</li>
+        <li>Confirms Fastl &amp; Zwicker's peak: "sensation of roughness is reported to peak at <code>75–100 Hz</code> for amplitude-modulated tones."</li>
+      </ul>
+      <div class="ans-indicator indirect"><span>⬡</span>ANS link: indirect — self-reported arousal and salience ratings; no physiological measures</div>
+    </div>
+
+    <!-- SOURCE 5: Leman 2008 -->
+    <div class="source-card" data-delay="400">
+      <div class="card-type-tag">Foundational monograph · Music cognition</div>
+      <h2 class="card-title">Embodied Music Cognition and Mediation Technology</h2>
+      <div class="card-meta">
+        <span class="meta-key">Author:</span><span class="meta-val">Leman, M.</span>
+        <span class="meta-key">Year:</span><span class="meta-val">2008</span>
+        <span class="meta-key">Publisher:</span><span class="meta-val">MIT Press, Cambridge, MA.</span>
+        <span class="meta-key">ISBN:</span><span class="meta-val">978-0-262-12293-1</span>
+        <span class="meta-key">URL:</span><span class="meta-val">https://mitpress.mit.edu/9780262122931/embodied-music-cognition-and-mediation-technology/</span>
+      </div>
+      <div class="divider-hairline"></div>
+      <div class="definition-block">
+        <div class="definition-label">Framework description — verification status: partial</div>
+        <p class="definition-text">Leman argues that the human motor system, gestures, and body movements are the primary mediators of music perception. <mark>Arousal is an ensuing feature of embodied sensorimotor predictions</mark> — not a direct response to acoustic properties like roughness, but an output of action-perception coupling. The book is not organized around psychoacoustic attributes.</p>
+      </div>
+      <div class="findings-label">Relevance to roughness and ANS</div>
+      <ul class="findings-list">
+        <li><strong>Acoustic features and arousal:</strong> Leman treats acoustic features (including consonance/dissonance, related to roughness) as inputs to sensorimotor processing. Arousal emerges from the <strong>mismatch or alignment between musical motion and bodily engagement</strong>, not from acoustic roughness per se.</li>
+        <li><strong>Dissonance framing:</strong> "music is made of combinations of basic melodic intervals that differ by their psychophysical characteristics, among which the level of tonal stability and consonant-dissonant dichotomy are the most important" — this is where roughness enters the framework, as a contributor to dissonance.</li>
+        <li><strong>Physiological responses:</strong> EMC assumes "subjective experiences of music are expressed directly by means of measurable corporeal articulation (gestures)" — the body is the measurement instrument for arousal, not peripheral ANS metrics.</li>
+        <li><strong>Honest scope note:</strong> Leman 2008 is valuable as a theoretical framework for why acoustic texture (roughness) produces bodily responses, but does not itself measure ANS outcomes or define roughness technically. Cite Fastl &amp; Zwicker and Arnal et al. for mechanism; cite Leman for the embodiment framework that links sound to bodily arousal state.</li>
+      </ul>
+      <div class="ans-indicator embodied"><span>⬡</span>ANS link: embodied cognition framework — body movement as proxy for arousal; no direct ANS measures</div>
+      <div class="verify-note">
+        <strong>Partial confidence:</strong> Leman 2008 addresses acoustic features and arousal but the roughness–ANS link is not the book's central argument. Primary roughness sources are Fastl &amp; Zwicker and the Arnal/Taffou empirical literature.
+      </div>
+    </div>
+
+    <!-- SOURCE 6: Kirsanov et al. 2025 -->
+    <div class="source-card" data-delay="500">
+      <div class="card-type-tag">Empirical study · Human neuroscience</div>
+      <h2 class="card-title">Electrophysiological and Behavioural Responses to Consonant and Dissonant Piano Chords</h2>
+      <div class="card-meta">
+        <span class="meta-key">Authors:</span><span class="meta-val">Kirsanov, A., Koriakina, M., Panasenko, D., Nikishkina, U., &amp; Blagovechtchenski, E.</span>
+        <span class="meta-key">Year:</span><span class="meta-val">2025</span>
+        <span class="meta-key">Journal:</span><span class="meta-val">Frontiers in Human Neuroscience, 19, 1689067.</span>
+        <span class="meta-key">DOI:</span><span class="meta-val">https://doi.org/10.3389/fnhum.2025.1689067</span>
+      </div>
+      <div class="divider-hairline"></div>
+      <div class="definition-block">
+        <div class="definition-label">Dissonance operationalization (roughness-adjacent)</div>
+        <p class="definition-text">Dissonant chords were constructed to <mark>maximise sensory dissonance through proximity of sounds and non-harmonic intervals</mark> — the acoustic mechanism of dissonance is roughness (beating between near-frequency partials). ERP (N1, P2, P3a) and EEG band analysis measured neural responses.</p>
+      </div>
+      <div class="findings-label">Key findings</div>
+      <ul class="findings-list">
+        <li><strong>P2 and P3a amplitudes:</strong> dissonant chords evoked <strong>greater P2 and P3a amplitudes</strong> than neutral stimuli, indicating increased attentional and affective salience.</li>
+        <li><strong>Widespread bilateral activation:</strong> dissonant stimuli elicited "widespread bilateral frontal and temporal activation suggestive of <strong>heightened attentional engagement and emotional salience</strong>."</li>
+        <li>Behavioral: "consonant chords were rated as more pleasant" while "dissonant chords were rated as more unpleasant" — the valence asymmetry of roughness reproduced.</li>
+      </ul>
+      <div class="ans-indicator indirect"><span>⬡</span>ANS link: indirect — EEG measures; no HRV or skin conductance</div>
+    </div>
+
+  </div><!-- /sources-grid -->
+
+  <!-- SYNTHESIS -->
+  <div class="section-label">
+    <span>Synthesis — the roughness–arousal–ANS chain</span>
+  </div>
+
+  <div class="synthesis">
+    <h2 class="synthesis-title">Evidence chain: from acoustic modulation to autonomic activation</h2>
+    <div class="chain-steps">
+      <div class="chain-step">
+        <span class="chain-num">01</span>
+        <div class="chain-content">
+          <strong>Stimulus:</strong> any audio signal with amplitude modulation in the <code>15–300 Hz</code> range produces the percept of roughness. Peak sensitivity at <code>~70 Hz</code> (Fastl &amp; Zwicker 2007). In innerdance audio, this includes distorted bass, vocal texture, and AM-modulated drones. The AM rate feature extracted by <code>acoustic_processor.py</code> (Hilbert envelope) directly captures this range.
+        </div>
+      </div>
+      <div class="chain-step">
+        <span class="chain-num">02</span>
+        <div class="chain-content">
+          <strong>Cochlear processing:</strong> roughness arises from amplitude-modulation products on the basilar membrane — it is a consequence of peripheral auditory mechanics, not top-down interpretation. The auditory system cannot suppress fast repetitions (&lt;25 ms inter-pulse interval) — sustained roughness produces sustained peripheral drive (Arnal et al. 2019).
+        </div>
+      </div>
+      <div class="chain-step">
+        <span class="chain-num">03</span>
+        <div class="chain-content">
+          <strong>Large-scale network recruitment:</strong> rough sounds synchronise not just auditory cortex but <strong>amygdala, hippocampus, insula, and frontal salience networks</strong> in a sustained, phase-locked manner (Arnal et al. 2019). Dissonant chords (roughness operationalized musically) reproduce this in EEG as elevated P2/P3a (Kirsanov et al. 2025).
+        </div>
+      </div>
+      <div class="chain-step">
+        <span class="chain-num">04</span>
+        <div class="chain-content">
+          <strong>Defense/arousal output:</strong> roughness constitutes "an innate threat cue that elicits defensive responses" (Taffou et al. 2021). Rough sounds expand peripersonal space (the body's defensive safety zone) and are rated as significantly more arousing than matched non-rough sounds. Arousal–roughness correlation confirmed in music contexts (Anikin 2025).
+        </div>
+      </div>
+      <div class="chain-step">
+        <span class="chain-num">05</span>
+        <div class="chain-content">
+          <strong>Autonomic gap — what is and isn't established:</strong> No study in this review directly measures <strong>HRV, RMSSD, HF power, or skin conductance</strong> in response to controlled roughness. The chain from limbic activation (step 3) to ANS activation is biologically well-supported but not yet directly demonstrated for isolated acoustic roughness. This is the measurement gap the innerdance pipeline can address by correlating <code>AM_rate</code> windows with in-session <code>HF_power</code> windows.
+        </div>
+      </div>
+    </div>
+
+    <div class="verify-note" style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--ground-border);">
+      <strong>Implication for acoustic feature selection:</strong> AM rate (Hilbert envelope, targeting 15–300 Hz) is the correct acoustic feature to track roughness in innerdance sessions. Correlating this against HF power windows (the in-session ANS proxy) tests the roughness–ANS link directly. This would be a novel contribution — existing literature has established the roughness–arousal perceptual link but not closed the loop to HRV.
+    </div>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  <div class="footer-meta">
+    <strong>Project:</strong> Innerdance Biofeedback POC<br>
+    <strong>Prepared by:</strong> Claude Code (Sonnet 4.6)<br>
+    <strong>Sources retrieved:</strong> 15 · Verified: June 2026
+  </div>
+  <div class="footer-meta" style="text-align: right;">
+    <strong>Primary acoustic feature:</strong> AM_rate (Hilbert envelope, 15–300 Hz)<br>
+    <strong>Target ANS metric:</strong> HF power (in-session, 0.15–0.40 Hz)<br>
+    <strong>Research gap:</strong> direct roughness → HRV correlation
+  </div>
+</footer>
+
+<script>
+  // Draw smooth vs rough amplitude modulation waveforms
+  function drawWaveform(canvasId, modFreq, color, label) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.offsetWidth;
+    const h = canvas.offsetHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    // Background
+    ctx.fillStyle = 'rgba(26,15,20,0)';
+    ctx.fillRect(0, 0, w, h);
+
+    // Draw the AM envelope
+    const sampleRate = 2000;
+    const duration = 0.25; // 250ms of signal
+    const carrier = 1000;
+    const numSamples = sampleRate * duration;
+    const cx = w / numSamples;
+
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.5;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 4;
+
+    for (let i = 0; i <= numSamples; i++) {
+      const t = i / sampleRate;
+      const mod = 0.5 + 0.5 * Math.sin(2 * Math.PI * modFreq * t);
+      const signal = mod * Math.sin(2 * Math.PI * carrier * t);
+      const x = i * cx;
+      const y = h / 2 - (signal * (h / 2 - 4));
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Frequency label
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = color;
+    ctx.font = `10px ${getComputedStyle(document.documentElement).getPropertyValue('--font-mono') || 'monospace'}`;
+    ctx.fillText(`f_mod = ${modFreq} Hz`, 6, 13);
+  }
+
+  function initWaveforms() {
+    drawWaveform('waveSmooth', 15, '#4B8FA6', 'smooth');
+    drawWaveform('waveRough', 70, '#C4894A', 'rough');
+  }
+
+  // Run after fonts/layout settle
+  window.addEventListener('load', initWaveforms);
+  window.addEventListener('resize', initWaveforms);
+
+  // Stagger-in animation for source cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const delay = parseInt(card.dataset.delay || 0);
+        setTimeout(() => card.classList.add('visible'), delay);
+        observer.unobserve(card);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.source-card').forEach(card => observer.observe(card));
+
+  // Respect reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.source-card').forEach(c => {
+      c.style.opacity = '1';
+      c.style.transform = 'none';
+      c.style.transition = 'none';
+    });
+  }
+</script>
+
+</body>
+</html>

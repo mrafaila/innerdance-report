@@ -1,0 +1,761 @@
+
+<title>Roughness, ZCR & ANS Arousal — Literature Report</title>
+<style>
+  :root {
+    --ground: #F2F1EB;
+    --ground-2: #E8E6DC;
+    --text: #141410;
+    --text-muted: #6B6A62;
+    --accent: #2E9E5B;
+    --accent-2: #3B3580;
+    --accent-2-light: #EEEDF8;
+    --border: #C9C8BE;
+    --direct: #2E9E5B;
+    --inferred: #B87333;
+    --neural: #3B3580;
+    --card-bg: #FAFAF5;
+    font-size: 15px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── Typography ── */
+  .mono { font-family: 'IBM Plex Mono', 'Courier New', monospace; }
+
+  h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    color: var(--text);
+  }
+
+  h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+
+  p { font-size: 0.92rem; color: var(--text); }
+
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ── Page header ── */
+  .page-header {
+    padding: 52px 0 36px;
+    border-bottom: 1.5px solid var(--border);
+    margin-bottom: 36px;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+    align-items: flex-start;
+  }
+
+  .meta-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-muted);
+    background: var(--card-bg);
+  }
+
+  /* ── Legend ── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 14px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--text-muted);
+    border-radius: 0 2px 2px 0;
+    margin-bottom: 40px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-direct { background: var(--direct); }
+  .dot-inferred { background: var(--inferred); }
+  .dot-neural { background: var(--neural); }
+
+  /* ── Section headers ── */
+  .section-header {
+    margin: 52px 0 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--border);
+    letter-spacing: -0.05em;
+    user-select: none;
+  }
+
+  .section-title-wrap h2 {
+    margin-bottom: 4px;
+  }
+
+  .section-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* ── Waveform canvas divider ── */
+  .wave-divider {
+    width: 100%;
+    height: 48px;
+    margin: 8px 0;
+    display: block;
+  }
+
+  /* ── Citation cards ── */
+  .card-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 18px 20px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: start;
+    position: relative;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .card.direct::before { background: var(--direct); }
+  .card.inferred::before { background: var(--inferred); }
+  .card.neural::before { background: var(--neural); }
+
+  .card-body { min-width: 0; }
+
+  .card-authors {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.67rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+
+  .card-finding {
+    font-size: 0.88rem;
+    color: var(--text);
+    margin-top: 9px;
+    line-height: 1.55;
+  }
+
+  .card-finding strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+    flex-shrink: 0;
+  }
+
+  .year-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .journal-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    text-align: right;
+    max-width: 120px;
+    line-height: 1.3;
+  }
+
+  .doi-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent-2);
+    word-break: break-all;
+    text-align: right;
+    max-width: 130px;
+  }
+
+  .evidence-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.61rem;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  .tag-direct { background: #E8F7EE; color: var(--direct); }
+  .tag-inferred { background: #FDF3E8; color: var(--inferred); }
+  .tag-neural { background: var(--accent-2-light); color: var(--accent-2); }
+
+  /* ── Summary box ── */
+  .summary-box {
+    background: var(--ground-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-2);
+    padding: 20px 22px;
+    margin-top: 52px;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .summary-box h2 {
+    color: var(--accent-2);
+    margin-bottom: 14px;
+  }
+
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+  }
+
+  .summary-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 6px 10px 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .summary-table td {
+    padding: 8px 10px 8px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+
+  .summary-table tr:last-child td { border-bottom: none; }
+
+  .conf-high { color: var(--direct); font-weight: 600; }
+  .conf-med { color: var(--inferred); font-weight: 600; }
+  .conf-low { color: var(--text-muted); }
+
+  /* ── Null result notice ── */
+  .null-notice {
+    padding: 12px 16px;
+    border: 1px dashed var(--border);
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    border-radius: 2px;
+    margin-top: 8px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 580px) {
+    .card {
+      grid-template-columns: 1fr;
+    }
+    .card-right {
+      align-items: flex-start;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .section-num { font-size: 1.8rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    canvas { display: none; }
+    .section { border-top: 1px solid var(--border); padding-top: 12px; }
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<header class="page-header">
+  <div class="eyebrow">Literature synthesis · innerdance biofeedback</div>
+  <h1>Acoustic Roughness, ZCR &amp; ANS Arousal<br>A literature survey of direct and inferred links</h1>
+  <div class="header-meta">
+    <span class="meta-pill mono">Searches: 3 angles · 15+ sources fetched</span>
+    <span class="meta-pill mono">Date: 2026-06-23</span>
+    <span class="meta-pill mono">Domains: psychoacoustics · ANS · neuroscience</span>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><span class="dot dot-direct"></span> Direct — physiologically measured (fMRI, SCR, EEG, HRV)</div>
+  <div class="legend-item"><span class="dot dot-neural"></span> Neural — brain-measured, ANS inferred</div>
+  <div class="legend-item"><span class="dot dot-inferred"></span> Inferred — behavioral, self-report, or modeled</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SECTION 1 -->
+<div class="section-header">
+  <span class="section-num mono">01</span>
+  <div class="section-title-wrap">
+    <h2>Roughness, temporal modulation &amp; neural/ANS arousal</h2>
+    <p class="section-desc">Search angle: roughness dissonance arousal physiological skin conductance SCR</p>
+  </div>
+</div>
+
+<canvas class="wave-divider" id="wave1" aria-hidden="true"></canvas>
+
+<div class="card-grid">
+
+  <div class="card neural">
+    <div class="card-body">
+      <div class="card-authors mono">Arnal LH, Flinker A, Kleinschmidt A, Giraud A-L, Poeppel D</div>
+      <h3>Human screams occupy a privileged niche in the communication soundscape</h3>
+      <p class="card-finding">
+        Using fMRI on N=16 participants, showed that <strong>amplitude modulations in the 30–150 Hz roughness band elicit bilateral amygdala responses significantly larger than speech</strong> at matched loudness. The amygdala — but not primary auditory cortex — was maximally sensitive to this restricted spectrotemporal window. Reaction times to rough sounds were faster; fear ratings scaled with roughness magnitude. ANS link is <em>inferred</em> from amygdala engagement; no skin conductance or HRV was measured.
+      </p>
+      <span class="evidence-tag tag-neural">neural / amygdala fMRI · ANS inferred</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2015</span>
+      <span class="journal-tag">Current Biology</span>
+      <a class="doi-link" href="https://doi.org/10.1016/j.cub.2015.06.043" target="_blank" rel="noopener">doi:10.1016/j.cub.2015.06.043</a>
+    </div>
+  </div>
+
+  <div class="card neural">
+    <div class="card-body">
+      <div class="card-authors mono">Arnal LH, Kleinschmidt A, Spinelli L, Giraud A-L, Mégevand P</div>
+      <h3>The rough sound of salience enhances aversion through neural synchronisation</h3>
+      <p class="card-finding">
+        Intracranial EEG (n=11 epilepsy patients) during rough vs. non-rough sound stimulation. <strong>Rough sounds (30–150 Hz AM) induced sustained synchronisation of auditory networks AND large-scale salience networks</strong> — superior temporal regions, hippocampus, insula, parahippocampal cortex, frontal cortex. Cerebro-acoustic coherence peaked in the 40–130 Hz band. Aversion ratings correlated with coherence amplitude across all regions. No SCR or HRV was measured; ANS link is inferred through limbic/insula engagement.
+      </p>
+      <span class="evidence-tag tag-neural">intracranial EEG · large-scale salience networks · ANS inferred</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2019</span>
+      <span class="journal-tag">Nature Communications</span>
+      <a class="doi-link" href="https://doi.org/10.1038/s41467-019-11626-7" target="_blank" rel="noopener">doi:10.1038/s41467-019-11626-7</a>
+    </div>
+  </div>
+
+  <div class="card direct">
+    <div class="card-body">
+      <div class="card-authors mono">Gorzelańczyk EJ, Podlipniak P, Walecki P, Karpiński R, Tarnowska M</div>
+      <h3>Pitch syntax violations are linked to greater skin conductance changes, relative to timbral violations</h3>
+      <p class="card-finding">
+        N=28 musically untrained participants. Measured electrodermal activity (nS) directly during playback of tonally correct, tonally violated, and timbre-altered melodies. <strong>Timbral changes produced SCR of 855 nS vs. 247 nS for in-key notes — a 3.5× increase</strong>. Pitch violations were stronger still (1311 nS). Establishes a direct acoustic → SCR chain for timbral change; roughness per se was not isolated but timbre shifts (piano → flute) were the manipulation. Amygdala and anterior cingulate–limbic loops proposed as mediators.
+      </p>
+      <span class="evidence-tag tag-direct">direct SCR measurement · sympathetic index</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2017</span>
+      <span class="journal-tag">Frontiers in Psychology</span>
+      <a class="doi-link" href="https://doi.org/10.3389/fpsyg.2017.00586" target="_blank" rel="noopener">doi:10.3389/fpsyg.2017.00586</a>
+    </div>
+  </div>
+
+  <div class="card inferred">
+    <div class="card-body">
+      <div class="card-authors mono">Schaefer HE</div>
+      <h3>Music-evoked emotions — current studies (review)</h3>
+      <p class="card-finding">
+        Narrative review documenting that <strong>dissonant chords containing irrational frequency ratios evoke roughness percepts</strong>, with measured skin conductance responses and amygdala / orbitofrontal cortex activity recorded in earlier studies (Koelsch et al., Blood &amp; Zatorre). Crescendo manipulations linked to cardiovascular modulation. The review collates existing physiological evidence rather than presenting new measurements; the roughness → SCR chain is assembled from multiple prior studies. ZCR not discussed.
+      </p>
+      <span class="evidence-tag tag-inferred">review · collated evidence</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2017</span>
+      <span class="journal-tag">Frontiers in Neuroscience</span>
+      <a class="doi-link" href="https://doi.org/10.3389/fnins.2017.00600" target="_blank" rel="noopener">doi:10.3389/fnins.2017.00600</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ SECTION 2 -->
+<div class="section-header">
+  <span class="section-num mono">02</span>
+  <div class="section-title-wrap">
+    <h2>Timbral roughness, psychoacoustics &amp; cortical arousal</h2>
+    <p class="section-desc">Search angle: timbral roughness cortical arousal psychoacoustics EEG ANS sympathetic</p>
+  </div>
+</div>
+
+<canvas class="wave-divider" id="wave2" aria-hidden="true"></canvas>
+
+<div class="card-grid">
+
+  <div class="card direct">
+    <div class="card-body">
+      <div class="card-authors mono">Erfanian M, Oberman T, Chait M, Kang J</div>
+      <h3>Loudness and sound category: their distinct roles in shaping perceptual and physiological responses to soundscapes</h3>
+      <p class="card-finding">
+        N=25 healthy adults. Directly measured SCR (sympathetic index) and perceptual ratings during natural vs. mechanical soundscapes at matched levels. <strong>Mechanical sounds — characterised by high-frequency spectral content, roughness, and sharpness — were rated more aversive and eventful than nature sounds at equal loudness</strong>. SCR amplitude showed significant main effect of loudness but not sound category; SCR rise-time (speed) correlated with eventfulness. Establishes that roughness-laden mechanical sounds drive faster sympathetic engagement even when loudness is controlled. Direct measurement.
+      </p>
+      <span class="evidence-tag tag-direct">direct SCR measurement · N=25</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2025</span>
+      <span class="journal-tag">eNeuro</span>
+      <a class="doi-link" href="https://doi.org/10.1523/ENEURO.0146-25.2025" target="_blank" rel="noopener">doi:10.1523/ENEURO.0146-25.2025</a>
+    </div>
+  </div>
+
+  <div class="card inferred">
+    <div class="card-body">
+      <div class="card-authors mono">Erfanian M, Mitchell AJ, Kang J, Aletta F</div>
+      <h3>The psychophysiological implications of soundscape: a systematic review of empirical literature and a research agenda</h3>
+      <p class="card-finding">
+        Systematic review of soundscape psychophysiology literature. Key finding: <strong>acoustic environments inconsistently evoke physiological responses across studies</strong>; the acoustic→ANS link is largely unestablished in soundscape research. Mechanical sounds (higher roughness) more consistently elevated SCR vs. nature sounds, but effect sizes were inconsistent across labs. Flags HRV as underused — only one reviewed study employed it. Roughness not measured as an isolated variable; reviewed studies use categorical stimulus types.
+      </p>
+      <span class="evidence-tag tag-inferred">systematic review · mixed evidence</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2019</span>
+      <span class="journal-tag">Int J Environ Res Public Health</span>
+      <a class="doi-link" href="https://doi.org/10.3390/ijerph16193533" target="_blank" rel="noopener">doi:10.3390/ijerph16193533</a>
+    </div>
+  </div>
+
+  <div class="card inferred">
+    <div class="card-body">
+      <div class="card-authors mono">Reymore L, Beauvais-Lacasse E, Smith BK, McAdams S</div>
+      <h3>Modeling noise-related timbre semantic categories of orchestral instrument sounds with audio features, pitch register, and instrument family</h3>
+      <p class="card-finding">
+        N-participant perceptual rating study. Three semantic categories isolated: <em>raspy/grainy/rough</em>, <em>harsh/noisy</em>, <em>airy/breathy</em>. <strong>Harmonic-to-noise ratio (HNR) was the strongest predictor of rough ratings (R²=0.78)</strong>. Both rough and harsh categories correlated negatively with positive valence (r=−0.90 and −0.61) and positively with perceived physical exertion. No physiological measurements; the arousal link is inferred from the valence-exertion-roughness cluster. ZCR not directly featured; HNR and inharmonicity are the key acoustic correlates.
+      </p>
+      <span class="evidence-tag tag-inferred">perceptual ratings · no physiology</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2022</span>
+      <span class="journal-tag">Frontiers in Psychology</span>
+      <a class="doi-link" href="https://doi.org/10.3389/fpsyg.2022.796422" target="_blank" rel="noopener">doi:10.3389/fpsyg.2022.796422</a>
+    </div>
+  </div>
+
+  <div class="card direct">
+    <div class="card-body">
+      <div class="card-authors mono">Roque AL, Valenti VE, Guida HL, et al.</div>
+      <h3>The effects of auditory stimulation with music on heart rate variability in healthy women</h3>
+      <p class="card-finding">
+        N participants. Compared baroque (relaxant), heavy metal (excitatory), and white noise on HRV indices. <strong>White noise — the highest-ZCR, roughest condition — specifically decreased HF power (parasympathetic withdrawal), while music styles decreased global variability through intensity rather than spectral content</strong>. RRtri and SD2 were significantly reduced by all conditions. Suggests noise-like texture (high ZCR, broadband) selectively suppresses parasympathetic tone. Direct HRV measurement; acoustic isolation partial.
+      </p>
+      <span class="evidence-tag tag-direct">direct HRV measurement · white noise comparison</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2013</span>
+      <span class="journal-tag">Clinics (São Paulo)</span>
+      <a class="doi-link" href="https://doi.org/10.6061/clinics/2013(07)12" target="_blank" rel="noopener">doi:10.6061/clinics/2013(07)12</a>
+    </div>
+  </div>
+
+  <div class="card inferred">
+    <div class="card-body">
+      <div class="card-authors mono">Anikin A</div>
+      <h3>Acoustic estimation of voice roughness</h3>
+      <p class="card-finding">
+        Validated two algorithms for estimating roughness from modulation spectra. Optimal modulation frequency range refined to <strong>50–200 Hz</strong> (narrower than earlier 30–150 Hz assumption). Achieved r=0.75/0.69 correlation with human roughness ratings. Notes rough sounds are perceived as more aversive and links roughness to dominance signalling across species. No ANS or arousal physiology measured; the arousal pathway is cited as existing literature.
+      </p>
+      <span class="evidence-tag tag-inferred">perceptual validation · no physiology</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2025</span>
+      <span class="journal-tag">Attention, Perception &amp; Psychophysics</span>
+      <a class="doi-link" href="https://doi.org/10.3758/s13414-025-03060-3" target="_blank" rel="noopener">doi:10.3758/s13414-025-03060-3</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ SECTION 3 -->
+<div class="section-header">
+  <span class="section-num mono">03</span>
+  <div class="section-title-wrap">
+    <h2>ZCR, noise texture &amp; arousal/alertness</h2>
+    <p class="section-desc">Search angle: zero crossing rate roughness arousal alertness music + noise spectral roughness alertness cortisol sympathetic</p>
+  </div>
+</div>
+
+<canvas class="wave-divider" id="wave3" aria-hidden="true"></canvas>
+
+<div class="card-grid">
+
+  <div class="card inferred">
+    <div class="card-body">
+      <div class="card-authors mono">Vuoskoski JK, Zickfeld JH, Alluri V, Moorthigari V, Seibt B</div>
+      <h3>Feeling moved by music: investigating continuous ratings and acoustic correlates</h3>
+      <p class="card-finding">
+        Continuous rating paradigm across four music excerpts. <strong>ZCR correlated significantly with feeling moved in the vocal excerpt (Allegri) only</strong>; the authors interpret ZCR as a proxy for vocal/voice-like texture. Spectral roughness correlated positively with feeling moved in three of four joyfully-moving excerpts. <strong>Arousal-related features (loudness, spectral flux, roughness) predicted moving responses only in joyful — not sad — music</strong>. No direct physiological measurement; self-report ratings only.
+      </p>
+      <span class="evidence-tag tag-inferred">continuous self-report · no physiology</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2022</span>
+      <span class="journal-tag">PLOS ONE</span>
+      <a class="doi-link" href="https://doi.org/10.1371/journal.pone.0261151" target="_blank" rel="noopener">doi:10.1371/journal.pone.0261151</a>
+    </div>
+  </div>
+
+  <div class="card inferred">
+    <div class="card-body">
+      <div class="card-authors mono">Bannister S</div>
+      <h3>A vigilance explanation of musical chills? Effects of loudness and brightness manipulations</h3>
+      <p class="card-finding">
+        Manipulated loudness and brightness of chill-inducing excerpts. <strong>Sudden increases in loudness, brightness, and — in naturalistic analysis — roughness were correlated with chill intensity across cultural styles</strong>. Proposes a "vigilance/alerting" pathway: fast acoustic transients trigger orienting responses mediated by subcortical alarm circuits, not solely reward. Chills accompanied by skin conductance increases in prior work (cited). The roughness–arousal link is proposed/inferred; no direct roughness manipulation was the IV.
+      </p>
+      <span class="evidence-tag tag-inferred">behavioral + proposed mechanism</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2020</span>
+      <span class="journal-tag">Music &amp; Science</span>
+      <a class="doi-link" href="https://doi.org/10.1177/2059204320915654" target="_blank" rel="noopener">doi:10.1177/2059204320915654</a>
+    </div>
+  </div>
+
+  <div class="card neural">
+    <div class="card-body">
+      <div class="card-authors mono">Search synthesis — multiple sources</div>
+      <h3>ZCR as noisiness index in emotion and arousal research — state of field</h3>
+      <p class="card-finding">
+        No peer-reviewed study was identified that directly measures ZCR as an independent variable and records ANS physiological output (SCR, HRV, cortisol) as the dependent variable. ZCR is routinely used as a feature in <strong>music emotion recognition (MER) models</strong> where it predicts the arousal dimension computationally, but these models use self-report labels, not physiology. The closest physiological proxy: white noise (maximum ZCR condition) in Roque et al. 2013 (above) showed selective parasympathetic withdrawal. The ZCR → ANS link is therefore <em>inferential</em> via noise texture → roughness → amygdala/SCR chain.
+      </p>
+      <span class="evidence-tag tag-neural">gap in literature · indirect chain only</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">—</span>
+      <span class="journal-tag">Field synthesis</span>
+    </div>
+  </div>
+
+  <div class="card direct">
+    <div class="card-body">
+      <div class="card-authors mono">Multiple studies cited in soundscape literature</div>
+      <h3>Mechanical sounds, high-frequency spectral content, and sympathetic activation</h3>
+      <p class="card-finding">
+        Multiple soundscape studies (reviewed in Erfanian 2019, confirmed in Erfanian 2025) demonstrate that <strong>mechanical/industrial sounds — characterised by broadband spectral content, sharpness, and roughness — consistently elevate skin conductance relative to nature sounds at equal loudness</strong>. Road traffic noise EEG studies (PMC10301920) found statistical relationships between roughness index and EEG beta power (alerting band). A direct roughness-isolated → SCR study has not been published; the effect is robust at the category level.
+      </p>
+      <span class="evidence-tag tag-direct">category-level SCR evidence · roughness not isolated IV</span>
+    </div>
+    <div class="card-right">
+      <span class="year-badge">2019–2025</span>
+      <span class="journal-tag">Soundscape literature</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ SUMMARY -->
+<div class="summary-box">
+  <h2>Evidence map — confidence by claim</h2>
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Claim</th>
+        <th>Evidence type</th>
+        <th>Confidence</th>
+        <th>Best citation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Roughness (30–150 Hz AM) activates amygdala specifically</td>
+        <td>fMRI, intracranial EEG</td>
+        <td class="conf-high">HIGH</td>
+        <td>Arnal et al. 2015; 2019</td>
+      </tr>
+      <tr>
+        <td>Roughness → salience network synchrony → sustained aversion</td>
+        <td>Intracranial EEG coherence</td>
+        <td class="conf-high">HIGH</td>
+        <td>Arnal et al. 2019 Nat Comms</td>
+      </tr>
+      <tr>
+        <td>Timbral change → skin conductance response (direct sympathetic)</td>
+        <td>Direct SCR measurement</td>
+        <td class="conf-high">HIGH</td>
+        <td>Gorzelańczyk et al. 2017</td>
+      </tr>
+      <tr>
+        <td>Mechanical/rough sounds → faster sympathetic engagement than nature sounds</td>
+        <td>Direct SCR (rise-time)</td>
+        <td class="conf-high">HIGH</td>
+        <td>Erfanian et al. 2025 eNeuro</td>
+      </tr>
+      <tr>
+        <td>Noise-like texture (white noise / high ZCR) → parasympathetic HF withdrawal</td>
+        <td>Direct HRV measurement</td>
+        <td class="conf-med">MODERATE</td>
+        <td>Roque et al. 2013 Clinics</td>
+      </tr>
+      <tr>
+        <td>Roughness → negative valence + exertion ratings in orchestral timbre</td>
+        <td>Perceptual ratings only</td>
+        <td class="conf-med">MODERATE</td>
+        <td>Reymore et al. 2022</td>
+      </tr>
+      <tr>
+        <td>ZCR specifically → ANS arousal (direct physiological measurement)</td>
+        <td>No direct study found</td>
+        <td class="conf-low">NOT ESTABLISHED</td>
+        <td>Gap: inferred via noise→roughness chain</td>
+      </tr>
+      <tr>
+        <td>Roughness → cortisol / HPA axis activation</td>
+        <td>No direct study found</td>
+        <td class="conf-low">NOT ESTABLISHED</td>
+        <td>Loudness &gt;92 dBA → catecholamines (unrelated)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+// ── Waveform canvas dividers ──
+// Each wave is modulated at a different AM rate to visually encode evidence strength.
+// wave1 = roughness range (rough, 70 Hz visual metaphor)
+// wave2 = mid-range (40 Hz)
+// wave3 = slow/smooth (inferential, 15 Hz)
+
+function drawWave(canvasId, amRate, color, opacity) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 860;
+  const H = 48;
+  canvas.width = W;
+  canvas.height = H;
+
+  const baseFreq = 0.012;   // carrier spatial freq
+  const t = Date.now() / 1200;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.2;
+  ctx.globalAlpha = opacity;
+  ctx.beginPath();
+
+  for (let x = 0; x <= W; x++) {
+    const phase = (x / W) * Math.PI * 2 * 4;
+    const am = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(amRate * phase + t));
+    const y = H / 2 + am * 12 * Math.sin(phase * 3 + t * 0.8);
+    if (x === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  ctx.stroke();
+
+  // Centre baseline
+  ctx.globalAlpha = opacity * 0.25;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 0.5;
+  ctx.beginPath();
+  ctx.moveTo(0, H / 2);
+  ctx.lineTo(W, H / 2);
+  ctx.stroke();
+}
+
+// Static render — no animation, but drawn once on load
+// This respects prefers-reduced-motion by design (no rAF loop)
+function renderAll() {
+  drawWave('wave1', 4.5, '#2E9E5B', 0.55);  // rough / high AM
+  drawWave('wave2', 2.2, '#3B3580', 0.45);  // medium
+  drawWave('wave3', 0.9, '#B87333', 0.40);  // smooth / inferred
+}
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+  renderAll();
+  // Subtle single re-render after fonts load for width accuracy
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(renderAll);
+  }
+}
+</script>

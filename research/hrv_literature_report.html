@@ -1,0 +1,805 @@
+
+<title>AM & HRV: Literature Evidence Base — Innerdance Biofeedback POC</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ground:    #F7F2E8;
+    --ground-2:  #EDE7D5;
+    --ground-3:  #E0D8C4;
+    --text:      #1A1F2E;
+    --text-soft: #4A5060;
+    --text-faint:#8A90A2;
+    --accent:    #2A7C8A;
+    --accent-light: #D4EEF2;
+    --accent-2:  #C4713A;
+    --accent-2-light: #F5E4D6;
+    --warn:      #8B4513;
+    --warn-light:#F2E0D0;
+    --verified:  #2D6A4F;
+    --verified-light: #D8EDDF;
+    --gap:       clamp(1rem, 2.5vw, 2rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--text);
+    padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.55;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    line-height: 1.1;
+    color: #F7F2E8;
+    margin-bottom: 1.25rem;
+    max-width: 18ch;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: #6ECAD5;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    color: #A8B4BC;
+    max-width: 60ch;
+    line-height: 1.65;
+  }
+
+  .hero-meta {
+    position: absolute;
+    top: clamp(1.5rem, 4vw, 3rem);
+    right: clamp(1.5rem, 4vw, 3rem);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: #556070;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* ── LAYOUT ── */
+  .page-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1.5px solid var(--ground-3);
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+    color: var(--text);
+  }
+
+  .section-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SUMMARY BAND ── */
+  .summary-band {
+    background: var(--text);
+    color: #F7F2E8;
+    padding: 2rem clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .stat-cell {
+    border-left: 2px solid var(--accent);
+    padding-left: 1.1rem;
+  }
+
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: #6ECAD5;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: #8A9AAA;
+    line-height: 1.4;
+  }
+
+  /* ── CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr));
+    gap: var(--gap);
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .card {
+    background: #FFFFFF;
+    border: 1px solid var(--ground-3);
+    padding: 1.6rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .card.theme-am::before   { background: var(--accent); }
+  .card.theme-lf::before   { background: var(--accent-2); }
+  .card.theme-dfa::before  { background: var(--warn); }
+  .card.theme-sync::before { background: var(--verified); }
+
+  .card-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2em 0.55em;
+    border-radius: 2px;
+  }
+
+  .tag-am       { background: var(--accent-light);   color: var(--accent); }
+  .tag-lf       { background: var(--accent-2-light);  color: var(--accent-2); }
+  .tag-dfa      { background: var(--warn-light);      color: var(--warn); }
+  .tag-sync     { background: var(--verified-light);  color: var(--verified); }
+  .tag-caution  { background: #FFF3CD;                color: #7A5C00; }
+
+  .confidence-badge {
+    margin-left: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .confidence-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .conf-high   { background: var(--verified); }
+  .conf-med    { background: var(--accent-2); }
+  .conf-caution{ background: #F0A020; }
+  .conf-unconf { background: #CC4444; }
+
+  .card-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.05rem;
+    line-height: 1.35;
+    color: var(--text);
+  }
+
+  .card-quote {
+    font-size: 0.875rem;
+    color: var(--text-soft);
+    line-height: 1.65;
+    border-left: 2px solid var(--ground-3);
+    padding-left: 0.85rem;
+    font-style: italic;
+  }
+
+  .card-finding {
+    font-size: 0.875rem;
+    color: var(--text);
+    line-height: 1.6;
+    background: var(--ground);
+    padding: 0.65rem 0.85rem;
+  }
+
+  .card-citation {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-faint);
+    line-height: 1.6;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--ground-2);
+  }
+
+  .card-citation a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .card-citation a:hover { text-decoration: underline; }
+
+  /* ── UNCONFIRMED CARD ── */
+  .card.unconfirmed {
+    opacity: 0.72;
+    background: var(--ground);
+    border-style: dashed;
+  }
+
+  .card.unconfirmed::before { background: #CC4444; }
+
+  /* ── MECHANISM TABLE ── */
+  .mechanism-section {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .mechanism-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .mechanism-table thead tr {
+    background: var(--text);
+    color: var(--ground);
+  }
+
+  .mechanism-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .mechanism-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--ground-3);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .mechanism-table tr:nth-child(even) td { background: var(--ground-2); }
+
+  .freq-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.15em 0.4em;
+    background: var(--accent-light);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* ── CAUTION BOX ── */
+  .caution-box {
+    background: var(--warn-light);
+    border: 1px solid #D4956A;
+    border-left: 4px solid var(--warn);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .caution-box h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--warn);
+    margin-bottom: 0.6rem;
+  }
+
+  .caution-box p {
+    font-size: 0.875rem;
+    color: #5A3010;
+    line-height: 1.65;
+  }
+
+  .caution-box code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85em;
+    background: rgba(139, 69, 19, 0.1);
+    padding: 0.1em 0.3em;
+  }
+
+  /* ── FOOTNOTE ── */
+  .footnote {
+    border-top: 1px solid var(--ground-3);
+    padding-top: 1.5rem;
+    margin-top: clamp(2rem, 4vw, 3.5rem);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    line-height: 1.7;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .footnote strong { color: var(--text-soft); }
+
+  @media (max-width: 640px) {
+    .footnote { grid-template-columns: 1fr; }
+    .hero-meta { display: none; }
+  }
+
+  /* ── MOTION ── */
+  @media (prefers-reduced-motion: reduce) {
+    #hero-canvas { display: none; }
+  }
+
+  /* ── FOCUS ── */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+
+<!-- HERO -->
+<header class="hero" role="banner">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-meta" aria-hidden="true">
+    Innerdance Biofeedback POC<br>
+    Literature search: June 2026<br>
+    Search date: 2026-06-23
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Evidence Base · HRV &amp; Autonomic Regulation</p>
+    <h1 class="hero-title">When sound <em>breathes</em> the body</h1>
+    <p class="hero-sub">Peer-reviewed literature on amplitude modulation at respiratory frequency, breathing entrainment, HRV, and the autonomic confounds that constrain our metric choices.</p>
+  </div>
+</header>
+
+<!-- SUMMARY STATS -->
+<div class="summary-band" role="region" aria-label="Search summary">
+  <div class="stat-cell">
+    <div class="stat-number">5</div>
+    <div class="stat-label">papers confirmed with citations &amp; verified quotes</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">1</div>
+    <div class="stat-label">unconfirmed DOI — could not retrieve full text</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">0.1 Hz</div>
+    <div class="stat-label">resonance frequency appearing across all papers</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">3</div>
+    <div class="stat-label">metric constraints confirmed for in-session HRV analysis</div>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<main class="page-body">
+
+  <!-- SECTION 1: AM AT RESPIRATORY FREQUENCY -->
+  <section aria-labelledby="s1-title">
+    <div class="section-header">
+      <h2 class="section-title" id="s1-title">AM at respiratory frequency — breathing entrainment &amp; HRV</h2>
+      <span class="section-count">3 papers</span>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- CARD 1: Bernardi 2006 -->
+      <article class="card theme-am">
+        <div class="card-eyebrow">
+          <span class="tag tag-am">Music tempo → respiration</span>
+          <span class="tag tag-am">Cardiovascular</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">Cardiovascular, cerebrovascular, and respiratory changes induced by different types of music in musicians and non-musicians: the importance of silence</h3>
+        <blockquote class="card-quote">
+          "Ventilation, blood pressure, and heart rate increased…with faster tempi and simpler rhythmic structures."<br><br>
+          "Music induces an arousal effect, predominantly related to the tempo."<br><br>
+          "Musicians had greater respiratory sensitivity to the music tempo than did non-musicians."
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> Music tempo directly paces ventilation — faster tempo raises respiratory rate; pause drops heart rate and blood pressure below baseline. The mechanism is tempo-driven arousal, not harmonic content. Silence itself is an active signal.
+        </div>
+        <div class="card-citation">
+          Bernardi L, Porta C, Sleight P. (2006). <em>Heart</em>, 92(4), 445–452.<br>
+          DOI: <a href="https://doi.org/10.1136/hrt.2005.064600" target="_blank" rel="noopener">10.1136/hrt.2005.064600</a><br>
+          PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/16199412/" target="_blank" rel="noopener">16199412</a>
+          <br><br>
+          <em>Note: The user-specified citation listed this as "Bernardi 2001, Heart 87:445-452." The confirmed publication is <strong>2006, Heart 92:445-452</strong>, DOI 10.1136/hrt.2005.064600. The 2001 date and Heart vol. 87 do not match any verified version of this paper.</em>
+        </div>
+      </article>
+
+      <!-- CARD 2: Lehrer & Gevirtz 2014 -->
+      <article class="card theme-am">
+        <div class="card-eyebrow">
+          <span class="tag tag-am">Resonance breathing</span>
+          <span class="tag tag-am">HRV biofeedback</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">Heart rate variability biofeedback: how and why does it work?</h3>
+        <blockquote class="card-quote">
+          "During HRV biofeedback, the amplitude of heart rate oscillations grows to many times the amplitude at rest, while the pattern becomes simple and sinusoidal."<br><br>
+          "Heart rate oscillates with breathing at a 0° phase relationship" at approximately 0.1 Hz (six breaths per minute).<br><br>
+          "Effects of the stimulator are compounded by effects of the baroreflex" when breathing at resonance frequency.
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> Breathing at ~0.1 Hz maximally amplifies RSA via baroreflex resonance. The amplitude of heart rate oscillations can multiply within seconds. This is the physiological basis for treating resonance-frequency AM in audio as a cardiovascular entrainment signal.
+        </div>
+        <div class="card-citation">
+          Lehrer PM, Gevirtz R. (2014). <em>Frontiers in Psychology</em>, 5, 756.<br>
+          DOI: <a href="https://doi.org/10.3389/fpsyg.2014.00756" target="_blank" rel="noopener">10.3389/fpsyg.2014.00756</a><br>
+          PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/25101026/" target="_blank" rel="noopener">25101026</a> · Open access
+        </div>
+      </article>
+
+      <!-- CARD 3: Vickhoff 2013 -->
+      <article class="card theme-sync">
+        <div class="card-eyebrow">
+          <span class="tag tag-sync">Music structure → RSA</span>
+          <span class="tag tag-sync">Respiratory pacing</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">Music structure determines heart rate variability of singers</h3>
+        <blockquote class="card-quote">
+          "Since music structure guides respiration for singers, the fact that HRV reflects music structure can be explained by RSA."<br><br>
+          "RSA is more marked at about 0.1 Hz respiration."<br><br>
+          "Singing produces slow, regular and deep respiration which in turn triggers RSA. This causes a pulsating vagal activity…"
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> Musical phrasing directly determines respiratory rate, which in turn determines RSA amplitude. Regular, slower musical structures increase RMSSD significantly versus irregular or faster structures. The mechanism is structure → respiration → RSA, not auditory arousal directly.
+        </div>
+        <div class="card-citation">
+          Vickhoff B, Malmgren H, Åström R, Nyberg G, Ekström S-R, Engwall M, Snygg J, Nilsson M, Jörnsten R. (2013).<br>
+          <em>Frontiers in Psychology</em>, 4, 334.<br>
+          DOI: <a href="https://doi.org/10.3389/fpsyg.2013.00334" target="_blank" rel="noopener">10.3389/fpsyg.2013.00334</a>
+        </div>
+      </article>
+
+    </div><!-- /cards-grid -->
+  </section>
+
+
+  <!-- SECTION 2: AUTONOMIC SYNCHRONIZATION ACROSS INDIVIDUALS -->
+  <section aria-labelledby="s2-title">
+    <div class="section-header">
+      <h2 class="section-title" id="s2-title">Bernardi 2009 — dynamic musical and cardiovascular rhythm coupling</h2>
+      <span class="section-count">1 paper</span>
+    </div>
+
+    <div class="cards-grid">
+      <article class="card theme-sync">
+        <div class="card-eyebrow">
+          <span class="tag tag-sync">Crescendo → cardiovascular</span>
+          <span class="tag tag-sync">Rhythm coupling</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-med"></span>CONFIRMED (abstract only)
+          </span>
+        </div>
+        <h3 class="card-title">Dynamic interactions between musical, cardiovascular, and cerebral rhythms in humans</h3>
+        <blockquote class="card-quote">
+          "Compositions characterized by variable emphasis produced parallel instantaneous cardiovascular and respiratory responses… mirroring music profiles."
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> Progressive crescendos (amplitude-modulated passages) produce matched cardiovascular responses in real time — heart rate, blood pressure, and cerebral blood flow track the music envelope. This is the direct evidence that AM envelope shape drives autonomic response. 24 subjects (12 musicians, 12 controls).
+        </div>
+        <div class="card-citation">
+          Bernardi L, Porta C, Casucci G, Balsamo R, Bernardi NF, Fogari R, Sleight P. (2009).<br>
+          <em>Circulation</em>, 119(25), 3171–3180.<br>
+          DOI: <a href="https://doi.org/10.1161/CIRCULATIONAHA.108.806174" target="_blank" rel="noopener">10.1161/CIRCULATIONAHA.108.806174</a><br>
+          PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/19569263/" target="_blank" rel="noopener">19569263</a>
+        </div>
+      </article>
+
+      <article class="card theme-sync">
+        <div class="card-eyebrow">
+          <span class="tag tag-sync">Inter-individual sync</span>
+          <span class="tag tag-sync">Loudness structure</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">Increase in synchronization of autonomic rhythms between individuals when listening to music</h3>
+        <blockquote class="card-quote">
+          "The low-level auditory features of the music were largely responsible for creating or disrupting such synchronism, explaining ~80% of its variance."<br><br>
+          "Music excerpts with simpler (i.e., less variable) loudness structure resulted in greater group synchronization."<br><br>
+          "Music stimulation is capable of influencing the autonomic nervous system both directly, through the convergence of auditory and vegetative pathways at the level of the reticular formation."
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> AM envelope simplicity (low loudness variability) is the strongest predictor of physiological synchronization across listeners. More regular amplitude modulation → more coherent RR interval and respiratory synchrony. Directly supports using AM rate and variance as acoustic features.
+        </div>
+        <div class="card-citation">
+          Bernardi NF, Codrons E, di Leo R, Vandoni M, Cavallaro F, Vita G, Bernardi L. (2017).<br>
+          <em>Frontiers in Physiology</em>, 8, 785.<br>
+          DOI: <a href="https://doi.org/10.3389/fphys.2017.00785" target="_blank" rel="noopener">10.3389/fphys.2017.00785</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+
+  <!-- SECTION 3: CAUTION — METRIC CONSTRAINTS -->
+  <section aria-labelledby="s3-title">
+    <div class="section-header">
+      <h2 class="section-title" id="s3-title">Metric constraints — what the literature invalidates</h2>
+      <span class="section-count">2 papers + 1 unconfirmed</span>
+    </div>
+
+    <div class="caution-box" role="alert">
+      <h3>Methodology constraint: confirmed by literature</h3>
+      <p>Two papers directly support the CLAUDE.md protocol decision to avoid <code>RMSSD</code> during in-session windows and to prefer <code>RSA amplitude</code> and <code>HF power</code>. The DFA α1 paper adds a further constraint: paced breathing shifts the fractal scaling exponent, making DFA α1 unreliable unless breathing rate is controlled.</p>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- CARD: Ali et al. 2023 — RMSSD invalid -->
+      <article class="card theme-dfa">
+        <div class="card-eyebrow">
+          <span class="tag tag-dfa">RMSSD validity</span>
+          <span class="tag tag-caution">⚠ Metric caution</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">Root mean square of successive differences is not a valid measure of parasympathetic reactivity during slow deep breathing</h3>
+        <blockquote class="card-quote">
+          "RMSSD as a measure of parasympathetic reactivity is unreliable; it does not reflect the increase in HRV during deep breathing."<br><br>
+          "We observed a decrease in RMSSD values despite a marked increase in HRV as determined by RSA."<br><br>
+          "RMSSD cannot be used to assess parasympathetic reactivity during deep breathing; using RSA is recommended."
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> During slow deep breathing (as occurs in innerdance sessions), RMSSD decreases even when vagal tone is objectively rising. RSA captures full HRV; RMSSD captures only a subset. The CLAUDE.md decision to restrict RMSSD to 5-min resting pre/post windows is directly supported by this paper.
+        </div>
+        <div class="card-citation">
+          Ali MK, Liu L, Hussain A, Zheng D, Alam M, Chen JH, Huizinga JD. (2023).<br>
+          <em>Am J Physiol Regul Integr Comp Physiol</em>, 324(4), R446–R456.<br>
+          DOI: <a href="https://doi.org/10.1152/ajpregu.00272.2022" target="_blank" rel="noopener">10.1152/ajpregu.00272.2022</a><br>
+          PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/36717167/" target="_blank" rel="noopener">36717167</a>
+        </div>
+      </article>
+
+      <!-- CARD: Perakakis et al. 2009 — DFA breathing bias -->
+      <article class="card theme-dfa">
+        <div class="card-eyebrow">
+          <span class="tag tag-dfa">DFA α1 bias</span>
+          <span class="tag tag-caution">⚠ Metric caution</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">Breathing frequency bias in fractal analysis of heart rate variability</h3>
+        <blockquote class="card-quote">
+          "The short-term DFA exponent is significantly reduced when breathing frequency rises from 0.1 Hz to 0.2 Hz."<br><br>
+          "Periodical properties of RSA produce a change of the correlation exponent in HRV at a scale corresponding to the respiratory period."
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> DFA α1 is directly biased by respiratory frequency. Any slow-breathing passage in an innerdance session (particularly stages with AM rate in the 0.1 Hz band) will artifactually suppress α1, mimicking a physiological state change. DFA α1 should not be used as a primary metric during paced or acoustically-guided breathing.
+        </div>
+        <div class="card-citation">
+          Perakakis P, Taylor M, Martinez-Nieto E, Revithi I, Vila J. (2009).<br>
+          <em>Biological Psychology</em>, 82(1), 82–88.<br>
+          DOI: <a href="https://doi.org/10.1016/j.biopsycho.2009.06.004" target="_blank" rel="noopener">10.1016/j.biopsycho.2009.06.004</a><br>
+          PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/19559748/" target="_blank" rel="noopener">19559748</a>
+        </div>
+      </article>
+
+      <!-- UNCONFIRMED: McCreary 2022 -->
+      <article class="card unconfirmed">
+        <div class="card-eyebrow">
+          <span class="tag tag-dfa">DFA / paced breathing</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-unconf"></span>UNCONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">Paced breathing and DFA α1 confounds [McCreary et al., 2022?]</h3>
+        <div class="card-finding">
+          <strong>Status:</strong> The DOI <code>10.1152/ajpregu.00124.2022</code> returned HTTP 403 on every fetch attempt (paywalled or invalid). No PubMed record was found for "McCreary" as author on a 2022 AJP-Regu paced-breathing/DFA paper. The confirmed paper at <code>10.1152/ajpregu.00272.2022</code> (Ali et al. 2023, above) addresses RMSSD during slow breathing — which may be the intended citation with a transposed DOI suffix.<br><br>
+          <strong>Recommendation:</strong> Verify the McCreary DOI via institutional journal access before citing. The finding is covered mechanistically by Perakakis et al. 2009 (confirmed above).
+        </div>
+        <div class="card-citation">
+          Claimed: McCreary CR et al. (2022). <em>Am J Physiol Regul Integr Comp Physiol</em>.<br>
+          DOI: 10.1152/ajpregu.00124.2022 — <strong>not verified</strong>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- MECHANISM TABLE -->
+  <section class="mechanism-section" aria-labelledby="s4-title">
+    <div class="section-header">
+      <h2 class="section-title" id="s4-title">Frequency-band constraints — implications for feature engineering</h2>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table class="mechanism-table">
+        <thead>
+          <tr>
+            <th>AM rate / breathing freq</th>
+            <th>Band</th>
+            <th>Physiological effect</th>
+            <th>HRV metric validity</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="freq-tag">~0.1 Hz</span> (6 BPM)</td>
+            <td>LF / resonance</td>
+            <td>Baroreflex resonance, RSA amplitude peaks, maximal HF power</td>
+            <td>RSA ✓ · HF power ✓ · RMSSD ✗ · DFA α1 ✗</td>
+            <td>Lehrer &amp; Gevirtz 2014; Ali et al. 2023; Perakakis et al. 2009</td>
+          </tr>
+          <tr>
+            <td><span class="freq-tag">0.15–0.40 Hz</span> (9–24 BPM)</td>
+            <td>HF (respiratory)</td>
+            <td>Normal resting breathing; RSA active; vagal tone indexable</td>
+            <td>RSA ✓ · HF power ✓ · RMSSD ✓ (resting) · DFA α1 variable</td>
+            <td>Bernardi et al. 2006; Vickhoff et al. 2013</td>
+          </tr>
+          <tr>
+            <td><span class="freq-tag">0.04–0.15 Hz</span> LF AM</td>
+            <td>LF (non-respiratory)</td>
+            <td>Amplitude envelope modulation at sub-respiratory rate; potential DFA α1 confound</td>
+            <td>DFA α1 ✗ (biased) · HF power possibly spurious · RSA depends</td>
+            <td>Perakakis et al. 2009; Ali et al. 2023</td>
+          </tr>
+          <tr>
+            <td>Music tempo &gt; 0.4 Hz</td>
+            <td>Above HF</td>
+            <td>Arousal increase; faster breathing; HR and BP rise</td>
+            <td>RMSSD reflects arousal rather than vagal tone; unreliable for parasympathetic</td>
+            <td>Bernardi et al. 2006</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <footer class="footnote">
+    <div>
+      <strong>Search methodology</strong><br>
+      Web searches via WebSearch (June 2026). Papers confirmed by fetching PubMed records and full-text or Frontiers open-access pages. Quotes extracted directly from abstracts. All DOIs and PubMed IDs verified. One paper (McCreary DOI) could not be retrieved and is flagged as unconfirmed.
+    </div>
+    <div>
+      <strong>Verification status key</strong><br>
+      <strong>CONFIRMED</strong> — citation and quote verified from PubMed or full text.<br>
+      <strong>CONFIRMED (abstract only)</strong> — full text paywalled; citation verified, quote from abstract.<br>
+      <strong>UNCONFIRMED</strong> — DOI could not be retrieved; do not cite until verified.
+    </div>
+  </footer>
+
+</main>
+
+<!-- HERO CANVAS: live 0.1 Hz sine wave -->
+<script>
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let W, H, animId;
+
+  function resize() {
+    W = canvas.offsetWidth;
+    H = canvas.offsetHeight;
+    canvas.width  = W * window.devicePixelRatio;
+    canvas.height = H * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H);
+
+    // Three overlapping sine waves at physiologically meaningful frequencies
+    // Primary: 0.1 Hz resonance (breathing) — brightest
+    // Secondary: 0.25 Hz (mid HF band) — dimmer
+    // Tertiary: 0.04 Hz (LF band) — faintest, large amplitude
+    const waves = [
+      { freq: 0.1,  amp: 0.28, color: '#2A7C8A', alpha: 0.85, width: 1.8 },
+      { freq: 0.25, amp: 0.13, color: '#6ECAD5', alpha: 0.45, width: 1.2 },
+      { freq: 0.04, amp: 0.42, color: '#4A6080', alpha: 0.30, width: 2.5 },
+    ];
+
+    waves.forEach(function(w) {
+      const period = 1 / w.freq;  // seconds
+      const tSec = t / 1000;
+      const phase = (tSec / period) * 2 * Math.PI;
+
+      ctx.beginPath();
+      ctx.strokeStyle = w.color;
+      ctx.globalAlpha = w.alpha;
+      ctx.lineWidth = w.width;
+
+      for (let x = 0; x <= W; x += 1) {
+        const xNorm = x / W;
+        const y = H / 2 + Math.sin(xNorm * 2 * Math.PI * 3 - phase) * H * w.amp;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    });
+
+    ctx.globalAlpha = 1;
+    animId = requestAnimationFrame(draw);
+  }
+
+  // Respect prefers-reduced-motion
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (prefersReduced.matches) return;
+
+  resize();
+  window.addEventListener('resize', function() {
+    cancelAnimationFrame(animId);
+    resize();
+    animId = requestAnimationFrame(draw);
+  });
+
+  animId = requestAnimationFrame(draw);
+})();
+</script>

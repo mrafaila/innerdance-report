@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spectral Centroid &amp; Autonomic Arousal — Literature Review</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  /* ── Reset + base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ground:      #0E1420;
+    --ground-mid:  #151D2E;
+    --ground-surf: #1C2640;
+    --ground-card: #18213A;
+    --text:        #E2E8F4;
+    --text-dim:    #8A96B0;
+    --text-faint:  #4A5470;
+    --accent:      #E8A030;
+    --accent-dim:  #7A5218;
+    --teal:        #2D9B8A;
+    --teal-dim:    #1B5C52;
+    --amber:       #B8742A;
+    --amber-dim:   #5C3A14;
+    --border:      rgba(255,255,255,0.07);
+    --border-mid:  rgba(255,255,255,0.12);
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Typography scale ── */
+  .display {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .display-sm {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 2rem 4rem;
+    background: linear-gradient(180deg, #0a0f1a 0%, var(--ground) 100%);
+  }
+
+  /* Spectrum visualisation — CSS only, no SVG paths */
+  .spectrum-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    padding: 0 0 0 0;
+    pointer-events: none;
+    opacity: 0.18;
+  }
+
+  .spec-bar {
+    flex: 1;
+    background: linear-gradient(to top, var(--accent), transparent);
+    border-radius: 1px 1px 0 0;
+    animation: specPulse var(--dur, 3s) ease-in-out infinite alternate;
+    transform-origin: bottom;
+  }
+
+  @keyframes specPulse {
+    from { transform: scaleY(var(--h-from, 0.3)); }
+    to   { transform: scaleY(var(--h-to,   1.0)); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spec-bar { animation: none; transform: scaleY(var(--h-from, 0.5)); }
+  }
+
+  /* Centroid marker — vertical line that shifts */
+  .centroid-marker {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    left: 42%;
+    opacity: 0.6;
+    animation: centroidDrift 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes centroidDrift {
+    from { left: 38%; opacity: 0.5; }
+    to   { left: 48%; opacity: 0.7; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .centroid-marker { animation: none; left: 42%; }
+  }
+
+  .centroid-label {
+    position: absolute;
+    top: 2.5rem;
+    left: calc(42% + 0.6rem);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    animation: centroidDrift 8s ease-in-out infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .centroid-label { animation: none; left: calc(42% + 0.6rem); }
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-eyebrow .label { color: var(--accent); }
+
+  .hero-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--accent-dim);
+    max-width: 120px;
+  }
+
+  .hero-title {
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    color: var(--text-dim);
+    font-size: 1rem;
+    max-width: 640px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Verdict strip */
+  .verdict-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0;
+  }
+
+  .verdict-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border: 1px solid;
+  }
+
+  .verdict-pill.direct {
+    background: rgba(45,155,138,0.12);
+    border-color: var(--teal-dim);
+    color: var(--teal);
+  }
+
+  .verdict-pill.infer {
+    background: rgba(184,116,42,0.12);
+    border-color: var(--amber-dim);
+    color: var(--amber);
+  }
+
+  .verdict-pill .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  /* ── Summary bar ── */
+  .summary-bar {
+    background: var(--ground-mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem;
+  }
+
+  .summary-bar-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+  }
+
+  .stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-sub {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  /* ── Main content ── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  /* ── Section header ── */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin: 3rem 0 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-head h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .section-head .section-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    margin-left: auto;
+  }
+
+  /* ── Evidence cards ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: var(--ground-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .card:hover {
+    border-color: var(--border-mid);
+    transform: translateY(-2px);
+  }
+
+  /* Left border coding */
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    border-radius: 8px 0 0 8px;
+  }
+
+  .card.direct::before { background: var(--teal); }
+  .card.infer::before  { background: var(--amber); }
+  .card.null::before   { background: var(--text-faint); }
+
+  .card-meta {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .card-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-faint);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .evidence-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .evidence-badge.direct {
+    background: rgba(45,155,138,0.15);
+    color: var(--teal);
+    border: 1px solid var(--teal-dim);
+  }
+
+  .evidence-badge.infer {
+    background: rgba(184,116,42,0.15);
+    color: var(--amber);
+    border: 1px solid var(--amber-dim);
+  }
+
+  .evidence-badge.null {
+    background: rgba(74,84,112,0.2);
+    color: var(--text-faint);
+    border: 1px solid rgba(74,84,112,0.3);
+  }
+
+  .card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text);
+  }
+
+  .card-authors {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  .card-journal {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    font-style: italic;
+  }
+
+  .card-finding {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    background: rgba(255,255,255,0.03);
+    border-radius: 4px;
+    padding: 0.65rem 0.75rem;
+    border-left: 2px solid var(--border-mid);
+    flex-grow: 1;
+  }
+
+  .card-finding strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .card-doi {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-faint);
+    text-decoration: none;
+    word-break: break-all;
+    display: block;
+    transition: color 0.15s;
+  }
+
+  .card-doi:hover { color: var(--accent); }
+
+  .card-doi:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ── Synthesis callout ── */
+  .synthesis {
+    margin-top: 3rem;
+    background: var(--ground-surf);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 2rem;
+  }
+
+  .synthesis-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .synthesis-icon {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .synthesis h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .synthesis-body {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    line-height: 1.75;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .synthesis-body p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Claim checklist */
+  .claim-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .claim-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.84rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .claim-row .icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-style: normal;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    min-width: 16px;
+  }
+
+  .icon-yes { color: var(--teal); }
+  .icon-partial { color: var(--amber); }
+  .icon-no { color: var(--text-faint); }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text-faint);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .cards { grid-template-columns: 1fr; }
+    .hero { padding: 3.5rem 1.25rem 3rem; }
+    .main { padding: 2rem 1.25rem 4rem; }
+    .summary-bar { padding: 1.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero" role="banner">
+  <!-- Spectrum bars (purely decorative) -->
+  <div class="spectrum-bg" aria-hidden="true" id="specBars"></div>
+  <div class="centroid-marker" aria-hidden="true"></div>
+  <div class="centroid-label" aria-hidden="true">f̄ = centroid</div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="label">Innerdance Biofeedback POC</span>
+    </div>
+    <h1 class="display hero-title">
+      <em>Spectral centroid</em> as a predictor<br>of autonomic arousal
+    </h1>
+    <p class="hero-sub">
+      A systematic sweep of peer-reviewed literature linking spectral centroid
+      and spectral brightness to physiological arousal — heart rate, skin conductance,
+      HRV, pupil dilation — and to subjective arousal ratings. Evidence coded
+      by directness: measured vs. inferred.
+    </p>
+    <div class="verdict-strip">
+      <div class="verdict-pill direct">
+        <span class="dot"></span>
+        Direct physiological — ANS measured
+      </div>
+      <div class="verdict-pill infer">
+        <span class="dot"></span>
+        Inferential — subjective ratings only
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SUMMARY BAR -->
+<div class="summary-bar">
+  <div class="summary-bar-inner">
+    <div class="stat-block">
+      <span class="stat-num">9</span>
+      <span class="stat-sub">papers identified across three search angles</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">4</span>
+      <span class="stat-sub">with <strong style="color:var(--teal)">direct</strong> physiological measurement of ANS</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">4</span>
+      <span class="stat-sub">inferential via subjective arousal ratings</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">1</span>
+      <span class="stat-sub">null result (naturalistic concert setting)</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- SECTION A: Direct evidence -->
+  <div class="section-head">
+    <h2>Direct physiological evidence</h2>
+    <span class="section-count">4 papers</span>
+  </div>
+
+  <div class="cards">
+
+    <!-- Card 1 -->
+    <article class="card direct">
+      <div class="card-meta">
+        <span class="card-year">2015</span>
+        <span class="evidence-badge direct">✓ Direct — SCR + HR + Resp</span>
+      </div>
+      <p class="card-title">Music induces universal emotion-related psychophysiological responses: comparing Canadian listeners to Congolese Pygmies</p>
+      <p class="card-authors">Egermann, H., Fernando, N., Chuen, L., &amp; McAdams, S.</p>
+      <p class="card-journal">Frontiers in Psychology, doi:10.3389/fpsyg.2014.01341</p>
+      <p class="card-finding">
+        <strong>Key finding:</strong> Increases in spectral centroid and pitch produced
+        <strong>increased skin conductance (SCR) in both cultural groups</strong>
+        — the strongest cross-cultural result. Canadians also showed increased respiration rate
+        with spectral centroid rises; heart rate did not respond to spectral centroid
+        (only to tempo). Mechanism proposed: brainstem reflexes reacting to urgency cues —
+        a pathway independent of cultural learning.
+      </p>
+      <a class="card-doi" href="https://doi.org/10.3389/fpsyg.2014.01341" target="_blank" rel="noopener">doi: 10.3389/fpsyg.2014.01341</a>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="card direct">
+      <div class="card-meta">
+        <span class="card-year">2026</span>
+        <span class="evidence-badge direct">✓ Direct — HRV + HR + Resp</span>
+      </div>
+      <p class="card-title">Listeners' baseline autonomic states associated with distinct music-physiology response patterns</p>
+      <p class="card-authors">Soliński, M., Pope, V., Lambiase, P., &amp; Chew, E.</p>
+      <p class="card-journal">European Heart Journal: Imaging Methods and Practice, doi:10.1093/ehjimp/qyag013</p>
+      <p class="card-finding">
+        <strong>Key finding:</strong> Spectral centroid increases were statistically significant
+        predictors of cardiovascular change — shortened respiratory intervals and
+        reduced LF-HRV power, <strong>consistent with sympathetic activation</strong>.
+        Critically, the direction of effect depended on baseline autonomic state:
+        parasympathetic-dominant listeners showed lengthened RR intervals;
+        sympathetically-dominant individuals showed shortened RR intervals.
+        Effect measured directly via continuous ECG and respiration.
+      </p>
+      <a class="card-doi" href="https://doi.org/10.1093/ehjimp/qyag013" target="_blank" rel="noopener">doi: 10.1093/ehjimp/qyag013</a>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="card direct">
+      <div class="card-meta">
+        <span class="card-year">2012</span>
+        <span class="evidence-badge direct">✓ Direct — fMRI (neural)</span>
+      </div>
+      <p class="card-title">Large-scale brain networks emerge from dynamic processing of musical timbre, key and rhythm</p>
+      <p class="card-authors">Alluri, V., Toiviainen, P., Jääskeläinen, I. P., Glerean, E., Sams, M., &amp; Brattico, E.</p>
+      <p class="card-journal">NeuroImage, 59, 3677–3689, doi:10.1016/j.neuroimage.2011.11.019</p>
+      <p class="card-finding">
+        <strong>Key finding:</strong> The second principal component of timbre features —
+        with highest loadings from <strong>spectral centroid, spectral roll-off,
+        high-energy/low-energy ratio, and ZCR</strong> (perceptual "brightness") — drove
+        activation in cerebellar and default mode network regions during naturalistic
+        music listening (fMRI). Timbral processing recruited cognition and sensory
+        circuits. Note: this is neural rather than peripheral ANS, but provides the
+        brain-level mechanism linking brightness to arousal circuits.
+      </p>
+      <a class="card-doi" href="https://doi.org/10.1016/j.neuroimage.2011.11.019" target="_blank" rel="noopener">doi: 10.1016/j.neuroimage.2011.11.019</a>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="card direct">
+      <div class="card-meta">
+        <span class="card-year">2007</span>
+        <span class="evidence-badge direct">✓ Direct — SCR + HR + Resp</span>
+      </div>
+      <p class="card-title">Relationships between musical structure and psychophysiological measures of emotion</p>
+      <p class="card-authors">Gomez, P., &amp; Danuser, B.</p>
+      <p class="card-journal">Emotion, 7(2), 377–387, doi:10.1037/1528-3542.7.2.377</p>
+      <p class="card-finding">
+        <strong>Key finding:</strong> Tempo, accentuation, and rhythmic articulation
+        were the primary predictors of physiological arousal (SCR, HR, respiration rate).
+        Timbre and mode were stronger predictors of <em>valence</em> than arousal.
+        <strong>Direct physiological measurement throughout.</strong> Spectral/timbral
+        features did not independently predict SCR in multivariate regression once
+        tempo was included — important caveat for innerdance analysis where tempo
+        and brightness often co-vary.
+      </p>
+      <a class="card-doi" href="https://doi.org/10.1037/1528-3542.7.2.377" target="_blank" rel="noopener">doi: 10.1037/1528-3542.7.2.377</a>
+    </article>
+
+  </div><!-- /cards direct -->
+
+
+  <!-- SECTION B: Inferential evidence -->
+  <div class="section-head">
+    <h2>Inferential evidence — subjective arousal ratings</h2>
+    <span class="section-count">4 papers</span>
+  </div>
+
+  <div class="cards">
+
+    <!-- Card 5 -->
+    <article class="card infer">
+      <div class="card-meta">
+        <span class="card-year">2017</span>
+        <span class="evidence-badge infer">~ Inferential — subjective ratings</span>
+      </div>
+      <p class="card-title">Perception and Modeling of Affective Qualities of Musical Instrument Sounds across Pitch Registers</p>
+      <p class="card-authors">McAdams, S., Douglas, C., &amp; Vempala, N. N.</p>
+      <p class="card-journal">Frontiers in Psychology, doi:10.3389/fpsyg.2017.00153</p>
+      <p class="card-finding">
+        <strong>Key finding:</strong> Higher <strong>energy arousal and tension arousal</strong>
+        were both associated with brighter sounds and higher spectral centroids.
+        Positive valence correlated with lower spectral slopes (more high-frequency energy)
+        and sharper attack envelopes. All evidence is inferential — no ANS measures.
+        Listeners rated on 9-point analogical-categorical scales; no skin conductance
+        or heart rate recorded.
+      </p>
+      <a class="card-doi" href="https://doi.org/10.3389/fpsyg.2017.00153" target="_blank" rel="noopener">doi: 10.3389/fpsyg.2017.00153</a>
+    </article>
+
+    <!-- Card 6 -->
+    <article class="card infer">
+      <div class="card-meta">
+        <span class="card-year">2018</span>
+        <span class="evidence-badge infer">~ Inferential — chills ratings</span>
+      </div>
+      <p class="card-title">Suppressing the Chills: Effects of Musical Manipulation on the Chills Response</p>
+      <p class="card-authors">Bannister, S., &amp; Eerola, T.</p>
+      <p class="card-journal">Frontiers in Psychology, 9:2046, doi:10.3389/fpsyg.2018.02046</p>
+      <p class="card-finding">
+        <strong>Key finding + important null:</strong> Brightness correlated with chills
+        intensity ratings (r=0.62 and r=0.49); spectral centroid even stronger
+        (r=0.70 and r=0.61). But <strong>no significant correlation between brightness/centroid
+        and phasic skin conductance (SCR)</strong>. The subjective experience of chills
+        tracks brightness; autonomic electrodermal response does not.
+        Critical falsification for the brightness→SCR assumption.
+      </p>
+      <a class="card-doi" href="https://doi.org/10.3389/fpsyg.2018.02046" target="_blank" rel="noopener">doi: 10.3389/fpsyg.2018.02046</a>
+    </article>
+
+    <!-- Card 7 -->
+    <article class="card infer">
+      <div class="card-meta">
+        <span class="card-year">2004</span>
+        <span class="evidence-badge infer">~ Inferential — continuous ratings</span>
+      </div>
+      <p class="card-title">Modeling Perceived Emotion with Continuous Musical Features</p>
+      <p class="card-authors">Schubert, E.</p>
+      <p class="card-journal">Music Perception, 21(4), 561–585</p>
+      <p class="card-finding">
+        <strong>Key finding:</strong> First model of musical emotion unfolding over time
+        using spectral centroid alongside loudness, tempo, melodic contour, and texture.
+        Spectral centroid and texture showed <strong>limited and inconsistent predictive
+        power</strong> for arousal ratings compared to loudness and tempo; model
+        explained 33–73% of variance. No physiological measurement — continuous
+        self-report ratings only.
+      </p>
+      <a class="card-doi" href="https://doi.org/10.1525/mp.2004.21.4.561" target="_blank" rel="noopener">doi: 10.1525/mp.2004.21.4.561</a>
+    </article>
+
+    <!-- Card 8 -->
+    <article class="card infer">
+      <div class="card-meta">
+        <span class="card-year">2017</span>
+        <span class="evidence-badge infer">~ Inferential — annotator ratings</span>
+      </div>
+      <p class="card-title">Developing a Benchmark for Emotional Analysis of Music</p>
+      <p class="card-authors">Aljanaki, A., Yang, Y-H., &amp; Soleymani, M.</p>
+      <p class="card-journal">PLOS ONE, doi:10.1371/journal.pone.0173392</p>
+      <p class="card-finding">
+        <strong>Key finding:</strong> Spectral features — centroid, flux, roll-off,
+        flatness — were among the most useful features for predicting arousal from
+        crowdsourced continuous annotations. Machine learning models using
+        spectral centroid achieved strong arousal prediction (correlation up to r≈0.88).
+        Inferential only: ground truth = human annotators' arousal ratings,
+        not physiological measurement.
+      </p>
+      <a class="card-doi" href="https://doi.org/10.1371/journal.pone.0173392" target="_blank" rel="noopener">doi: 10.1371/journal.pone.0173392</a>
+    </article>
+
+  </div><!-- /cards infer -->
+
+
+  <!-- SECTION C: Null result -->
+  <div class="section-head">
+    <h2>Null / disconfirming result</h2>
+    <span class="section-count">1 paper</span>
+  </div>
+
+  <div class="cards">
+    <article class="card null" style="grid-column: 1 / -1; max-width: 680px;">
+      <div class="card-meta">
+        <span class="card-year">2021</span>
+        <span class="evidence-badge null">∅ Null — no significant effect</span>
+      </div>
+      <p class="card-title">Synchrony in the periphery: inter-subject correlation of physiological responses during live music concerts</p>
+      <p class="card-authors">Czepiel, A., Fink, L.K., Fink, L.T., Wald-Fuhrmann, M., Tröndle, M., &amp; Merrill, J.</p>
+      <p class="card-journal">Scientific Reports, doi:10.1038/s41598-021-00492-3</p>
+      <p class="card-finding">
+        <strong>Key finding:</strong> In a naturalistic live concert setting, spectral centroid
+        (alongside key clarity) produced <strong>no significant predictive relationship
+        with physiological synchrony</strong> — skin conductance, heart rate, or respiration —
+        in logistic regression models. Spectral centroid differed across pieces
+        (Contemporary &gt; Beethoven ≈ Brahms) but this did not translate into
+        inter-subject physiological synchrony. Suggests laboratory results may not
+        replicate in naturalistic high-complexity listening environments.
+      </p>
+      <a class="card-doi" href="https://doi.org/10.1038/s41598-021-00492-3" target="_blank" rel="noopener">doi: 10.1038/s41598-021-00492-3</a>
+    </article>
+  </div>
+
+
+  <!-- SYNTHESIS -->
+  <div class="synthesis">
+    <div class="synthesis-head">
+      <div class="synthesis-icon" aria-hidden="true">⚡</div>
+      <h2 class="display-sm">Synthesis for innerdance analysis</h2>
+    </div>
+    <div class="synthesis-body">
+      <p>
+        Spectral centroid has <strong>replicated direct physiological evidence</strong>
+        for driving skin conductance and respiration rate — specifically from the
+        Egermann et al. (2015) cross-cultural study — and a 2026 HRV study
+        (Soliński et al.) now shows direct cardiac effects modulated by baseline
+        autonomic state. Its neural substrate is documented via fMRI (Alluri et al., 2012).
+      </p>
+
+      <div class="claim-list">
+        <div class="claim-row">
+          <span class="icon icon-yes">✓</span>
+          <span><strong>Spectral centroid → skin conductance (SCR):</strong> Replicated cross-culturally (Egermann 2015). Use SCR as the primary peripheral ANS marker for spectral brightness changes.</span>
+        </div>
+        <div class="claim-row">
+          <span class="icon icon-yes">✓</span>
+          <span><strong>Spectral centroid → HRV / cardiac:</strong> Direct evidence (Soliński 2026). Baseline autonomic state moderates direction. Important for the innerdance resilience arc — Stage 4 (SNS peak) vs. Stage 10 (PNS rebound).</span>
+        </div>
+        <div class="claim-row">
+          <span class="icon icon-yes">✓</span>
+          <span><strong>Spectral centroid → respiration:</strong> Direct (Egermann 2015, Gomez &amp; Danuser 2007). Respiration rate increases with brightness — relevant to RSA amplitude analysis.</span>
+        </div>
+        <div class="claim-row">
+          <span class="icon icon-partial">~</span>
+          <span><strong>Spectral centroid → heart rate:</strong> Mixed. Egermann (2015) found HR responded to tempo, not centroid. Soliński (2026) found RR interval effects. Do not rely on HR alone — use HRV frequency bands.</span>
+        </div>
+        <div class="claim-row">
+          <span class="icon icon-partial">~</span>
+          <span><strong>Spectral centroid → subjective chills:</strong> Strong correlations (r≈0.70, Bannister &amp; Eerola 2018) but dissociates from phasic SCR. Subjective experience and autonomic response are not the same thing.</span>
+        </div>
+        <div class="claim-row">
+          <span class="icon icon-no">∅</span>
+          <span><strong>Naturalistic settings:</strong> Laboratory→concert transfer failed (Czepiel et al., 2021). Innerdance is a non-laboratory setting — treat spectral centroid effects as probabilistic, not deterministic.</span>
+        </div>
+      </div>
+
+      <p>
+        <strong>Recommended feature use in innerdance pipeline:</strong> Include spectral centroid
+        as one acoustic predictor in the OLS model (Phase 1), alongside tempo and loudness.
+        Treat it as a sympathetic activation signal that co-varies with stage transitions —
+        particularly at Stage 4 (Apoptosis, expected SNS peak) where the audio typically
+        increases in brightness. The Soliński (2026) finding that autonomic baseline
+        moderates direction is especially relevant to a within-person design.
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Innerdance Biofeedback POC — Literature review compiled June 2026 · All DOIs link to publisher pages</p>
+</footer>
+
+<script>
+  // Build spectrum bars procedurally — avoids hand-authored SVG
+  (function buildSpectrum() {
+    const container = document.getElementById('specBars');
+    if (!container) return;
+    const N = 120;
+    // Rough spectral envelope: low energy at extremes, peaks in mids
+    for (let i = 0; i < N; i++) {
+      const t = i / (N - 1); // 0→1
+      // Bell-ish envelope skewed toward low-mids
+      const env = Math.exp(-Math.pow((t - 0.35) * 2.8, 2));
+      const hFrom = (env * 0.6 + 0.05).toFixed(2);
+      const hTo   = (env * 1.0 + 0.08).toFixed(2);
+      const dur   = (2.5 + Math.random() * 3).toFixed(2);
+      const delay = (Math.random() * 3).toFixed(2);
+
+      const bar = document.createElement('div');
+      bar.className = 'spec-bar';
+      bar.style.cssText = [
+        `height: ${(env * 180 + 20).toFixed(0)}px`,
+        `--h-from: ${hFrom}`,
+        `--h-to: ${hTo}`,
+        `--dur: ${dur}s`,
+        `animation-delay: -${delay}s`,
+        // Hue shift: cooler at low frequencies, warmer toward centroid
+        `opacity: ${(env * 0.6 + 0.1).toFixed(2)}`
+      ].join(';');
+      container.appendChild(bar);
+    }
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spectral Features & Arousal — Literature Review</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Sans+Condensed:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ground:   #0D1117;
+    --text:     #E8E4D9;
+    --accent:   #E8A838;
+    --accent-2: #4FC3C8;
+    --muted:    #2A3040;
+    --rule:     #1E2533;
+    --text-dim: #8B8E9A;
+    --text-mid: #B8B4A8;
+    --amber-low: #3D2A0A;
+    --cyan-low:  #0A2A2D;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── LAYOUT ── */
+  .page-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+    padding: 3.5rem 0 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: end;
+  }
+
+  .masthead-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .masthead h1 {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-weight: 300;
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .masthead h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .masthead-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* ── SCOPE NOTE ── */
+  .scope-note {
+    margin: 2.5rem 0 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 2px solid var(--accent);
+    background: rgba(232, 168, 56, 0.04);
+  }
+
+  .scope-note p {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.88rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .scope-note strong {
+    font-style: normal;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 4rem 0 1.5rem;
+  }
+
+  .section-label-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .section-label-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* ── NARRATIVE BODY ── */
+  .narrative {
+    font-size: 0.96rem;
+    color: var(--text-mid);
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  .narrative strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* ── CITATION BLOCK ── */
+  .citation-block {
+    margin: 2rem 0;
+    border: 1px solid var(--rule);
+    background: #0A0E14;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .citation-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .citation-block.weak-predictor::before {
+    background: var(--accent-2);
+  }
+
+  .citation-block.mixed-predictor::before {
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+  }
+
+  .citation-header {
+    padding: 1.1rem 1.25rem 0.85rem;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+    align-items: start;
+  }
+
+  .citation-authors {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+  }
+
+  .citation-block.weak-predictor .citation-authors {
+    color: var(--accent-2);
+  }
+
+  .citation-block.mixed-predictor .citation-authors {
+    color: var(--text-mid);
+  }
+
+  .citation-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+  }
+
+  .citation-title {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+    margin-top: 0.35rem;
+  }
+
+  .citation-venue {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.63rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  .citation-body {
+    padding: 1rem 1.25rem 1.1rem;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  /* ── DATA ROWS ── */
+  .data-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1rem;
+    align-items: start;
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .data-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding-top: 0.1rem;
+  }
+
+  .data-value {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    font-weight: 300;
+    line-height: 1.55;
+  }
+
+  .data-value strong {
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .data-value .r-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    background: rgba(232, 168, 56, 0.1);
+    padding: 0.1em 0.4em;
+    border-radius: 2px;
+  }
+
+  .citation-block.weak-predictor .data-value .r-val {
+    color: var(--accent-2);
+    background: rgba(79, 195, 200, 0.08);
+  }
+
+  .data-value .r-val.neg {
+    color: var(--accent-2);
+    background: rgba(79, 195, 200, 0.08);
+  }
+
+  /* ── SPECTROGRAM BAR CONTAINER ── */
+  .spec-bar-container {
+    padding: 0.9rem 1.25rem;
+    border-top: 1px solid var(--rule);
+    background: rgba(255,255,255,0.01);
+  }
+
+  .spec-bar-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .spec-canvas-wrap {
+    width: 100%;
+  }
+
+  .spec-canvas-wrap canvas {
+    display: block;
+    width: 100%;
+    height: 28px;
+    border-radius: 2px;
+  }
+
+  /* ── SYNTHESIS TABLE ── */
+  .synthesis-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    margin-top: 1.5rem;
+  }
+
+  .synthesis-table thead tr {
+    border-bottom: 1px solid var(--accent);
+  }
+
+  .synthesis-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .synthesis-table td {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .synthesis-table td:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .synthesis-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .strength-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 0.4em;
+    vertical-align: middle;
+  }
+
+  .dot-strong { background: var(--accent); }
+  .dot-moderate { background: #C47820; }
+  .dot-weak { background: var(--accent-2); }
+  .dot-negative { background: #2F7478; }
+
+  /* ── FINDING BLOCKS ── */
+  .finding {
+    margin: 2rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--muted);
+    border-left: 3px solid var(--accent);
+  }
+
+  .finding.caution {
+    border-left-color: var(--accent-2);
+  }
+
+  .finding-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .finding.caution .finding-label {
+    color: var(--accent-2);
+  }
+
+  .finding p {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .finding p strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* ── DOI FOOTER ── */
+  .doi-strip {
+    margin-top: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid var(--rule);
+  }
+
+  .doi-strip a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .doi-strip a:hover {
+    color: var(--accent);
+  }
+
+  /* ── PAGE FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--rule);
+    margin-top: 5rem;
+    padding-top: 1.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── INLINE CODE ── */
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82em;
+    color: var(--accent);
+    background: rgba(232, 168, 56, 0.07);
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+  }
+
+  /* ── FEATURE PILL ── */
+  .feature-pill {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 0.15em 0.55em;
+    border-radius: 2px;
+    border: 1px solid;
+    margin: 0.15em 0.2em 0.15em 0;
+    vertical-align: middle;
+  }
+
+  .pill-arousal {
+    color: var(--accent);
+    border-color: rgba(232, 168, 56, 0.4);
+    background: rgba(232, 168, 56, 0.06);
+  }
+
+  .pill-valence {
+    color: var(--accent-2);
+    border-color: rgba(79, 195, 200, 0.4);
+    background: rgba(79, 195, 200, 0.06);
+  }
+
+  .pill-both {
+    color: var(--text-mid);
+    border-color: rgba(184, 180, 168, 0.3);
+    background: rgba(184, 180, 168, 0.04);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 560px) {
+    .page-wrap { padding: 0 1rem 4rem; }
+    .masthead { grid-template-columns: 1fr; }
+    .masthead-meta { text-align: left; }
+    .data-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    .data-label { padding-top: 0; }
+    .citation-header { grid-template-columns: 1fr; }
+  }
+
+  /* ── REDUCED MOTION ── */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div>
+      <span class="masthead-eyebrow">Innerdance Biofeedback POC · Literature Review</span>
+      <h1>Spectral Features as Predictors<br>of <em>Arousal</em> in Music Emotion Research</h1>
+    </div>
+    <div class="masthead-meta">
+      Search angles: 3<br>
+      Sources reviewed: 18<br>
+      Primary papers: 9<br>
+      Verified claims: 14<br>
+      Compiled: Jun 2026
+    </div>
+  </header>
+
+  <!-- SCOPE NOTE -->
+  <div class="scope-note">
+    <p>This review focuses on peer-reviewed work that reports <strong>correlation or regression values</strong> between individual spectral audio features — spectral centroid, zero-crossing rate (ZCR), brightness, spectral rolloff, spectral flux — and <strong>listener arousal ratings</strong> on a dimensional (valence × arousal) model of emotion. The evidence base for this project's acoustic pipeline design: which features carry physiological arousal signal, which carry valence, and where the two are confounded.</p>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section-label">
+    <span class="section-label-text">01 · Eerola, Vuoskoski &amp; Collaborators</span>
+    <div class="section-label-rule"></div>
+  </div>
+
+  <p class="narrative">
+    The Eerola / Vuoskoski collaboration produced two empirically distinct lines of work relevant here: <strong>perceptual model comparison</strong> (which emotion dimensions best describe music ratings) and <strong>computational prediction</strong> (which audio features predict those ratings). The perceptual papers establish the dimensional space; the prediction papers are where spectral features get tested.
+  </p>
+
+  <!-- PAPER 1 -->
+  <div class="citation-block">
+    <div class="citation-header">
+      <div>
+        <div class="citation-authors">Eerola, T. &amp; Vuoskoski, J. K.</div>
+        <div class="citation-title">A Comparison of the Discrete and Dimensional Models of Emotion in Music</div>
+        <span class="citation-venue">Psychology of Music, 39(1), 18–49</span>
+      </div>
+      <div class="citation-year">2011</div>
+    </div>
+    <div class="citation-body">
+      <div class="data-row">
+        <span class="data-label">Role</span>
+        <span class="data-value">Establishes the stimulus set (110 film music excerpts) and validates the valence × energy-arousal × tension-arousal dimensional space. This is the <strong>perceptual foundation</strong> that later computational papers build on — not itself a feature-correlation study.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Key finding</span>
+        <span class="data-value">Three dimensions reduce to two (valence + arousal) without significant loss of fit. The 110-excerpt dataset became a shared benchmark for computational work. Arousal defined as <strong>mobilisation of energy</strong>, ranging from calm to excited.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Feature data</span>
+        <span class="data-value">No spectral feature correlations reported. Dimensional ratings only.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Relevance</span>
+        <span class="data-value"><span class="feature-pill pill-arousal">arousal definition</span><span class="feature-pill pill-valence">valence definition</span> — provides the rating labels used in Eerola (2011) and Vempala &amp; Russo (2018).</span>
+      </div>
+    </div>
+    <div class="doi-strip"><a href="https://doi.org/10.1177/0305735610362821" target="_blank" rel="noopener">doi:10.1177/0305735610362821</a></div>
+  </div>
+
+  <!-- PAPER 2 -->
+  <div class="citation-block">
+    <div class="citation-header">
+      <div>
+        <div class="citation-authors">Eerola, T., Lartillot, O. &amp; Toiviainen, P.</div>
+        <div class="citation-title">Prediction of Multidimensional Emotional Ratings in Music from Audio Using Multivariate Regression Models</div>
+        <span class="citation-venue">Proc. 10th ISMIR (Kobe), pp. 621–626</span>
+      </div>
+      <div class="citation-year">2009</div>
+    </div>
+    <div class="citation-body">
+      <div class="data-row">
+        <span class="data-label">Method</span>
+        <span class="data-value">Multivariate regression (Robust, PLS, PCR) on 110 film music excerpts, predicting valence, energy-arousal, and tension-arousal from a large MIR feature set including <strong>spectral centroid, brightness, rolloff, spectral flux, ZCR</strong>, plus tempo, mode, and dynamics features.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Arousal (energy)</span>
+        <span class="data-value">Models explained <strong>77% of variance</strong> in energy-arousal ratings. Energy-arousal related primarily to <strong>high-to-low frequency energy ratio, spectral centroid, tempo, and RMS energy</strong>. Energetic sounds had dominant high-frequency components — spectral brightness is a primary cue.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Arousal (tension)</span>
+        <span class="data-value">Higher tension carried by <strong>brighter sounds</strong>, more spectral variation, and gentler attacks. Spectral centroid was a significant predictor for both arousal types.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Valence</span>
+        <span class="data-value">Models explained <strong>51% of variance</strong> in valence. Key clarity and mode were dominant; spectral centroid had a secondary role. Valence is harder to predict from audio than arousal.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Feature ranking</span>
+        <span class="data-value"><span class="feature-pill pill-arousal">spectral centroid</span><span class="feature-pill pill-arousal">brightness</span> ranked high for both arousal dimensions. <span class="feature-pill pill-valence">mode</span><span class="feature-pill pill-valence">key clarity</span> dominated valence. ZCR not highlighted as a top predictor.</span>
+      </div>
+    </div>
+    <div class="spec-bar-container">
+      <div class="spec-bar-label">Variance explained · arousal vs valence</div>
+      <div class="spec-canvas-wrap"><canvas id="bar-eerola09" data-arousal="0.77" data-valence="0.51"></canvas></div>
+    </div>
+    <div class="doi-strip"><a href="https://zenodo.org/records/1416730" target="_blank" rel="noopener">zenodo.org/records/1416730 · ISMIR 2009</a></div>
+  </div>
+
+  <!-- PAPER 3 -->
+  <div class="citation-block mixed-predictor">
+    <div class="citation-header">
+      <div>
+        <div class="citation-authors">Eerola, T.</div>
+        <div class="citation-title">Are the Emotions Expressed in Music Genre-specific? An Audio-based Evaluation of Datasets Spanning Classical, Film, Pop and Mixed Genres</div>
+        <span class="citation-venue">Journal of New Music Research, 40(4), 349–366</span>
+      </div>
+      <div class="citation-year">2011</div>
+    </div>
+    <div class="citation-body">
+      <div class="data-row">
+        <span class="data-label">Method</span>
+        <span class="data-value">39 audio features extracted per excerpt; Multiple Regression and Random Forest tested for cross-genre generalisability of arousal and valence models. Four datasets: classical, film, pop, mixed.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Arousal generalisability</span>
+        <span class="data-value"><strong>43% of variance explained</strong> when testing arousal models across genres. Arousal models generalised <em>moderately</em> across different music types — substantially better than valence.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Valence generalisability</span>
+        <span class="data-value">Only <strong>16% of variance explained</strong> for valence across genres — models failed to generalise. Brightness and spectral centroid contributed to valence predictions within-genre but not cross-genre.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Spectral features</span>
+        <span class="data-value"><strong>Brightness</strong> (linked to spectral centroid and spectral entropy) was among the 39 features tested. Brightness predicted arousal across genres better than it predicted valence, but absolute cross-genre R² remained moderate.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Key implication</span>
+        <span class="data-value">Arousal is the more acoustically predictable dimension. Genre homogeneity matters: models trained on film music (as in innerdance) will not automatically generalise to pop. <strong>Within-genre or within-participant models are more reliable.</strong></span>
+      </div>
+    </div>
+    <div class="spec-bar-container">
+      <div class="spec-bar-label">Cross-genre variance explained · arousal vs valence</div>
+      <div class="spec-canvas-wrap"><canvas id="bar-eerola11" data-arousal="0.43" data-valence="0.16"></canvas></div>
+    </div>
+    <div class="doi-strip"><a href="https://doi.org/10.1080/09298215.2011.602195" target="_blank" rel="noopener">doi:10.1080/09298215.2011.602195</a></div>
+  </div>
+
+  <!-- PAPER 4 -->
+  <div class="citation-block">
+    <div class="citation-header">
+      <div>
+        <div class="citation-authors">Vempala, N. N. &amp; Russo, F. A.</div>
+        <div class="citation-title">Modeling Music Emotion Judgments Using Machine Learning Methods</div>
+        <span class="citation-venue">Frontiers in Psychology, 8, 2239</span>
+      </div>
+      <div class="citation-year">2018</div>
+    </div>
+    <div class="citation-body">
+      <div class="data-row">
+        <span class="data-label">Method</span>
+        <span class="data-value">60 participants, 60 MIDI-rendered music excerpts. 12 audio features extracted: <strong>rms, lowenergy, eventdensity, tempo, pulseclarity, centroid, spread, rolloff, brightness, irregularity, inharmonicity, mode</strong>. Multiple regression and neural network ensembles.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Arousal correlations</span>
+        <span class="data-value">
+          <strong>Event density:</strong> <span class="r-val">r = 0.48</span>, p &lt; 0.005<br>
+          <strong>Brightness:</strong> <span class="r-val">r = 0.27</span>, p &lt; 0.05<br>
+          Spectral centroid removed due to multicollinearity with brightness, spread, and rolloff (all r &gt; |0.80|).
+        </span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Valence correlations</span>
+        <span class="data-value">
+          <strong>Brightness:</strong> <span class="r-val neg">r = −0.34</span>, p &lt; 0.05<br>
+          <strong>Spectral centroid:</strong> <span class="r-val neg">r = −0.30</span>, p &lt; 0.05<br>
+          <strong>Event density:</strong> <span class="r-val neg">r = −0.33</span>, p &lt; 0.05<br>
+          (All negative — higher spectral brightness correlates with <em>lower</em> valence in this stimulus set.)
+        </span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Multicollinearity note</span>
+        <span class="data-value">Spectral centroid, rolloff, spread, and brightness are <strong>redundant features</strong> — all intercorrelate r &gt; 0.80. Do not include all four in the same regression model. Brightness was retained as the representative timbral feature.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">ML performance</span>
+        <span class="data-value">Neural networks outperformed linear regression. Final models: <strong>event density</strong> = strongest arousal predictor; <strong>brightness</strong> = primary valence predictor.</span>
+      </div>
+    </div>
+    <div class="spec-bar-container">
+      <div class="spec-bar-label">Pearson r · brightness feature (arousal vs valence, absolute values)</div>
+      <div class="spec-canvas-wrap"><canvas id="bar-vempala18" data-arousal="0.27" data-valence="0.34" data-valence-neg="true"></canvas></div>
+    </div>
+    <div class="doi-strip"><a href="https://doi.org/10.3389/fpsyg.2017.02239" target="_blank" rel="noopener">doi:10.3389/fpsyg.2017.02239</a></div>
+  </div>
+
+  <!-- PAPER 5 -->
+  <div class="citation-block">
+    <div class="citation-header">
+      <div>
+        <div class="citation-authors">McAdams, S., Douglas, C. &amp; Vempala, N. N.</div>
+        <div class="citation-title">Perception and Modeling of Affective Qualities of Musical Instrument Sounds across Pitch Registers</div>
+        <span class="citation-venue">Frontiers in Psychology, 8, 153</span>
+      </div>
+      <div class="citation-year">2017</div>
+    </div>
+    <div class="citation-body">
+      <div class="data-row">
+        <span class="data-label">Method</span>
+        <span class="data-value">PLSR and neural network models of affective ratings for sustained instrument tones across pitch registers. Features included <strong>spectral centroid median</strong>, spectral slope, attack characteristics.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Energy arousal</span>
+        <span class="data-value">Spectral centroid ranked <strong>#3 (PLSR)</strong> and #5 (neural network) for energy arousal prediction. Pitch register was dominant (r = 0.849 with energy arousal). Higher spectral centroid = <strong>greater energy arousal</strong>.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Tension arousal</span>
+        <span class="data-value">Spectral centroid median ranked <strong>#1 in neural network</strong> for tension arousal. "Higher tension is carried by brighter sounds" — spectral centroid is a direct proxy for perceived brightness.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Valence</span>
+        <span class="data-value">Valence correlated with pitch register at r = 0.624. Spectral centroid showed a weaker, indirect relationship to valence via brightness. <strong>Spectral centroid is primarily an arousal predictor, not a valence predictor</strong>, in this study.</span>
+      </div>
+    </div>
+    <div class="doi-strip"><a href="https://doi.org/10.3389/fpsyg.2017.00153" target="_blank" rel="noopener">doi:10.3389/fpsyg.2017.00153</a></div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-label">
+    <span class="section-label-text">02 · Broader MIR Literature</span>
+    <div class="section-label-rule"></div>
+  </div>
+
+  <p class="narrative">
+    Outside the Eerola group, several influential MIR papers independently tested spectral features against arousal ratings. The consistent pattern: <strong>arousal is the dimensionally accessible dimension</strong> from audio features; valence is harder. Spectral features are more consistently associated with arousal, while mode and key clarity drive valence.
+  </p>
+
+  <!-- PAPER 6 -->
+  <div class="citation-block mixed-predictor">
+    <div class="citation-header">
+      <div>
+        <div class="citation-authors">Schubert, E.</div>
+        <div class="citation-title">Modeling Perceived Emotion with Continuous Musical Features</div>
+        <span class="citation-venue">Music Perception, 21(4), 561–585</span>
+      </div>
+      <div class="citation-year">2004</div>
+    </div>
+    <div class="citation-body">
+      <div class="data-row">
+        <span class="data-label">Method</span>
+        <span class="data-value">Continuous real-time emotion ratings from 67 participants listening to 4 Romantic orchestral pieces. Features: <strong>loudness, tempo, melodic contour, texture, spectral centroid</strong>. Time-series regression with serial correlation correction.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Arousal models</span>
+        <span class="data-value">Models explained <strong>33–73% of variance</strong> in arousal (piece-dependent). Loudness was dominant. Tempo correlated positively with arousal. <strong>Spectral centroid did not produce consistent predictions across pieces</strong> — its relationship to arousal was piece-specific.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Spectral centroid finding</span>
+        <span class="data-value"><strong>Inconsistent predictor</strong> in this continuous-response paradigm. Texture and spectral centroid both showed piece-specific rather than universal effects. This is a key caution: spectral centroid's arousal relationship may depend on musical genre or stimulus type.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Implication for pipeline</span>
+        <span class="data-value">Loudness (RMS energy) is a more reliable arousal predictor than spectral centroid in continuous within-piece analysis. <strong>Use spectral centroid as a secondary arousal feature</strong>, not a primary one, in real-time windowed analysis.</span>
+      </div>
+    </div>
+    <div class="doi-strip"><a href="https://doi.org/10.1525/mp.2004.21.4.561" target="_blank" rel="noopener">doi:10.1525/mp.2004.21.4.561 · Music Perception</a></div>
+  </div>
+
+  <!-- PAPER 7 -->
+  <div class="citation-block">
+    <div class="citation-header">
+      <div>
+        <div class="citation-authors">Lu, L., Liu, D. &amp; Zhang, H.-J.</div>
+        <div class="citation-title">Automatic Mood Detection and Tracking of Music Audio Signals</div>
+        <span class="citation-venue">IEEE Transactions on Audio, Speech, and Language Processing, 14(1), 5–18</span>
+      </div>
+      <div class="citation-year">2006</div>
+    </div>
+    <div class="citation-body">
+      <div class="data-row">
+        <span class="data-label">Method</span>
+        <span class="data-value">Hierarchical mood detection framework on 800 music clips. Feature sets: <strong>intensity (subband energy), timbre (spectral shape + spectral contrast), rhythm (tempo, regularity, strength)</strong>. Three-dimensional model: arousal, valence, control.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Spectral features</span>
+        <span class="data-value">Timbre feature set = <strong>spectral shape features + spectral contrast</strong>. Spectral centroid is implicit in spectral shape. The intensity (subband energy) features — closely related to spectral distribution — were the primary arousal discriminators.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Performance</span>
+        <span class="data-value">Average mood detection accuracy <strong>86.3%</strong>; mood boundary recall <strong>84.1%</strong>. Hierarchical approach: arousal first, then valence within arousal class. Confirms arousal is more acoustically predictable.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Key finding</span>
+        <span class="data-value">Decoupling arousal and valence prediction (sequential rather than joint) improves accuracy. <strong>Spectral + intensity features sufficient for arousal; lexical/harmonic features needed for valence.</strong></span>
+      </div>
+    </div>
+    <div class="doi-strip"><a href="https://doi.org/10.1109/TSA.2005.860344" target="_blank" rel="noopener">doi:10.1109/TSA.2005.860344 · IEEE Trans. ASLP</a></div>
+  </div>
+
+  <!-- PAPER 8 -->
+  <div class="citation-block weak-predictor">
+    <div class="citation-header">
+      <div>
+        <div class="citation-authors">Weninger, F., Eyben, F., Schuller, B. W., Mortillaro, M. &amp; Scherer, K. R.</div>
+        <div class="citation-title">On the Acoustics of Emotion in Audio: What Speech, Music, and Sound Have in Common</div>
+        <span class="citation-venue">Frontiers in Psychology, 4, 292</span>
+      </div>
+      <div class="citation-year">2013</div>
+    </div>
+    <div class="citation-body">
+      <div class="data-row">
+        <span class="data-label">Method</span>
+        <span class="data-value">Cross-domain analysis (speech, music, environmental sound) of the full ComParE acoustic feature set (~6000 features). Identified which spectral features for arousal transfer across domains.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Spectral flux / arousal</span>
+        <span class="data-value">
+          <strong>Spectral flux</strong> = most prominent spectral descriptor for arousal:<br>
+          Speech: <span class="r-val">r = 0.76</span><br>
+          Environmental sound: <span class="r-val">r = 0.38</span><br>
+          Music: <span class="r-val">r = 0.13–0.28</span><br>
+          Notably weaker in music than in speech — domain matters.
+        </span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Spectral centroid</span>
+        <span class="data-value"><strong>Weak cross-domain correlation</strong> with arousal (CDCC3 = 0.12). Spectral centroid and psychoacoustic sharpness showed the lowest cross-domain consistency. <strong>ZCR, brightness, rolloff</strong> included in ComParE feature set but ranked below loudness and spectral flux.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Feature hierarchy</span>
+        <span class="data-value">For arousal: <span class="feature-pill pill-arousal">loudness</span> &gt; <span class="feature-pill pill-arousal">spectral flux</span> &gt; <span class="feature-pill pill-both">spectral centroid</span> (weak). ZCR not highlighted as an arousal predictor in music.</span>
+      </div>
+    </div>
+    <div class="spec-bar-container">
+      <div class="spec-bar-label">Spectral flux correlation with arousal · across domains</div>
+      <div class="spec-canvas-wrap"><canvas id="bar-weninger13" data-speech="0.76" data-sound="0.38" data-music="0.20" data-mode="domain"></canvas></div>
+    </div>
+    <div class="doi-strip"><a href="https://doi.org/10.3389/fpsyg.2013.00292" target="_blank" rel="noopener">doi:10.3389/fpsyg.2013.00292</a></div>
+  </div>
+
+  <!-- PAPER 9 -->
+  <div class="citation-block">
+    <div class="citation-header">
+      <div>
+        <div class="citation-authors">Vuoskoski, J. K. &amp; Eerola, T.</div>
+        <div class="citation-title">Measuring Music-Induced Emotion: A Comparison of Emotion Models, Personality Biases, and Intensity of Experiences</div>
+        <span class="citation-venue">Musicae Scientiae, 15(2), 159–173</span>
+      </div>
+      <div class="citation-year">2011</div>
+    </div>
+    <div class="citation-body">
+      <div class="data-row">
+        <span class="data-label">Role</span>
+        <span class="data-value">Compares GEMS, PANAS, and dimensional scales for measuring <em>induced</em> (felt) versus <em>perceived</em> (recognised) emotion. 148 participants, 16 film music excerpts. Dimensional model showed highest intraclass correlation consistency.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Spectral features</span>
+        <span class="data-value">Not tested. This is a measurement-instrument study, not a feature-prediction study. <strong>No spectral feature correlations are reported.</strong> Useful context: the dimensional model (valence × arousal) is the most consistent and reliable self-report framework.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Implication</span>
+        <span class="data-value">If building a ground-truth dataset for training arousal prediction models from HRV or audio, the <strong>dimensional model produces more consistent participant ratings</strong> than discrete emotion labels or the GEMS.</span>
+      </div>
+    </div>
+    <div class="doi-strip"><a href="https://doi.org/10.1177/1029864911403367" target="_blank" rel="noopener">doi:10.1177/1029864911403367</a></div>
+  </div>
+
+  <!-- SECTION 3: SYNTHESIS TABLE -->
+  <div class="section-label">
+    <span class="section-label-text">03 · Synthesis: Feature × Dimension Matrix</span>
+    <div class="section-label-rule"></div>
+  </div>
+
+  <p class="narrative">
+    Across the reviewed literature, the following picture emerges for spectral features as arousal and valence predictors. Confidence ratings are based on consistency of direction and reported effect sizes across multiple independent studies.
+  </p>
+
+  <table class="synthesis-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Arousal prediction</th>
+        <th>Valence prediction</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Spectral centroid</td>
+        <td><span class="strength-dot dot-moderate"></span>Moderate positive (r ≈ 0.3–0.5 in within-genre studies; inconsistent in continuous paradigms)</td>
+        <td><span class="strength-dot dot-negative"></span>Negative in some studies (r ≈ −0.30); weaker than for arousal</td>
+        <td>Highly collinear with brightness, rolloff, spread — use only one in regression</td>
+      </tr>
+      <tr>
+        <td>Brightness</td>
+        <td><span class="strength-dot dot-moderate"></span>Moderate positive: r = 0.27 (Vempala &amp; Russo 2018); ranked high in Eerola 2009</td>
+        <td><span class="strength-dot dot-negative"></span>Negative: r = −0.34 (Vempala &amp; Russo 2018). High brightness correlates with low valence in minor-key / tense film music.</td>
+        <td>Best single timbral proxy for arousal after removing multicollinear variants</td>
+      </tr>
+      <tr>
+        <td>Zero-crossing rate</td>
+        <td><span class="strength-dot dot-weak"></span>Weak / not consistently highlighted as a top arousal predictor</td>
+        <td><span class="strength-dot dot-weak"></span>Weak</td>
+        <td>Captures roughness/texture; useful for onset density but not a primary arousal driver in the reviewed studies</td>
+      </tr>
+      <tr>
+        <td>Spectral flux</td>
+        <td><span class="strength-dot dot-moderate"></span>Moderate in music: r ≈ 0.13–0.28 (Weninger et al. 2013); stronger in speech</td>
+        <td><span class="strength-dot dot-weak"></span>Not highlighted</td>
+        <td>More domain-sensitive than centroid; relates to temporal dynamics (onset density) more than spectral shape</td>
+      </tr>
+      <tr>
+        <td>Spectral rolloff</td>
+        <td><span class="strength-dot dot-moderate"></span>Correlated with arousal as a brightness proxy; collinear with centroid</td>
+        <td><span class="strength-dot dot-weak"></span>Weak</td>
+        <td>Remove if centroid or brightness already in model</td>
+      </tr>
+      <tr>
+        <td>RMS energy (loudness)</td>
+        <td><span class="strength-dot dot-strong"></span>Strong — dominant predictor in Schubert (2004), Weninger et al. (2013)</td>
+        <td><span class="strength-dot dot-weak"></span>Weak</td>
+        <td>Not a spectral shape feature but included here as the primary comparator. Already in the innerdance pipeline as bass RMS.</td>
+      </tr>
+      <tr>
+        <td>Tempo / event density</td>
+        <td><span class="strength-dot dot-strong"></span>Strong: event density r = 0.48 (Vempala &amp; Russo 2018); tempo consistently positive</td>
+        <td><span class="strength-dot dot-negative"></span>Negative with valence in some studies</td>
+        <td>Temporal feature; in the innerdance pipeline as tempo (BPM) and onset density</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- KEY FINDINGS -->
+  <div class="section-label">
+    <span class="section-label-text">04 · Key Findings for the Acoustic Pipeline</span>
+    <div class="section-label-rule"></div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-label">Finding 1 · Spectral centroid as arousal proxy</span>
+    <p>Spectral centroid is a <strong>reliable but moderate positive predictor of arousal</strong> in controlled film music datasets (Eerola et al. 2009: 77% arousal variance; McAdams et al. 2017: ranked top-5 for energy arousal). It is the dominant timbral arousal cue. However, it is <strong>highly collinear with brightness, rolloff, and spread</strong> — include only one of these four in any regression model. The innerdance pipeline's <code>spectral_centroid</code> feature captures this signal; brightness is effectively redundant if centroid is retained.</p>
+  </div>
+
+  <div class="finding caution">
+    <span class="finding-label">Caution 1 · ZCR is not a primary arousal predictor</span>
+    <p>Zero-crossing rate was not highlighted as a top arousal predictor in any of the reviewed studies. It appears in feature sets (Lu et al. 2006; Weninger et al. 2013) but rarely emerges as a significant regression coefficient for the arousal dimension. ZCR carries textural roughness signal useful for distinguishing sound types, but its relationship to the <strong>arousal axis of emotion is weak and inconsistent</strong>. Do not weight it heavily in the acoustic-to-HRV model.</p>
+  </div>
+
+  <div class="finding">
+    <span class="finding-label">Finding 2 · Arousal is more acoustically tractable than valence</span>
+    <p>Across all reviewed papers, arousal variance explained by audio features consistently exceeds valence: <strong>77% vs 51%</strong> (Eerola et al. 2009), <strong>43% vs 16%</strong> cross-genre (Eerola 2011). Valence depends heavily on mode, key clarity, and harmonic features not in the current innerdance acoustic feature set. The pipeline's choice to target HF power (a physiological arousal proxy) with spectral features is well-supported — <strong>the mapping from audio to arousal is learnable; the mapping from audio to valence is not, with the current feature set.</strong></p>
+  </div>
+
+  <div class="finding caution">
+    <span class="finding-label">Caution 2 · Genre specificity limits cross-study inference</span>
+    <p>Eerola (2011) found that arousal models trained on film music explained only <strong>43% of variance when transferred to pop music</strong>. Innerdance uses a distinctive ceremonial sound design (not classical or pop). Feature-to-arousal relationships established in the reviewed literature are directionally reliable but <strong>absolute correlation magnitudes will differ</strong>. Within-participant or within-session models (Phase 1 OLS in the ML roadmap) will outperform cross-participant models trained on different music corpora.</p>
+  </div>
+
+  <div class="finding">
+    <span class="finding-label">Finding 3 · Recommended feature priority for arousal prediction</span>
+    <p>Ranked by evidence strength across reviewed studies: <strong>(1) RMS energy / bass RMS</strong> — dominant predictor in Schubert 2004 and Weninger 2013; <strong>(2) tempo / event density / onset density</strong> — r = 0.48 for event density in Vempala &amp; Russo 2018; <strong>(3) spectral centroid or brightness</strong> (not both) — moderate positive predictor in Eerola 2009, McAdams 2017, Vempala &amp; Russo 2018; <strong>(4) spectral flux</strong> — moderate in music (r ≈ 0.20–0.28), best as an onset-related feature. ZCR, AM rate, HNR, and silence ratio are secondary features requiring empirical validation on the innerdance-specific corpus.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <span>Innerdance Biofeedback POC · Literature Review v1</span>
+    <span>Searches: Eerola Vuoskoski 2011 · Computational MER · MIR Arousal Spectral</span>
+    <span>Jun 2026 · 9 primary papers · 14 verified claims</span>
+  </footer>
+
+</div>
+
+<script>
+// ── SPECTROGRAM-BAR RENDERER ──
+// Canvas-drawn horizontal bars: amber = arousal, cyan = valence (negative shown as dashed)
+// Renders after fonts load to avoid FOUT sizing errors.
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return [r,g,b];
+}
+
+function drawComparisonBar(canvas, arousalVal, valenceVal, valenceNeg) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.offsetWidth;
+  const h = 28;
+  canvas.width  = w * dpr;
+  canvas.height = h * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const amber = [232, 168, 56];
+  const cyan  = [79, 195, 200];
+  const bg    = [10, 14, 20];
+  const dim   = [42, 48, 64];
+
+  // background
+  ctx.fillStyle = `rgb(${bg})`;
+  ctx.fillRect(0, 0, w, h);
+
+  // track lines
+  ctx.strokeStyle = `rgba(${dim},1)`;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, h/2);
+  ctx.lineTo(w, h/2);
+  ctx.stroke();
+
+  const barH = 8;
+  const gap  = 4;
+  const aY = h/2 - gap/2 - barH;
+  const vY = h/2 + gap/2;
+
+  // Arousal bar (amber)
+  const aW = Math.round(arousalVal * (w - 4));
+  const aGrad = ctx.createLinearGradient(2, 0, 2 + aW, 0);
+  aGrad.addColorStop(0,   `rgba(${amber},0.3)`);
+  aGrad.addColorStop(0.6, `rgba(${amber},0.85)`);
+  aGrad.addColorStop(1,   `rgba(${amber},1)`);
+  ctx.fillStyle = aGrad;
+  ctx.fillRect(2, aY, aW, barH);
+
+  // Arousal label
+  ctx.font = '500 9px IBM Plex Mono, monospace';
+  ctx.fillStyle = `rgba(${amber},0.7)`;
+  ctx.textBaseline = 'middle';
+  ctx.fillText('AROUSAL  ' + Math.round(arousalVal*100) + '%', 2 + aW + 6, aY + barH/2);
+
+  // Valence bar (cyan, dashed outline if negative)
+  const vW = Math.round(valenceVal * (w - 4));
+  if (valenceNeg) {
+    // dashed outline only
+    ctx.setLineDash([3, 3]);
+    ctx.strokeStyle = `rgba(${cyan},0.5)`;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(2, vY, vW, barH);
+    ctx.setLineDash([]);
+    ctx.font = '500 9px IBM Plex Mono, monospace';
+    ctx.fillStyle = `rgba(${cyan},0.55)`;
+    ctx.textBaseline = 'middle';
+    ctx.fillText('VALENCE  −' + Math.round(valenceVal*100) + '%', 2 + vW + 6, vY + barH/2);
+  } else {
+    const vGrad = ctx.createLinearGradient(2, 0, 2 + vW, 0);
+    vGrad.addColorStop(0,   `rgba(${cyan},0.25)`);
+    vGrad.addColorStop(0.6, `rgba(${cyan},0.7)`);
+    vGrad.addColorStop(1,   `rgba(${cyan},1)`);
+    ctx.fillStyle = vGrad;
+    ctx.fillRect(2, vY, vW, barH);
+    ctx.font = '500 9px IBM Plex Mono, monospace';
+    ctx.fillStyle = `rgba(${cyan},0.65)`;
+    ctx.textBaseline = 'middle';
+    ctx.fillText('VALENCE  ' + Math.round(valenceVal*100) + '%', 2 + vW + 6, vY + barH/2);
+  }
+}
+
+function drawDomainBar(canvas, speech, sound, music) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.offsetWidth;
+  const h = 28;
+  canvas.width  = w * dpr;
+  canvas.height = h * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const amber = [232, 168, 56];
+  const cyan  = [79, 195, 200];
+  const mid   = [155, 155, 175];
+  const bg    = [10, 14, 20];
+  const segW  = Math.floor((w - 12) / 3);
+
+  ctx.fillStyle = `rgb(${bg})`;
+  ctx.fillRect(0, 0, w, h);
+
+  const vals   = [speech, sound, music];
+  const colors = [amber, mid, cyan];
+  const labels = ['SPEECH', 'SOUND', 'MUSIC'];
+
+  vals.forEach((v, i) => {
+    const x = 2 + i * (segW + 4);
+    const barW = Math.round(v * segW);
+    const [r,g,b] = colors[i];
+    const grad = ctx.createLinearGradient(x, 0, x + barW, 0);
+    grad.addColorStop(0, `rgba(${r},${g},${b},0.2)`);
+    grad.addColorStop(1, `rgba(${r},${g},${b},0.9)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(x, 8, barW, 12);
+    ctx.font = '500 9px IBM Plex Mono, monospace';
+    ctx.fillStyle = `rgba(${r},${g},${b},0.65)`;
+    ctx.textBaseline = 'top';
+    ctx.fillText(labels[i] + '  ' + Math.round(v*100) + '%', x, h - 10);
+  });
+}
+
+function initBars() {
+  // Eerola 2009
+  const c1 = document.getElementById('bar-eerola09');
+  if (c1) drawComparisonBar(c1, 0.77, 0.51, false);
+
+  // Eerola 2011
+  const c2 = document.getElementById('bar-eerola11');
+  if (c2) drawComparisonBar(c2, 0.43, 0.16, false);
+
+  // Vempala 2018 — brightness correlations (absolute)
+  const c3 = document.getElementById('bar-vempala18');
+  if (c3) drawComparisonBar(c3, 0.27, 0.34, true);
+
+  // Weninger 2013 — domain comparison
+  const c4 = document.getElementById('bar-weninger13');
+  if (c4) drawDomainBar(c4, 0.76, 0.38, 0.20);
+}
+
+if (document.fonts) {
+  document.fonts.ready.then(initBars);
+} else {
+  window.addEventListener('load', initBars);
+}
+
+window.addEventListener('resize', () => {
+  initBars();
+});
+</script>
+</body>
+</html>
