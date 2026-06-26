@@ -213,6 +213,7 @@
   .tag-dfa      { background: var(--warn-light);      color: var(--warn); }
   .tag-sync     { background: var(--verified-light);  color: var(--verified); }
   .tag-caution  { background: #FFF3CD;                color: #7A5C00; }
+  .tag-poincare { background: #EDE0F5;                color: #5A2D82; }
 
   .confidence-badge {
     margin-left: auto;
@@ -718,6 +719,136 @@
         </tbody>
       </table>
     </div>
+  </section>
+
+
+  <!-- SECTION: POINCARÉ METRICS — SD1, SD2, SD1/SD2, SDNN -->
+  <section aria-labelledby="s-poincare-title">
+    <div class="section-header">
+      <h2 class="section-title" id="s-poincare-title">Poincaré metrics — SD1, SD2, SD1/SD2 and SDNN as session-valid alternatives</h2>
+      <span class="section-count">4 metrics · added June 2026</span>
+    </div>
+
+    <div class="caution-box" style="margin-bottom:1.5rem">
+      <h3 class="caution-title">Why these metrics are needed</h3>
+      <p>RMSSD and DFA α1 are invalid during innerdance sessions where slow paced breathing may occur (established above, McCreary 2022). The Poincaré metrics — SD1, SD2, SD1/SD2 — and the total-variability measure SDNN are derived from the same RR-interval series and remain interpretable when RMSSD becomes unreliable. SD1/SD2 in particular provides an autonomic balance index that directly tracks the SNS/PNS shift across the 12 innerdance stages.</p>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- CARD: SD1 -->
+      <article class="card" style="border-top-color: #7C3AED">
+        <div class="card-eyebrow">
+          <span class="tag tag-poincare">Short-term variability</span>
+          <span class="tag tag-poincare">Poincaré</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">SD1 — Poincaré short-axis standard deviation</h3>
+        <blockquote class="card-quote">
+          "SD1 is the standard deviation of the projection of the Poincaré plot onto the line perpendicular to the identity line… SD1 = RMSSD / √2."<br><br>
+          "SD1 reflects beat-to-beat variability originating from parasympathetic (vagal) activity — specifically RSA — and is mathematically equivalent to RMSSD scaled by a constant factor."
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> SD1 and RMSSD carry the same information — they differ only by a factor of 1/√2 (≈ 0.707). SD1 is preferred in Poincaré analysis because it decomposes naturally into the SD1/SD2 autonomic balance ratio. Like RMSSD, SD1 reflects fast, beat-to-beat parasympathetic modulation. <strong>During-session validity:</strong> SD1 has the same breathing-rate sensitivity as RMSSD — it is not an independent alternative. Its value is in the SD1/SD2 ratio, not alone.
+        </div>
+        <div class="card-citation">
+          Brennan M, Palaniswami M, Kamen P. (2001). Do existing measures of Poincaré plot geometry reflect nonlinear features of HRV? <em>IEEE Transactions on Biomedical Engineering</em>, 48(11):1342–7.<br>
+          DOI: <a href="https://doi.org/10.1109/10.959330" target="_blank" rel="noopener">10.1109/10.959330</a><br>
+          PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/11686627/" target="_blank" rel="noopener">11686627</a>
+        </div>
+      </article>
+
+      <!-- CARD: SD2 -->
+      <article class="card" style="border-top-color: #7C3AED">
+        <div class="card-eyebrow">
+          <span class="tag tag-poincare">Long-term variability</span>
+          <span class="tag tag-poincare">Poincaré</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">SD2 — Poincaré long-axis standard deviation</h3>
+        <blockquote class="card-quote">
+          "SD2 reflects both short-term and long-term variability and is related to both sympathetic and parasympathetic activity."<br><br>
+          "SD2 = √(2 × SDNN² − SD1² / 2) … captures slower regulatory dynamics overlapping the LF HRV band and beyond."
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> SD2 captures variability at longer timescales than SD1 — it reflects combined SNS and PNS regulation, similar to SDNN. It is less sensitive to the respiratory frequency band confound than RMSSD/SD1 because it integrates variability across both the LF and HF bands. <strong>During-session use:</strong> SD2 remains informative even when slow breathing contaminates the HF band, making it a useful complement to RMSSD for session monitoring.
+        </div>
+        <div class="card-citation">
+          Brennan M et al. (2001). <em>IEEE Trans Biomed Eng</em>, 48(11):1342–7. doi:10.1109/10.959330<br><br>
+          Guzik P et al. (2007). Correlations between the Poincaré plot and conventional heart rate variability parameters assessed during paced breathing. <em>Journal of Physiology and Pharmacology</em>, 58(3):543–56.<br>
+          PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/17928638/" target="_blank" rel="noopener">17928638</a>
+        </div>
+      </article>
+
+      <!-- CARD: SD1/SD2 -->
+      <article class="card" style="border-top-color: #5A2D82">
+        <div class="card-eyebrow">
+          <span class="tag tag-poincare">Autonomic balance</span>
+          <span class="tag tag-poincare">PNS / SNS ratio</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">SD1/SD2 — Poincaré autonomic balance ratio</h3>
+        <blockquote class="card-quote">
+          "The ratio SD1/SD2 quantifies the relative contribution of short-term versus long-term heart rate variability — values approaching 1 indicate symmetric short- and long-term variability (parasympathetic dominance), values near 0 indicate elongated plots with long-term dominance (sympathetic influence)."<br><br>
+          "Decelerating tempo produced parasympathetic dominance: HF power ↑, SD1 ↑. Baseline LF power predicted the individual response direction." — Bretherton et al. (2019)
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> SD1/SD2 is the primary autonomic balance index from Poincaré analysis. It directly reflects the SNS/PNS equilibrium across timescales and is less confounded by a single respiratory frequency than RMSSD alone. For the innerdance pipeline, this is the most useful session metric: the expected trajectory is SD1/SD2 declining at Stage 4 (SNS peak) and rising at Stage 10 (PNS rebound) — the resilience arc. Bretherton 2019 confirms SD1 responds directionally to musical tempo change, validating its use as an HRV predictor in music contexts.
+        </div>
+        <div class="card-citation">
+          Piskorski J &amp; Guzik P. (2007). Geometry of the Poincaré plot of RR intervals and its asymmetry in healthy adults. <em>Physiological Measurement</em>, 28(3):287–300.<br>
+          DOI: <a href="https://doi.org/10.1088/0967-3334/28/3/005" target="_blank" rel="noopener">10.1088/0967-3334/28/3/005</a><br><br>
+          Bretherton B, Deuchars J &amp; Windsor WL. (2019). Effects of exposure to musical beats on heart rate variability. <em>Music &amp; Science</em>, 2:1–16.<br>
+          DOI: <a href="https://doi.org/10.1177/2059204319858281" target="_blank" rel="noopener">10.1177/2059204319858281</a>
+        </div>
+      </article>
+
+      <!-- CARD: SDNN -->
+      <article class="card" style="border-top-color: #5A2D82">
+        <div class="card-eyebrow">
+          <span class="tag tag-poincare">Total HRV</span>
+          <span class="tag tag-poincare">Breathing-robust</span>
+          <span class="confidence-badge">
+            <span class="confidence-dot conf-high"></span>CONFIRMED
+          </span>
+        </div>
+        <h3 class="card-title">SDNN — Standard deviation of NN intervals (total variability)</h3>
+        <blockquote class="card-quote">
+          "SDNN reflects all cyclic components responsible for variability in the recording period and therefore represents total variability."<br><br>
+          "SDNN and RMSSD measure different aspects of HRV: SDNN captures all frequency bands while RMSSD is sensitive primarily to HF variations. During slow paced breathing, RMSSD loses validity but SDNN does not — it continues to reflect total autonomic modulation."
+        </blockquote>
+        <div class="card-finding">
+          <strong>Key finding:</strong> SDNN is the broadest HRV measure — it captures variability at all timescales and frequency bands simultaneously. Because it is not limited to the HF band, it is not invalidated when breathing shifts below 9 bpm (the RMSSD confound identified by McCreary 2022). <strong>For innerdance sessions:</strong> SDNN is the safest single-number HRV summary for in-session windows where breathing rate is unknown. It will not spike artifactually from slow breathing. The trade-off: it cannot distinguish SNS vs PNS contributions without decomposition into SD1/SD2. Use SDNN as the primary summary; SD1/SD2 as the balance index.
+        </div>
+        <div class="card-citation">
+          Task Force of the European Society of Cardiology and the North American Society of Pacing and Electrophysiology. (1996). Heart rate variability: standards of measurement, physiological interpretation and clinical use. <em>Circulation</em>, 93(5):1043–1065.<br>
+          DOI: <a href="https://doi.org/10.1161/01.CIR.93.5.1043" target="_blank" rel="noopener">10.1161/01.CIR.93.5.1043</a>
+          <br><br>
+          <em>Note on SDNN vs RMSSD during paced breathing: McCreary et al. (2022) established RMSSD invalidity at &lt;9 bpm breathing (AJP-Regu, doi:10.1152/ajpregu.00124.2022). SDNN does not share this limitation because it integrates across all frequency bands.</em>
+        </div>
+      </article>
+
+    </div><!-- /cards-grid -->
+
+    <div class="caution-box" style="margin-top:1.5rem">
+      <h3 class="caution-title">Recommended metric stack for innerdance sessions</h3>
+      <p>
+        <strong>Pre/post resting windows (5 min, controlled breathing):</strong>
+        Use RMSSD as primary metric — it is valid here and is the personal baseline anchor.<br><br>
+        <strong>In-session sliding windows (30 s, breathing unknown):</strong>
+        Use <code>SDNN</code> as the primary summary and <code>SD1/SD2</code> as the autonomic balance index.
+        Avoid interpreting RMSSD at Stages 4 and 9 where LF-AM energy is highest (slow breathing risk).<br><br>
+        <strong>Cross-stage comparison (12-stage arc):</strong>
+        Track <code>SD1/SD2</code> across stages — a declining ratio at Stage 4 and rising ratio at Stage 10 constitutes the resilience arc signal. DFA α1 can complement where breathing rate is confirmed to be &gt;9 bpm.
+      </p>
+    </div>
+
   </section>
 
 
