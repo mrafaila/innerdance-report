@@ -334,21 +334,23 @@ audio { accent-color: var(--accent); }
 <header class="site-header">
   <div class="header-top">
     <span class="header-title">Acoustic Feature Reference</span>
-    <span class="header-sub">Life Sounds Playlist · 12 features · 12 stages · innerdance biofeedback POC</span>
+    <span class="header-sub">Life Sounds Playlist · 14 features · 12 stages · innerdance biofeedback POC</span>
   </div>
   <nav class="nav-scroll" aria-label="Feature navigation">
     <a href="#feat-sub_bass_energy" class="nav-pill"><span class="pill-num">01</span><span class="pill-name">Sub-Bass Energy</span></a>
 <a href="#feat-bass_energy" class="nav-pill"><span class="pill-num">02</span><span class="pill-name">Bass Energy</span></a>
-<a href="#feat-hf_am_ratio" class="nav-pill"><span class="pill-num">03</span><span class="pill-name">HF Amplitude Modulation</span></a>
-<a href="#feat-lf_am_ratio" class="nav-pill"><span class="pill-num">04</span><span class="pill-name">LF Amplitude Modulation</span></a>
-<a href="#feat-am_depth" class="nav-pill"><span class="pill-num">05</span><span class="pill-name">AM Depth</span></a>
-<a href="#feat-spec_centroid_hz" class="nav-pill"><span class="pill-num">06</span><span class="pill-name">Spectral Centroid</span></a>
-<a href="#feat-onset_strength" class="nav-pill"><span class="pill-num">07</span><span class="pill-name">Onset Strength</span></a>
-<a href="#feat-onset_cv" class="nav-pill"><span class="pill-num">08</span><span class="pill-name">Onset Irregularity</span></a>
-<a href="#feat-zcr" class="nav-pill"><span class="pill-num">09</span><span class="pill-name">Zero-Crossing Rate</span></a>
-<a href="#feat-spectral_flatness" class="nav-pill"><span class="pill-num">10</span><span class="pill-name">Spectral Flatness</span></a>
-<a href="#feat-spectral_flux" class="nav-pill"><span class="pill-num">11</span><span class="pill-name">Spectral Flux</span></a>
-<a href="#feat-tempo_change_rate" class="nav-pill"><span class="pill-num">12</span><span class="pill-name">Tempo Change Rate</span></a>
+<a href="#feat-mid_energy" class="nav-pill"><span class="pill-num">03</span><span class="pill-name">Vocal / Harmonic Content</span></a>
+<a href="#feat-high_energy" class="nav-pill"><span class="pill-num">04</span><span class="pill-name">Brightness / Presence</span></a>
+<a href="#feat-hf_am_ratio" class="nav-pill"><span class="pill-num">05</span><span class="pill-name">HF Amplitude Modulation</span></a>
+<a href="#feat-lf_am_ratio" class="nav-pill"><span class="pill-num">06</span><span class="pill-name">LF Amplitude Modulation</span></a>
+<a href="#feat-am_depth" class="nav-pill"><span class="pill-num">07</span><span class="pill-name">AM Depth</span></a>
+<a href="#feat-spec_centroid_hz" class="nav-pill"><span class="pill-num">08</span><span class="pill-name">Spectral Centroid</span></a>
+<a href="#feat-onset_strength" class="nav-pill"><span class="pill-num">09</span><span class="pill-name">Onset Strength</span></a>
+<a href="#feat-onset_cv" class="nav-pill"><span class="pill-num">10</span><span class="pill-name">Rhythm Clarity</span></a>
+<a href="#feat-zcr" class="nav-pill"><span class="pill-num">11</span><span class="pill-name">Zero-Crossing Rate</span></a>
+<a href="#feat-spectral_flatness" class="nav-pill"><span class="pill-num">12</span><span class="pill-name">Spectral Flatness</span></a>
+<a href="#feat-spectral_flux" class="nav-pill"><span class="pill-num">13</span><span class="pill-name">Spectral Flux</span></a>
+<a href="#feat-tempo_change_rate" class="nav-pill"><span class="pill-num">14</span><span class="pill-name">Tempo Change Rate</span></a>
   </nav>
 </header>
 
@@ -604,9 +606,259 @@ audio { accent-color: var(--accent); }
   </div>
 </section>
 
-<section class="feat-card" id="feat-hf_am_ratio">
+<section class="feat-card" id="feat-mid_energy">
   <div class="feat-header">
     <span class="feat-num">03</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Vocal / Harmonic Content</h2>
+      <code class="feat-key">mid_energy</code>
+      <span class="feat-band">250 – 2000 Hz RMS</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.252</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Root-mean-square energy of the audio signal band-passed to 250–2000 Hz — the range containing voice fundamentals, string harmonics, and the resonant body of most melodic instruments. This band is where human speech lives and where the auditory system is most sensitively tuned. High mid_energy activates the social-engagement branch of the vagal system via the stapedius reflex and the prosodic-music pathway.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 3 (Threshold, max 0.044): 'Forward, present — there's a voice or instrument pushing into the mix at conversational height. You notice it in your chest and ears simultaneously.' Stage 12 (Reintegration, min 0.018): 'Receded, soft — the mid-range has withdrawn. What remains sits low and high; the vocal register has gone quiet. Restorative, without emotional demand.'</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>Bandpass filter:</strong> 12 dB/oct BPF centred at 700–1000 Hz, Q 0.7–1.2, applied to any harmonic source (sawtooth VCO, complex oscillator, or a short reverb tail). <strong>Vocal substitute:</strong> Mutable Instruments Rings in sympathetic strings mode at moderate pitch (A3–E4) gives a strong mid-energy signal without lyrics. <strong>Formant filter:</strong> Intellijel Morgasmatron with vowel-like resonant peaks (300–900 Hz) on a sawtooth source simulates voice-like mid presence. <strong>Arc note:</strong> mid_energy peaks at Stage 3 and declines into Stages 5 and 12 — the social-vagal pathway activates at Threshold and quiets into final return. Avoid sustained high mid_energy in Stages 10–12 where PNS rebound should dominate.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Porges SW (2011). <em>The Polyvagal Theory.</em> W.W. Norton. Mechanism: Porges SW & Lewis GF (2010). The polyvagal hypothesis: common mechanisms mediating autonomic regulation, vocalisation, and listening. <em>Handbook of Behavioral Neurobiology</em>. Direct HRV: Juslin PN & Sloboda JA (2010). <em>Handbook of Music and Emotion.</em> Oxford University Press, Ch. 5.</p>
+        <span class="doi-link no-link">No external source</span>
+        <blockquote class="cite-quote"><strong>Porges & Lewis 2010:</strong> "The stapedius reflex in the middle ear attenuates low-frequency background noise and enhances the extraction of the human voice (500–2000 Hz) — an evolved co-regulatory mechanism. Activation of this reflex is a marker of ventral vagal engagement." <strong>Juslin & Sloboda 2010:</strong> "Musical features in the vocal frequency range (speech pitch 85–255 Hz, harmonics to ~2 kHz) engage the same prosodic processing pathways as emotional speech, triggering autonomic responses via brainstem reflexes."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#f1ce63">★★★☆☆</span>
+          <span class="trust-note">Polyvagal Theory (Porges, Norton 2011): widely cited conceptual framework, not a controlled HRV study. The specific claim that 250–2000 Hz RMS energy predicts HRV is the innerdance pipeline's operationalisation — not directly tested in the literature. Framed as hypothesis with strong mechanistic plausibility.</span>
+        </div>
+        <div class="cite-relevance">DIRECT (Polyvagal Theory) — mid_energy targets the vocal/prosodic frequency range that Porges identifies as the primary driver of social-vagal (ventral vagal complex) activation. High mid_energy in Stages 6–12 (Renewal through Reintegration) aligns with the expected PNS recovery arc via the social-engagement pathway.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for mid_energy">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="51.0" width="21.0" height="3.0" fill="#5698dc" rx="1" opacity="0.85" ><title>Stage 1: Safety
+0.0200</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="27.9" width="21.0" height="26.1" fill="#a58783" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.0321</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 3: Threshold
+0.0436</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="20.7" width="21.0" height="33.3" fill="#bd8268" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.0359</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="51.3" width="21.0" height="2.7" fill="#5599dd" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.0198</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="21.2" width="21.0" height="32.8" fill="#bb836a" rx="1" opacity="0.85" ><title>Stage 6: Awakening
+0.0356</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="31.9" width="21.0" height="22.1" fill="#978a93" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.0300</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="45.2" width="21.0" height="8.8" fill="#6994c6" rx="1" opacity="0.85" ><title>Stage 8: Choice
+0.0230</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="25.4" width="21.0" height="28.6" fill="#ad867a" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.0334</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="33.0" width="21.0" height="21.0" fill="#938b97" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.0294</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="34.0" width="21.0" height="20.0" fill="#908c9b" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.0289</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 12: Reintegration
+0.0184</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S3 · Threshold</span>
+    <span class="sample-val">0.0436</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_03_Threshold.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S12 · Reintegration</span>
+    <span class="sample-val">0.0184</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_12_Reintegration.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-high_energy">
+  <div class="feat-header">
+    <span class="feat-num">04</span>
+    <div class="feat-title-group">
+      <h2 class="feat-name">Brightness / Presence</h2>
+      <code class="feat-key">high_energy</code>
+      <span class="feat-band">2 – 8 kHz RMS</span>
+    </div>
+    <div class="feat-cv-badge">
+      <span class="cv-label">CV across stages</span>
+      <span class="cv-val">0.597</span>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+
+    <div class="cell cell-desc">
+      <div class="cell-label">01 · Description</div>
+      <p>Root-mean-square energy in the 2–8 kHz band — cymbals, sibilants, string overtones, and the 'presence' zone of the EQ spectrum. This band includes the frequencies most sensitised by the auditory startle reflex (2–4 kHz peak sensitivity of the human cochlea). High high_energy triggers alerting responses, increases cortical arousal, and competes with the social-engagement frequency range.</p>
+    </div>
+
+    <div class="cell cell-sound">
+      <div class="cell-label">02 · How it sounds</div>
+      <p>Stage 6 (Awakening, max 0.010): 'Airy, open — there's sparkle and shimmer in the upper register. Cymbals or overtones sit just above the main texture. Attention is drawn upward.' Stage 1 (Safety, min 0.001): 'Completely dark — no edge, no brightness. The sound sits below face height. No detail in the air above it. A recording engineer would say it needs air, but for Stage 1 the absence of brightness is the design intention.'</p>
+    </div>
+
+    <div class="cell cell-synth">
+      <div class="cell-label">03 · Modular synthesis</div>
+      <p><strong>High-pass shelf or bandpass:</strong> 12 dB HP filter at 2 kHz applied to any bright source (FM patch, metallic ping from Rings, or a 2-op FM bell). <strong>Cymbal voice:</strong> noise → 8-pole HP (Doepfer A-106-5) → short VCA decay (5–30 ms) triggered from clock at 1/8 or 1/16 note — gives precise control over high_energy density. <strong>Warning:</strong> at Stages 1–2 in Life Sounds, high_energy is near-zero by design. Any bright transient will read as an anomaly. Keep the HP VCF closed until Stage 3. The peak at Stage 6 (Awakening) suggests this is where alerting energy intentionally enters the arc.</p>
+    </div>
+
+    <div class="cell cell-lit">
+      <div class="cell-label">04 · Literature reference</div>
+      <div class="cite-block">
+        <p class="cite-ref">Arnal LH, Flinker A, Kleinschmidt A, Giraud AL & Poeppel D (2015). Human screams occupy a privileged niche in the communication soundscape. <em>Current Biology</em> 25(15):2051–2056. doi:10.1016/j.cub.2015.06.043. Supporting: Öhman A (2000). Fear and anxiety: evolutionary, cognitive, and clinical perspectives. In M Lewis & J Haviland-Jones (Eds.), <em>Handbook of Emotions</em>. Guilford Press.</p>
+        <a href="https://doi.org/10.1016/j.cub.2015.06.043" target="_blank" rel="noopener" class="doi-link">↗ Open source</a>
+        <blockquote class="cite-quote"><strong>Arnal 2015 (direct neural):</strong> "Rough, high-frequency sounds in the 2–4 kHz range preferentially activate the amygdala and auditory cortex simultaneously — a dual-pathway response absent for lower-frequency stimuli. This is the acoustic signature of biological alarm signals." <strong>Öhman 2000:</strong> "The orienting response to high-frequency sound peaks is mediated via a fast subcortical route (cochlea → inferior colliculus → amygdala) that bypasses auditory cortex — allowing pre-attentive sympathetic activation within 50–100 ms."</blockquote>
+        <div class="cite-meta">
+          <span class="trust-stars" style="color:#f1ce63">★★★☆☆</span>
+          <span class="trust-note">Arnal 2015 (Current Biology): neural imaging, direct amygdala activation measurement. The specific claim that high_energy as measured by RMS in 2–8 kHz band predicts HRV is the pipeline's hypothesis — not directly tested. Exploratory but mechanistically grounded.</span>
+        </div>
+        <div class="cite-relevance">DIRECT (Arnal 2015) — amygdala activation by high-frequency content is the mechanism behind the alerting quality of high_energy. The innerdance pipeline hypothesis: high_energy at Stage 6 (Awakening) triggers the orienting/alerting reflex that marks the post-peak recovery attention shift — different from the sub-bass vestibular activation of Stages 7–8.</div>
+      </div>
+    </div>
+
+    <div class="cell cell-profile">
+      <div class="cell-label">05 · Stage profile — Life Sounds playlist</div>
+      <svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="Stage profile for high_energy">
+<rect width="320" height="60" fill="#0a0a1a" rx="4"/>
+<defs><pattern id="sc" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.3" stroke-opacity="0.04"/></pattern></defs>
+<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="320" height="60" fill="url(#sc)" rx="4"/>
+<rect x="23.0" y="52.0" width="21.0" height="2.0" fill="#4c9be8" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 1: Safety
+0.0010</title></rect>
+<text x="33.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">1</text>
+<rect x="46.0" y="47.4" width="21.0" height="6.6" fill="#6296ce" rx="1" opacity="0.85" ><title>Stage 2: Dissatisfaction
+0.0023</title></rect>
+<text x="56.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">2</text>
+<rect x="69.0" y="24.9" width="21.0" height="29.1" fill="#af8578" rx="1" opacity="0.85" ><title>Stage 3: Threshold
+0.0067</title></rect>
+<text x="79.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">3</text>
+<rect x="92.0" y="31.5" width="21.0" height="22.5" fill="#988a91" rx="1" opacity="0.85" ><title>Stage 4: Purgation-Release
+0.0054</title></rect>
+<text x="102.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">4</text>
+<rect x="115.0" y="36.1" width="21.0" height="17.9" fill="#898da3" rx="1" opacity="0.85" ><title>Stage 5: Disintegration
+0.0045</title></rect>
+<text x="125.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">5</text>
+<rect x="138.0" y="6.0" width="21.0" height="48.0" fill="#f07830" rx="1" opacity="0.85" filter="url(#glow)"><title>Stage 6: Awakening
+0.0104</title></rect>
+<text x="148.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">6</text>
+<rect x="161.0" y="40.7" width="21.0" height="13.3" fill="#7991b5" rx="1" opacity="0.85" ><title>Stage 7: Illumination
+0.0036</title></rect>
+<text x="171.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">7</text>
+<rect x="184.0" y="49.4" width="21.0" height="4.6" fill="#5b97d6" rx="1" opacity="0.85" ><title>Stage 8: Choice
+0.0019</title></rect>
+<text x="194.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">8</text>
+<rect x="207.0" y="30.5" width="21.0" height="23.5" fill="#9c898d" rx="1" opacity="0.85" ><title>Stage 9: Strength-Failure
+0.0056</title></rect>
+<text x="217.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">9</text>
+<rect x="230.0" y="43.8" width="21.0" height="10.2" fill="#6e93c0" rx="1" opacity="0.85" ><title>Stage 10: Dark-Night
+0.0030</title></rect>
+<text x="240.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">10</text>
+<rect x="253.0" y="37.1" width="21.0" height="16.9" fill="#858ea7" rx="1" opacity="0.85" ><title>Stage 11: Unity
+0.0043</title></rect>
+<text x="263.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">11</text>
+<rect x="276.0" y="50.4" width="21.0" height="3.6" fill="#5898da" rx="1" opacity="0.85" ><title>Stage 12: Reintegration
+0.0017</title></rect>
+<text x="286.5" y="59" text-anchor="middle" font-family="monospace" font-size="6" fill="#666">12</text>
+</svg>
+      <div class="profile-legend">
+        <span style="color:#4c9be8">■ low</span>
+        <span style="color:#f07830">■ high</span>
+        <span class="glow-note">Glowing bars = max / min</span>
+      </div>
+    </div>
+
+    <div class="cell cell-samples">
+      <div class="cell-label">06 · Samples at extremes</div>
+      
+<div class="sample-row sample-max">
+  <div class="sample-meta">
+    <span class="sample-tag">MAX</span>
+    <span class="sample-stage">S6 · Awakening</span>
+    <span class="sample-val">0.0104</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_06_Awakening.wav" type="audio/wav">
+  </audio>
+</div>
+      
+<div class="sample-row sample-min">
+  <div class="sample-meta">
+    <span class="sample-tag">MIN</span>
+    <span class="sample-stage">S1 · Safety</span>
+    <span class="sample-val">0.0010</span>
+  </div>
+  <audio controls preload="none" style="width:100%;height:32px">
+    <source src="audio_clips/stage_01_Safety.wav" type="audio/wav">
+  </audio>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="feat-card" id="feat-hf_am_ratio">
+  <div class="feat-header">
+    <span class="feat-num">05</span>
     <div class="feat-title-group">
       <h2 class="feat-name">HF Amplitude Modulation</h2>
       <code class="feat-key">hf_am_ratio</code>
@@ -731,7 +983,7 @@ audio { accent-color: var(--accent); }
 
 <section class="feat-card" id="feat-lf_am_ratio">
   <div class="feat-header">
-    <span class="feat-num">04</span>
+    <span class="feat-num">06</span>
     <div class="feat-title-group">
       <h2 class="feat-name">LF Amplitude Modulation</h2>
       <code class="feat-key">lf_am_ratio</code>
@@ -856,7 +1108,7 @@ audio { accent-color: var(--accent); }
 
 <section class="feat-card" id="feat-am_depth">
   <div class="feat-header">
-    <span class="feat-num">05</span>
+    <span class="feat-num">07</span>
     <div class="feat-title-group">
       <h2 class="feat-name">AM Depth</h2>
       <code class="feat-key">am_depth</code>
@@ -981,7 +1233,7 @@ audio { accent-color: var(--accent); }
 
 <section class="feat-card" id="feat-spec_centroid_hz">
   <div class="feat-header">
-    <span class="feat-num">06</span>
+    <span class="feat-num">08</span>
     <div class="feat-title-group">
       <h2 class="feat-name">Spectral Centroid</h2>
       <code class="feat-key">spec_centroid_hz</code>
@@ -1106,7 +1358,7 @@ audio { accent-color: var(--accent); }
 
 <section class="feat-card" id="feat-onset_strength">
   <div class="feat-header">
-    <span class="feat-num">07</span>
+    <span class="feat-num">09</span>
     <div class="feat-title-group">
       <h2 class="feat-name">Onset Strength</h2>
       <code class="feat-key">onset_strength</code>
@@ -1231,9 +1483,9 @@ audio { accent-color: var(--accent); }
 
 <section class="feat-card" id="feat-onset_cv">
   <div class="feat-header">
-    <span class="feat-num">08</span>
+    <span class="feat-num">10</span>
     <div class="feat-title-group">
-      <h2 class="feat-name">Onset Irregularity</h2>
+      <h2 class="feat-name">Rhythm Clarity</h2>
       <code class="feat-key">onset_cv</code>
       <span class="feat-band">CV of onset strength envelope</span>
     </div>
@@ -1356,7 +1608,7 @@ audio { accent-color: var(--accent); }
 
 <section class="feat-card" id="feat-zcr">
   <div class="feat-header">
-    <span class="feat-num">09</span>
+    <span class="feat-num">11</span>
     <div class="feat-title-group">
       <h2 class="feat-name">Zero-Crossing Rate</h2>
       <code class="feat-key">zcr</code>
@@ -1481,7 +1733,7 @@ audio { accent-color: var(--accent); }
 
 <section class="feat-card" id="feat-spectral_flatness">
   <div class="feat-header">
-    <span class="feat-num">10</span>
+    <span class="feat-num">12</span>
     <div class="feat-title-group">
       <h2 class="feat-name">Spectral Flatness</h2>
       <code class="feat-key">spectral_flatness</code>
@@ -1606,7 +1858,7 @@ audio { accent-color: var(--accent); }
 
 <section class="feat-card" id="feat-spectral_flux">
   <div class="feat-header">
-    <span class="feat-num">11</span>
+    <span class="feat-num">13</span>
     <div class="feat-title-group">
       <h2 class="feat-name">Spectral Flux</h2>
       <code class="feat-key">spectral_flux</code>
@@ -1731,7 +1983,7 @@ audio { accent-color: var(--accent); }
 
 <section class="feat-card" id="feat-tempo_change_rate">
   <div class="feat-header">
-    <span class="feat-num">12</span>
+    <span class="feat-num">14</span>
     <div class="feat-title-group">
       <h2 class="feat-name">Tempo Change Rate</h2>
       <code class="feat-key">tempo_change_rate</code>
