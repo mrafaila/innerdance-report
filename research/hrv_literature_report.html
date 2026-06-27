@@ -730,13 +730,13 @@
   <!-- SECTION: POINCARÉ METRICS — SD1, SD2, SD1/SD2, SDNN -->
   <section aria-labelledby="s-poincare-title">
     <div class="section-header">
-      <h2 class="section-title" id="s-poincare-title">Poincaré metrics — SD1, SD2, SD1/SD2 and SDNN as session-valid alternatives</h2>
+      <h2 class="section-title" id="s-poincare-title">Poincaré metrics — SD2 and SDNN as session-valid alternatives; SD1/SD2 conditional</h2>
       <span class="section-count">4 metrics · added June 2026</span>
     </div>
 
     <div class="caution-box" style="margin-bottom:1.5rem">
       <h3 class="caution-title">Why these metrics are needed</h3>
-      <p>RMSSD and DFA α1 are invalid during innerdance sessions where slow paced breathing may occur (established above, McCreary 2022). The Poincaré metrics — SD1, SD2, SD1/SD2 — and the total-variability measure SDNN are derived from the same RR-interval series and remain interpretable when RMSSD becomes unreliable. SD1/SD2 in particular provides an autonomic balance index that directly tracks the SNS/PNS shift across the 12 innerdance stages.</p>
+      <p>RMSSD is invalid during innerdance sessions where slow paced breathing may occur (established above, McCreary 2022). Of the Poincaré metrics: <strong>SD1 = RMSSD / √2</strong> — it carries identical information to RMSSD and shares the same breathing-rate confound. It is not a session-valid alternative on its own. <strong>SD2</strong> and <strong>SDNN</strong> integrate variability across a broader frequency range and are not invalidated by slow breathing — these are the unconditionally session-valid metrics. <strong>SD1/SD2</strong> is conditionally useful as an autonomic balance index, but its numerator (SD1) is breathing-sensitive: interpret with caution at stages where slow breathing is likely.</p>
     </div>
 
     <div class="cards-grid">
@@ -804,7 +804,7 @@
           "Decelerating tempo produced parasympathetic dominance: HF power ↑, SD1 ↑. Baseline LF power predicted the individual response direction." — Bretherton et al. (2019)
         </blockquote>
         <div class="card-finding">
-          <strong>Key finding:</strong> SD1/SD2 is the primary autonomic balance index from Poincaré analysis. It directly reflects the SNS/PNS equilibrium across timescales and is less confounded by a single respiratory frequency than RMSSD alone. For the innerdance pipeline, this is the most useful session metric: the expected trajectory is SD1/SD2 declining at Stage 4 (SNS peak) and rising at Stage 10 (PNS rebound) — the resilience arc. Bretherton 2019 confirms SD1 responds directionally to musical tempo change, validating its use as an HRV predictor in music contexts.
+          <strong>Key finding:</strong> SD1/SD2 is an autonomic balance index — values near 1 indicate PNS dominance; values near 0 indicate SNS dominance. Because both SD1 and SD2 are affected when breathing slows, the ratio has partial self-correction compared to RMSSD alone. However, slow breathing inflates SD1 disproportionately (RSA energy concentrates in fewer, larger beat-to-beat swings), which can artificially raise SD1/SD2 and misread as PNS activity. <strong>Critical caveat for innerdance:</strong> Stages 4 and 9 have the highest LF-AM energy (slow breathing induction) — precisely where the ratio is least reliable and where the resilience arc signal is most expected. SD1/SD2 is valid as a supplementary cross-stage index when breathing is confirmed normal; it should not be treated as the primary arc detector at the key SNS/PNS transition stages. Bretherton 2019 confirms SD1 responds directionally to musical tempo change, but in controlled (not slow-paced) breathing conditions.
         </div>
         <div class="card-citation">
           Piskorski J &amp; Guzik P. (2007). Geometry of the Poincaré plot of RR intervals and its asymmetry in healthy adults. <em>Physiological Measurement</em>, 28(3):287–300.<br>
@@ -829,7 +829,7 @@
           "SDNN and RMSSD measure different aspects of HRV: SDNN captures all frequency bands while RMSSD is sensitive primarily to HF variations. During slow paced breathing, RMSSD loses validity but SDNN does not — it continues to reflect total autonomic modulation."
         </blockquote>
         <div class="card-finding">
-          <strong>Key finding:</strong> SDNN is the broadest HRV measure — it captures variability at all timescales and frequency bands simultaneously. Because it is not limited to the HF band, it is not invalidated when breathing shifts below 9 bpm (the RMSSD confound identified by McCreary 2022). <strong>For innerdance sessions:</strong> SDNN is the safest single-number HRV summary for in-session windows where breathing rate is unknown. It will not spike artifactually from slow breathing. The trade-off: it cannot distinguish SNS vs PNS contributions without decomposition into SD1/SD2. Use SDNN as the primary summary; SD1/SD2 as the balance index.
+          <strong>Key finding:</strong> SDNN is the broadest HRV measure — it captures variability at all timescales and frequency bands simultaneously. Because it is not limited to the HF band, it is not invalidated when breathing shifts below 9 bpm (the RMSSD confound identified by McCreary 2022). <strong>For innerdance sessions:</strong> SDNN is the safest single-number HRV summary for in-session windows where breathing rate is unknown. It will not spike artifactually from slow breathing. The trade-off: it cannot distinguish SNS vs PNS contributions alone. Pair with SD2 (same broad variability decomposed from the Poincaré plot) rather than SD1/SD2, whose numerator shares RMSSD's breathing-rate sensitivity.
         </div>
         <div class="card-citation">
           Task Force of the European Society of Cardiology and the North American Society of Pacing and Electrophysiology. (1996). Heart rate variability: standards of measurement, physiological interpretation and clinical use. <em>Circulation</em>, 93(5):1043–1065.<br>
@@ -847,10 +847,12 @@
         <strong>Pre/post resting windows (5 min, controlled breathing):</strong>
         Use RMSSD as primary metric — it is valid here and is the personal baseline anchor.<br><br>
         <strong>In-session sliding windows (30 s, breathing unknown):</strong>
-        Use <code>SDNN</code> as the primary summary (total variability, breathing-robust), <code>SD2</code> as the long-term regulatory component (less HF-band-sensitive than RMSSD), and <code>SD1/SD2</code> as the autonomic balance index.
-        Avoid interpreting RMSSD or SD1 alone at Stages 4 and 9 where LF-AM energy is highest (slow breathing risk).<br><br>
+        Use <code>SDNN</code> as the primary summary (total variability, breathing-robust) and <code>SD2</code> as the long-term Poincaré component.
+        Avoid <code>RMSSD</code>, <code>SD1</code>, and <code>SD1/SD2</code> as primary in-session metrics — SD1 = RMSSD / √2 and shares the same breathing-rate confound; the ratio's numerator is therefore unreliable when breathing rate is unknown.<br><br>
         <strong>Cross-stage comparison (12-stage arc):</strong>
-        Track <code>SD1/SD2</code> as the balance arc signal (declining at Stage 4 SNS peak, rising at Stage 10 PNS rebound) and <code>SD2</code> for slower regulatory dynamics that span multiple stages. DFA α1 can complement where breathing rate is confirmed to be &gt;9 bpm.
+        Track <code>SD2</code> and <code>SDNN</code> as the primary arc signals across the 12 stages.
+        Use <code>DFA α1</code> where breathing rate can be confirmed &gt;9 bpm (it is the most sensitive parasympathetic index when valid).
+        Use <code>SD1/SD2</code> only as a supplementary index and interpret it cautiously at Stages 4 and 9 — these are where LF-AM energy is highest (slow breathing most likely), which is precisely where the ratio is least reliable.
       </p>
     </div>
 
