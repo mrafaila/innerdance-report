@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Innerdance Biofeedback — Concept for Review v3</title>
+<style>
+body { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; font-family: -apple-system, Helvetica, Arial, sans-serif; color: #1a1a1a; line-height: 1.6; background: #fdfdfb; }
+h1 { font-size: 26px; border-bottom: 3px solid #2c7fb8; padding-bottom: 10px; }
+h2 { font-size: 20px; margin-top: 42px; color: #1a4a6e; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+h3 { font-size: 16px; margin-top: 24px; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+th { background: #eef4f8; }
+img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 6px; margin: 12px 0; }
+code { background: #f0f0f0; padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+hr { border: none; border-top: 1px solid #ddd; margin: 36px 0; }
+em { color: #555; }
+a { color: #2c7fb8; }
+blockquote { border-left: 3px solid #2c7fb8; margin: 16px 0; padding: 4px 16px; color: #444; background: #f4f8fa; }
+</style>
+</head>
+<body>
+<h1 id="innerdance-biofeedback-concept-for-medical-review">Innerdance Biofeedback — Concept for Medical Review</h1>
+<p><strong>Document type:</strong> Concept overview for medical and scientific reviewers, and new team members <strong>Version:</strong> 4 — trims hypotheses, worked examples, and data-state detail for a leaner external overview; points to the hypothesis-structuring doc and current outputs instead <strong>Status:</strong> Proof-of-concept · exploratory · not yet validated for clinical use <strong>Program context:</strong> This work sits inside the longer-term <a href="https://github.com/maia-earth/innerdance-biofeedback-mvp/blob/main/docs/Research%20Program%20Manual.pdf">Acoustic Architecture and Health Research Program</a> framework (Maia Earth Organization / Wellnessland Health Institute) — that manual defines the cumulative, multi-study research infrastructure (participant registry, standardized assessments, phased roadmap) this document’s findings are meant to feed into. Its Phase I/II (“Intervention Development and Characterization” / “Clinical and Physiological Validation”) map onto the bounded scope this document proposes below.</p>
+<hr />
+<h2 id="the-one-sentence-pitch">The one-sentence pitch</h2>
+<blockquote>
+<p><em>A system that measures how a person’s nervous system responds to sound in real time, then tracks that response against a personal baseline over weeks — using both signals to personalise the sound and reveal lasting change in autonomic resilience and flexibility.</em></p>
+</blockquote>
+<hr />
+<h2 id="purpose-why-this-for-whom">Purpose — why this, for whom</h2>
+<p>Innerdance already has two decades of anecdotal and subjective evidence behind it — practitioners and participants report real, meaningful effects: reduced stress, better sleep, improved emotional regulation, delivered through a multi-stage sound sequence designed to engage the sympathetic (“fight or flight”) and parasympathetic (“rest and digest”) branches of the autonomic nervous system in turn. What’s missing is physiological evidence that something measurable actually happens — tied to the mechanism the method itself claims to work through, not a new claim invented for this project. This project exists to build that evidence, starting by working with medical clinics, so the practice can be measured, refined, and — if the evidence holds up — brought to more people on a footing stronger than “it worked for me.”</p>
+<p><strong>Who benefits, and how:</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Who</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Participant</strong></td>
+<td>A personal report of what their nervous system did during and after a session, measured against their own baseline — not a felt sense, not a generic population claim</td>
+</tr>
+<tr class="even">
+<td><strong>Facilitator</strong></td>
+<td>A feedback loop between specific acoustic choices and measured physiological response, to refine playlists on evidence instead of intuition alone</td>
+</tr>
+<tr class="odd">
+<td><strong>Innerdance / research team</strong> (near-term)</td>
+<td>A disciplined, cited, falsifiable basis for deciding where to invest further study — see “Scope of exploration” below</td>
+</tr>
+<tr class="even">
+<td><strong>Medical / research partners</strong> (downstream)</td>
+<td>A first evidence package that could support a formal study or clinical collaboration, if near-term findings hold up</td>
+</tr>
+</tbody>
+</table>
+<p>We are a collective of innerdance practitioners with a diverse skillset — software development, machine learning, modular synthesizers, and innerdance facilitation — and this is intended as an <strong>open system</strong> as far as data and knowledge are concerned, to foster multidisciplinary collaboration and expand awareness of the innerdance framework within the medical system.</p>
+<hr />
+<h2 id="what-the-system-does">What the system does</h2>
+<p>A participant wears a standard chest-strap heart-rate monitor (Polar H10, ~€100), recording continuously across three phases: a <strong>pre-session resting baseline</strong>, the <strong>session</strong> itself, and a <strong>post-session resting baseline</strong>. The system then:</p>
+<ol type="1">
+<li><strong>Measures</strong> how the autonomic nervous system responded to each stage of the music</li>
+<li><strong>Compares</strong> the response to the participant’s own baseline (see <em>Choice of HRV metrics</em> below)</li>
+<li><strong>Explains</strong> what happened in plain language — for participant, facilitator, and reviewer</li>
+<li><strong>Learns</strong> which acoustic features drove which physiological responses, in whom</li>
+<li><strong>Recommends</strong> adjustments to the sound or session design to optimise the outcome</li>
+</ol>
+<p>No invasive sensors are used, and every interpretive rule is cited to its source publication.</p>
+<h3 id="system-architecture">System architecture</h3>
+<figure>
+<img src="https://raw.githubusercontent.com/maia-earth/innerdance-biofeedback-mvp/main/docs/system_architecture.png" alt="System Architecture" />
+<figcaption aria-hidden="true">System Architecture</figcaption>
+</figure>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>User</th>
+<th>Sees</th>
+<th>Contributes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Participant</strong></td>
+<td>A personal report: high/low points reached, against a normal or innerdance-population reference</td>
+<td>ECG recording, self-report</td>
+</tr>
+<tr class="even">
+<td><strong>Facilitator</strong></td>
+<td>How each stage affected the group; which sound features drove which response</td>
+<td>Facilitation notes, expert validation</td>
+</tr>
+<tr class="odd">
+<td><strong>Medical practitioner</strong></td>
+<td>Participant data; an acoustic-features-vs-stage heat map</td>
+<td>Clinical interpretation, guidance on meaningful signals</td>
+</tr>
+<tr class="even">
+<td><strong>Developer / Analyst</strong></td>
+<td>Full pipeline, notebooks, model training, dashboards</td>
+<td>New features, model refinements, protocol design</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="choice-of-hrv-metrics">Choice of HRV metrics</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Valid when</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>SD2</strong></td>
+<td>Any breathing rate</td>
+<td>Primary — stage-wise, longitudinal, and multi-participant comparisons</td>
+</tr>
+<tr class="even">
+<td><strong>DFA α1</strong></td>
+<td>Breathing rate &gt; 9 bpm</td>
+<td>Primary — fractal complexity of the heartbeat (≈1.0 healthy; &lt;0.75 more disorganised; &gt;1.4 overly regular)</td>
+</tr>
+<tr class="odd">
+<td><strong>RMSSD</strong></td>
+<td>Most reliable at rest (pre/post baseline)</td>
+<td>Computed throughout, but only read with confidence at pre/post baseline</td>
+</tr>
+<tr class="even">
+<td><strong>SD1/SD2</strong></td>
+<td>Breathing rate confirmed</td>
+<td>Short- vs long-term variability balance</td>
+</tr>
+<tr class="odd">
+<td><strong>Heart rate / breathing rate</strong></td>
+<td>Any condition / estimated from the HRV signal</td>
+<td>Context and validity checks</td>
+</tr>
+</tbody>
+</table>
+<p>All metrics are computed from validated, open-source implementations, cross-checked against the peer-reviewed literature (see References). SDNN, used in early per-session reports, has since been dropped in favor of SD2 alone, which behaves more consistently over the shorter, non-resting windows used inside a session.</p>
+<h3 id="why-the-polar-h10-is-sufficient-for-what-were-testing-now-and-not-for-everything-the-method-claims">Why the Polar H10 is sufficient for what we’re testing now — and not for everything the method claims</h3>
+<p>The Polar H10 chest strap, validated against gold-standard ECG, gives strong-to-excellent agreement for exactly the quantities this pipeline computes: RR-interval/HRV agreement with ECG r = 0.95 at rest and r &gt; 0.93 during exercise, RMSSD mean absolute percentage error 2.16% (Schaffarczyk et al. 2022); heart-rate correspondence r &gt; 0.99 (Blalock et al. 2026). DFA α1 shows more bias in uncorrelated/high-intensity ranges in the same validation work — already why SD2, not DFA α1, is this project’s primary in-session metric (table above).</p>
+<p>That validates the <strong>sensor</strong>. It doesn’t validate the <strong>scope of claims tested with it</strong>. The innerdance method’s own account of its mechanism operates on three levels: (a) autonomic sympathetic/parasympathetic engagement, (b) hormonal effects (cortisol, GABA, melatonin, dopamine, oxytocin, serotonin), and (c) brainwave entrainment (delta/theta/alpha/beta/SMR/gamma) intended to bring participants into REM-like information processing in both waking and sleep-adjacent states. A single-lead chest-strap ECG can only speak to (a) — HRV is a validated, indirect, literature-backed proxy for sympathovagal balance (Laborde et al. 2017; Thayer et al. 2012), not a hormonal assay or an EEG. <strong>This phase tests claim (a) only.</strong> Claims (b) and (c) are real parts of the method’s own account of itself, and stay out of scope until — and unless — hormonal or neural instrumentation is added; that should be said explicitly to reviewers, not left implicit.</p>
+<hr />
+<h2 id="data-pipeline">Data pipeline</h2>
+<p>Every recording goes through the same sequence of steps, so a participant’s report, a dashboard query, and a research analysis all start from identical numbers: <strong>clean &amp; load</strong> the raw recording → <strong>merge</strong> with session metadata → <strong>filter</strong> to usable windows <em>(criteria still being decided)</em> → <strong>compute metrics</strong> — pre/post rest windows plus 12 in-session stage windows, reduced to RMSSD/SD2/SD1-SD2/DFA α1/mean HR/breathing rate — → <strong>derive additional features</strong>, including a resilience arc (Stage 10 SD2 − Stage 4 SD2), recovery %, and a six-state classification, all normalised to the participant’s <strong>own</strong> pre-session baseline rather than a population norm (resting HRV varies 5–10× by fitness and age, so a fixed threshold would systematically misclassify people) → <strong>data-quality gate</strong> <em>(not yet a formal, enforced step)</em> → either <strong>(a)</strong> baseline/session plots or <strong>(b)</strong> the state mapping → interpretation → medical validation <em>(not yet part of the process)</em>.</p>
+<figure>
+<img src="pipeline_diagram.png" alt="Analysis pipeline diagram" />
+<figcaption aria-hidden="true">Analysis pipeline diagram</figcaption>
+</figure>
+<p>Raw recordings, computed metrics, and mapped states are each saved, not just the final chart, so any step can be re-derived without re-running everything from scratch.</p>
+<hr />
+<h2 id="from-single-metrics-to-states">From single metrics to states</h2>
+<p>A single HRV metric in isolation is hard to act on — a healthy resting value for one person can be an outlier for another. We are exploring treating several metrics <strong>together, as coordinates in one space</strong>, and naming the regions that correspond to recognisable physiological patterns. Scale-bearing metrics (HR, RMSSD, SD2) are expressed as <strong>percent change from that person’s own pre-session baseline</strong>; DFA α1 and SD1/SD2, already normalised, use literature-anchored absolute bands instead.</p>
+<p><strong>As a starting point we predefined six states from domain reasoning, rather than letting the data define them via clustering</strong> — a deliberate, conservative choice that keeps every state traceable to a literature-motivated rule, at the cost of not yet knowing whether the data would organise itself the same way.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Rule (relative to personal pre-baseline, except DFA α1/SD1-SD2)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Rigid</strong></td>
+<td>DFA α1 &gt; 1.4 (checked first)</td>
+</tr>
+<tr class="even">
+<td><strong>Deep Recovery</strong></td>
+<td>RMSSD ≥ +30%, SD2 ≥ +20%, HR ≤ −5%, SD1/SD2 &gt; 0.6</td>
+</tr>
+<tr class="odd">
+<td><strong>Relax</strong></td>
+<td>RMSSD ≥ +10%, HR ≤ −5%</td>
+</tr>
+<tr class="even">
+<td><strong>Dysregulated Strain</strong></td>
+<td>HR ≥ +5%, RMSSD ≤ −10%, DFA α1 &lt; 0.75</td>
+</tr>
+<tr class="odd">
+<td><strong>Focus</strong></td>
+<td>HR ≥ +5%, RMSSD ≤ −10% (DFA α1 not in the low band)</td>
+</tr>
+<tr class="even">
+<td><strong>Flow</strong></td>
+<td>Everything else</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="state_sequence_example.png" alt="State sequence across sessions" />
+<figcaption aria-hidden="true">State sequence across sessions</figcaption>
+</figure>
+<p><em>One row per session, grouped by participant, stage 1→12→post-baseline. States are colour-coded; “Pre” isn’t shown as its own point since it’s tautologically neutral by construction.</em></p>
+<hr />
+<h2 id="rules-vs.-models-vs.-adaptive-personalisation">Rules vs. models vs. adaptive personalisation</h2>
+<p>The six states above are <strong>Phase 0</strong> of a longer roadmap, not the end state. We are prototyping with deterministic rules deliberately — every classification is traceable to a specific metric crossing a specific threshold from a specific paper, with no black-box inference — and intend to scale toward data-driven phases during the <strong>MVP stage</strong> (see Project plan), once enough per-participant and cross-participant data exists.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>0</strong></td>
+<td>Deterministic rules with literature-cited thresholds (the six states above)</td>
+</tr>
+<tr class="even">
+<td><strong>1</strong></td>
+<td>Within-person models: how each individual’s ANS responds to specific acoustic features</td>
+</tr>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>Cross-participant models: pool information across individuals while preserving individual differences — important given resting HRV can vary 5–10× between people</td>
+</tr>
+<tr class="even">
+<td><strong>3+</strong></td>
+<td>Adaptive personalisation: the system gradually learns which acoustic interventions work for which participant profiles, validated prospectively before any deployment</td>
+</tr>
+</tbody>
+</table>
+<p>Model type and validation approach for Phases 1–3+ will be defined with domain, statistical, and medical advisors — not fixed in advance.</p>
+<hr />
+<h2 id="scope-of-exploration-for-this-phase">Scope of exploration for this phase</h2>
+<p>Two different research postures are on the table, and this section makes the choice between them explicit rather than leaving it implicit in how analyses happen to get run:</p>
+<ul>
+<li><strong>(A) Explore broadly</strong> — use only the Polar H10 data already collected, across every playlist and participant, and see what patterns emerge. Cheap, uses what exists, but stays hypothesis-generating — it can suggest candidates, not confirm them.</li>
+<li><strong>(B) Design to prove something specific</strong> — pick one falsifiable claim, build a proper comparison (a control condition, likely an added sensor to separate sympathetic and parasympathetic contributions HRV alone can’t cleanly disentangle, and a validated subjective instrument), and run it prospectively.</li>
+</ul>
+<p><strong>Recommendation: (A) now, bounded, feeding into (B) later — not either/or.</strong> With a modest sample, open data-quality gaps still being worked through, and no control condition collected yet, running a confirmatory study today would be premature. The defensible move is to cheaply narrow candidate hypotheses on data already in hand, then invest in a heavier protocol only for candidates that survive this pass. This is a recommendation for discussion, not a unilateral call — every other decision in this section depends on it.</p>
+<h3 id="what-bounded-means-concretely">What “bounded” means, concretely</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Decision</th>
+<th>Resolution for this phase</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Session-level, not longitudinal, for now</strong></td>
+<td>Characterize impact from pre/post + 12-stage metrics within <em>one</em> session, against that session’s own pre-baseline. Cross-session trend claims (does a person’s baseline shift over weeks) are explicitly deferred — not enough repeated-session data per person to say anything defensible yet, and claiming it now would outrun the data.</td>
+</tr>
+<tr class="even">
+<td><strong>Restrict to Tree of Life + Life Sounds new</strong></td>
+<td>These two playlists give 19 sessions across 11 real participants as of this writing — 10 sessions / 5 participants on Tree of Life, 9 sessions / 8 participants on Life Sounds new (2 participants used both). The original Life Sounds playlist and one-off passive-rest/demo sessions are excluded from this pass, to avoid pooling protocols that were never designed to be compared.</td>
+</tr>
+<tr class="odd">
+<td><strong>Objective: ANS-flexibility catalyzers</strong></td>
+<td>Across the 19 in-scope sessions, which acoustic/stage properties associate with (a) a larger sympathetic-direction dip (SD2/DFA α1 at the Apoptosis-equivalent stage) and (b) a larger parasympathetic-direction rebound (SD2 at the Internalization-equivalent stage) — the resilience arc already computed by the pipeline — and, separately, which sessions/participants show that arc <em>without</em> a net loss of post-session flexibility (SD2 not lower than pre). This, not “innerdance works,” is this phase’s deliverable: a ranked, cited list of candidates a facilitator can act on and a researcher can decide whether to pursue further.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sequence-of-states-awakening-self-healing-what-it-would-take-to-test-this">Sequence of states → awakening → self-healing: what it would take to test this</h3>
+<p>The most ambitious of the directions raised for this phase is that the <em>sequence</em> of states matters — that reaching a specific culminating state (an “awakening”) is the catalyst for the self-healing that follows, not merely cycling through activation and recovery. This is deliberately <strong>not</strong> part of this phase’s falsifiable claim, and the reason is more specific than “we’d need more data”: HRV alone is a poor instrument for detecting this kind of state, and the literature says so quantitatively, not just in principle.</p>
+<p><strong>Why HRV alone is the wrong single instrument for this claim:</strong></p>
+<p>A heart-rate-variability study of insight (“aha moment”) problem-solving found that vagally-mediated HRV indexes the <em>prefrontal/self-regulatory resource cost</em> of reaching a solution, tracked across rest, active search, and post-solution recovery phases (Stuyck, Demeyer, Bratanov, Cleeremans &amp; Van den Bussche, 2024, <em>Quarterly Journal of Experimental Psychology</em>). That gives a real, physiologically grounded signature to look for — a period of internally-focused quieting, a sharp activation at the moment of the “aha,” then an elevated-vmHRV recovery period — which maps strikingly onto the same SNS-dip-then-PNS-rebound arc the ANS-flexibility objective above is already measuring. But the same signature is easily produced by ordinary frustration, a sudden correct guess, or a startle response — none of which involve any kind of “awakening.” Distinguishing a genuine insight/culmination signature from its physiological look-alikes reliably is understood to require a second, independent channel — most often EEG (a right-temporal gamma-band burst is the marker most associated with insight in that literature) or pupillometry, not HRV refined further. HRV-only classification of this kind of event is correspondingly weak on its own.</p>
+<p>Two further findings bear on the plausibility and the caution needed here:</p>
+<ul>
+<li><strong>HeartMath Institute research</strong> on “psychophysiological coherence” reports that sustained positive, internally-focused states shift the heart-rhythm pattern toward an ordered ~0.1 Hz oscillation (McCraty &amp; Zayas, 2014, <em>Frontiers in Psychology</em> 5:1090) — a state-level HRV signature worth watching for, though this line of research comes substantially from a group that also commercializes coherence training, so it should be weighted as suggestive rather than independently confirmed until replicated elsewhere.</li>
+<li><strong>Nonlinear HRV complexity during deep meditative absorption is more subtle than a simple “goes quiet” story.</strong> A review of nonlinear HRV in meditation found that single-scale entropy measures drop (the signal looks more regular moment-to-moment), but multiscale entropy analysis shows complexity actually <em>increasing</em> at longer timescales — meditative absorption looks like a reorganized, not simply simplified, physiological state (Deka &amp; Deka, 2023, <em>BioMed Eng Online</em> 22:35). Any future claim about a “culminating state” signature should be checked at more than one timescale, not just read off a single metric dropping or spiking.</li>
+</ul>
+<p><strong>Recommendation on sequencing:</strong> resolve the ANS-flexibility-catalyzer objective first (which sessions reliably produce a strong, complete resilience arc). Only then does the sequence/awakening question become answerable as a concrete, scoped addition — did the sessions that produced the clearest arc also produce a reported peak/awakening experience — rather than a second, disconnected study requiring its own instrumentation from day one. If and when this direction is pursued properly, the literature above says what that instrumentation should be: a validated subjective peak-experience item at minimum, and EEG or pupillometry (not another HRV feature) if a physiological marker of the state itself is required.</p>
+<hr />
+<h2 id="how-we-plan-to-structure-and-test-hypotheses">How we plan to structure and test hypotheses</h2>
+<p>Rather than presenting specific hypotheses as findings, we use <a href="https://github.com/maia-earth/innerdance-biofeedback-mvp/blob/main/docs/Structuring%20the%20Innerdance%20hypotheses.docx">Structuring the Innerdance hypotheses</a> as the starting framework for how any hypothesis should be structured before it’s tested — effect type, precondition, metric type, participant type, data type, and how it would be explained if confirmed — and for the staged validation approach it proposes: does an effect hold on a fixed set of playlists; for whom does it hold; and only then, whether playlist selection can be optimized to produce it more reliably.</p>
+<hr />
+<h2 id="supporting-evidence">Supporting evidence</h2>
+<ul>
+<li><strong>ECG/HRV signals can predict disease onset, not just describe current state</strong> — machine-learning models trained on short-term HRV features have been used to predict imminent atrial fibrillation episodes before they occur (Grégoire et al. 2025). This is the kind of predictive, not merely descriptive, use of HRV that motivates building toward interpretation and personalization, not stopping at state classification.</li>
+<li><strong>HRV biofeedback (HRV-B) and the Safe and Sound Protocol (SSP) are the closest validated precedents to what innerdance attempts, which supports our hypothesis</strong> — both are non-invasive, sound/breath-based interventions intended to strengthen vagal tone and autonomic regulation, with a growing evidence base for each individually (Gitler et al. 2025). Neither review covers innerdance directly, but they are the nearest comparable, peer-reviewed frameworks we have found.</li>
+<li><strong>A physiological account of why a controlled sympathetic-then-parasympathetic sequence, specifically, could build lasting capacity rather than just a one-off session effect.</strong> Dienstbier’s toughening model (1989) proposes that repeated cycles of stress arousal followed by <em>complete</em> physiological recovery — not the arousal alone — recalibrate the system toward lower resting sympathetic tone and a faster, stronger response when actually needed. This is the candidate mechanism behind why the Apoptosis→Internalization arc, if it reliably completes, might matter beyond the session it happens in.</li>
+<li><strong>The nearest validated precedent for “reaching a specific state matters, not just having an experience.”</strong> A systematic review of 12 psychedelic-assisted-therapy studies found that in 10 of 12, the <em>intensity of a mystical-type experience</em> — not just drug exposure — was significantly associated with, mediated, or predicted symptom reduction across cancer-related distress, substance-use disorder, and depression (Ko, Knight, Rucker &amp; Cleare, 2022). Transferring this logic from a pharmacological to a sound-based context is a hypothesis, not an established finding, but it is the closest peer-reviewed anchor for the “sequence culminating in a state” idea (see “Scope of exploration” above).</li>
+<li>Caroline Georgiou’s GOGI Dance project — a fusion of innerdance with the GOGI (“Getting Out by Going In”) program used in prison rehabilitation settings in California. <a href="https://thesoulcallwithkellyb.buzzsprout.com/2056110/episodes/17135088-innerdance-gogi-healing-behind-bars-with-caroline-georgiou">Innerdance &amp; GOGI: Healing Behind Bars with Caroline Georgiou</a></li>
+</ul>
+<hr />
+<h2 id="project-plan">Project plan</h2>
+<p>These five stages overlap and are actively revisited, and what data to collect at each is still an open decision.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Discovery</td>
+<td>Problem framing, literature review</td>
+</tr>
+<tr class="even">
+<td>2. Concept &amp; Prototype</td>
+<td>Architecture, data model, measurement protocol, working pipeline, first sessions, reports, exploratory states (<strong>HRV rules are TBD/draft — not yet used for any interpretation</strong>), and defining what a state (or state sequence) actually means and whether/what to recommend from it</td>
+</tr>
+<tr class="odd">
+<td>3. The MVP: building the production system</td>
+<td>Harden the exploratory pipeline into one reliable system — a single shared metrics module, a formal data-quality gate, a scheduled pipeline instead of manual runs, and dashboards for non-technical stakeholders</td>
+</tr>
+<tr class="even">
+<td>4. Medical protocol / standardization / governance</td>
+<td>Clinical threshold review, fixed protocol, data governance &amp; consent</td>
+</tr>
+<tr class="odd">
+<td>5. Productive roll-out</td>
+<td>A report for participants, a separate report for medical staff, protocol alignment with clinics, regular data review sessions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-questions-for-medical-experts">Key questions for medical experts</h2>
+<ol type="1">
+<li>Are the HRV thresholds, and the six proposed states built on them, clinically appropriate for a wellness/innerdance population, or does the rule set need rework?</li>
+<li>Is “percent change from personal pre-session baseline” the right normalisation given resting HRV can vary 5–10× by fitness and age?</li>
+<li>Is the recommendation language safe for a lay audience — could any finding be read as a diagnosis?</li>
+<li>For “Dysregulated Strain” specifically: is linking it to concepts like allostatic load / reduced regulatory reserve defensible, or does it overstate what one HRV signal can support?</li>
+<li>What would this analysis need — protocol-wise or statistically — before playlist- or individual-level claims could be more than hypothesis-generating, and what would make it publishable as a pilot study?</li>
+<li>Should state classification move toward unsupervised clustering once more data exists, or is a literature-anchored rule-based approach preferable given eventual regulatory review?</li>
+<li>Do you agree with holding the sequence/awakening hypothesis out of this phase’s testable claim (see “Scope of exploration”), or is there a cheaper way to start collecting toward it than we’ve identified — short of adding EEG or pupillometry?</li>
+<li>Is restricting this phase to Tree of Life + Life Sounds new (19 sessions, 11 participants) the right cut, or would a different playlist/session selection better isolate the ANS-flexibility question?</li>
+</ol>
+<hr />
+<h2 id="known-limitations-and-gaps">Known limitations and gaps</h2>
+<ul>
+<li><strong>N = 15–19 participants</strong>, most with a single session — every hypothesis above is not statistically testable yet. No causal claims: fixed session order confounds acoustic features with elapsed time and expectation effects.</li>
+<li><strong>RMSSD is only reliably interpretable at rest</strong> with stable breathing (McCreary et al. 2022) — it is still computed in-session but should be read with caution there.</li>
+<li><strong>The “filter to valid windows” and “data quality gate” pipeline steps are not yet formal, enforced checks.</strong> State thresholds are hand-set from domain reasoning, not fit or validated against outcomes.</li>
+<li><strong>Rule engine not medically reviewed</strong> — <code>REVIEW_REQUIRED_BEFORE_DEPLOYMENT = True</code> throughout the codebase until a clinician signs off.</li>
+<li><strong>HRV alone classifies insight/culmination-type events at close to chance level</strong> in the closest comparable literature (see “Scope of exploration”) — a caution against over-reading any single session’s arc as evidence of a “breakthrough” without corroborating subjective report.</li>
+<li>DFA α1’s scale range was corrected in June 2026 (4–16 → 4–12 beats, matching neurokit2 to &lt;0.002); historical figures should be checked for which scale they used.</li>
+</ul>
+<hr />
+<h2 id="what-we-have-so-far">What we have so far</h2>
+<p>A working per-session report and a working multi-session analysis already exist: see the <a href="https://github.com/maia-earth/innerdance-biofeedback-mvp/blob/main/outputs/P_11_session_report.html">example session report</a> and the <a href="https://github.com/maia-earth/innerdance-biofeedback-mvp/blob/main/outputs/reports/edgardo_longitudinal.html">example multi-session analysis</a>.</p>
+<hr />
+<h2 id="references">References</h2>
+<ul>
+<li>Task Force of the ESC/NASPE (1996). Heart rate variability: standards of measurement, physiological interpretation and clinical use. <em>Circulation</em> 93:1043–1065. <a href="https://doi.org/10.1161/01.CIR.93.5.1043">doi:10.1161/01.CIR.93.5.1043</a></li>
+<li>Shaffer &amp; Ginsberg (2017). An overview of heart rate variability metrics and norms. <em>Front. Public Health</em> 5:258. <a href="https://doi.org/10.3389/fpubh.2017.00258">doi:10.3389/fpubh.2017.00258</a></li>
+<li>Peng et al. (1995). Quantification of scaling exponents and crossover phenomena in nonstationary heartbeat time series. <em>Chaos</em> 5(1):82–87. <a href="https://doi.org/10.1063/1.166141">doi:10.1063/1.166141</a></li>
+<li>(2022). Root mean square of successive differences is not a valid measure of parasympathetic reactivity during slow deep breathing. <em>Am. J. Physiol. Regul. Integr. Comp. Physiol.</em> <a href="https://doi.org/10.1152/ajpregu.00272.2022">doi:10.1152/ajpregu.00272.2022</a></li>
+<li>Lehrer &amp; Gevirtz (2014). Heart rate variability biofeedback: how and why does it work? <em>Front. Psychol.</em> 5:756. <a href="https://doi.org/10.3389/fpsyg.2014.00756">doi:10.3389/fpsyg.2014.00756</a></li>
+<li>Nunan, Sandercock &amp; Brodie (2010). A quantitative systematic review of normal values for short-term heart rate variability in healthy adults. <em>Pacing Clin. Electrophysiol.</em> 33:1407–1417. <a href="https://doi.org/10.1111/j.1540-8159.2010.02841.x">doi:10.1111/j.1540-8159.2010.02841.x</a></li>
+<li>Grégoire, Gilon, Marelli, Bersini, Groben, Nguyen, Deruyter, Godart &amp; Carlier (2025). Short-term atrial fibrillation onset prediction using machine learning. <em>Eur. Heart J. Digit. Health</em> 6(6):1159–1168. <a href="https://doi.org/10.1093/ehjdh/ztaf104">doi:10.1093/ehjdh/ztaf104</a></li>
+<li>Gitler, Bar Yosef, Kotzer &amp; Levine (2025). Harnessing non-invasive vagal neuromodulation: HRV biofeedback and SSP for cardiovascular and autonomic regulation (Review). <em>Med. Int. (Lond.)</em> 5(4):37. <a href="https://doi.org/10.3892/mi.2025.236">doi:10.3892/mi.2025.236</a></li>
+<li>Laborde, Mosley &amp; Thayer (2017). Heart rate variability and cardiac vagal tone in psychophysiological research. <em>Front. Psychol.</em> 8:213. <a href="https://doi.org/10.3389/fpsyg.2017.00213">doi:10.3389/fpsyg.2017.00213</a></li>
+<li>Thayer, Åhs, Fredrikson, Sollers &amp; Wager (2012). A meta-analysis of heart rate variability and neuroimaging studies. <em>Neurosci. Biobehav. Rev.</em> 36(2):747–56. <a href="https://doi.org/10.1016/j.neubiorev.2011.12.004">doi:10.1016/j.neubiorev.2011.12.004</a></li>
+<li>Schaffarczyk, Rogers, Reer &amp; Gronwald (2022). Validity of the Polar H10 Sensor for Heart Rate Variability Analysis during Resting State and Incremental Exercise. <em>Sensors</em> 22(17):6536. <a href="https://doi.org/10.3390/s22176536">doi:10.3390/s22176536</a></li>
+<li>Blalock, Riemann &amp; Flatt (2026). Validity of the Polar H10 for heart rate variability and cardiac autonomic reflex tests. <em>Autonomic Neuroscience</em> 266:103447. <a href="https://doi.org/10.1016/j.autneu.2026.103447">doi:10.1016/j.autneu.2026.103447</a></li>
+<li>An, Nolty, Amano, Rizzo, Buckwalter &amp; Rensberger (2020). Heart Rate Variability as an Index of Resilience. <em>Military Medicine</em>. <a href="https://doi.org/10.1093/milmed/usz325">doi:10.1093/milmed/usz325</a></li>
+<li>Ko, Knight, Rucker &amp; Cleare (2022). Psychedelics, Mystical Experience, and Therapeutic Efficacy: A Systematic Review. <em>Frontiers in Psychiatry</em> 13:917199. <a href="https://doi.org/10.3389/fpsyt.2022.917199">doi:10.3389/fpsyt.2022.917199</a></li>
+<li>Dienstbier (1989). Arousal and physiological toughness: Implications for mental and physical health. <em>Psychological Review</em> 96(1):84–100. <a href="https://doi.org/10.1037/0033-295X.96.1.84">doi:10.1037/0033-295X.96.1.84</a></li>
+<li>Stuyck, Demeyer, Bratanov, Cleeremans &amp; Van den Bussche (2024). Insight and non-insight problem solving: A heart rate variability study. <em>Quarterly Journal of Experimental Psychology</em>. <a href="https://doi.org/10.1177/17470218231202519">doi:10.1177/17470218231202519</a></li>
+<li>McCraty &amp; Zayas (2014). Cardiac coherence, self-regulation, autonomic stability, and psychosocial well-being. <em>Frontiers in Psychology</em> 5:1090. <a href="https://doi.org/10.3389/fpsyg.2014.01090">doi:10.3389/fpsyg.2014.01090</a></li>
+<li>Deka &amp; Deka (2023). Nonlinear analysis of heart rate variability signals in meditative state: a review and perspective. <em>BioMed Eng Online</em> 22:35. <a href="https://doi.org/10.1186/s12938-023-01100-3">doi:10.1186/s12938-023-01100-3</a></li>
+</ul>
+<hr />
+<p><em>Innerdance Biofeedback POC — internal research document</em> <em>Not for clinical use or distribution without author approval</em></p>
+
+</body></html>
