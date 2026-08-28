@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>edgardo_activation_recovery_analysis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>clinic_patient_activation_recovery_analysis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7802,9 +7802,9 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Edgardo-%E2%80%94-activation,-recovery-&amp;-coactivation,-session-by-session">Edgardo — activation, recovery &amp; coactivation, session by session<a class="anchor-link" href="#Edgardo-%E2%80%94-activation,-recovery-&amp;-coactivation,-session-by-session">¶</a></h1><p><strong>Scope: Edgardo only</strong> (the one clinic-patient participant with a full, clean session history —
+<h1 id="Clinic patient-%E2%80%94-activation,-recovery-&amp;-coactivation,-session-by-session">Clinic patient — activation, recovery &amp; coactivation, session by session<a class="anchor-link" href="#Clinic patient-%E2%80%94-activation,-recovery-&amp;-coactivation,-session-by-session">¶</a></h1><p><strong>Scope: Clinic patient only</strong> (the one clinic-patient participant with a full, clean session history —
 10 sessions, single Supabase account). This notebook does exactly two things and nothing else:</p>
-<p><strong>Part 1 — per session</strong>, for every one of Edgardo's sessions, assuming the session's HR/RMSSD
+<p><strong>Part 1 — per session</strong>, for every one of Clinic patient's sessions, assuming the session's HR/RMSSD
 trajectory runs baseline → stress → recovery, extract:</p>
 <ol>
 <li><strong>Peak stress</strong> — the point of highest simultaneous HR-up / RMSSD-down (% change from that
@@ -7819,12 +7819,12 @@ baseline.</li>
 <li><strong>Coactivation time</strong> — total minutes where HR and RMSSD are <em>both</em> elevated above baseline at
 once (not the stress pattern, where RMSSD drops — this is the two branches active together). A
 single qualifying window counts (no consecutive-window filter) — applying the same persistence
-rule used for peak stress zeroed coactivation out completely, in every one of Edgardo's sessions.</li>
+rule used for peak stress zeroed coactivation out completely, in every one of Clinic patient's sessions.</li>
 <li><strong>SD1/SD2 Poincaré geometry and LF/HF ratio</strong>, computed from the raw beat-to-beat data in the
 identified activation window vs. the identified recovery window, plotted so the two phases are
 visually comparable.</li>
 </ol>
-<p><strong>Part 2 — across sessions</strong>, plots how each of those measurements trends over Edgardo's repeated
+<p><strong>Part 2 — across sessions</strong>, plots how each of those measurements trends over Clinic patient's repeated
 sessions, one panel per hypothesis below (verbatim from the brief this notebook was scoped against):</p>
 <blockquote>
 <p><strong>1. High-Performance "Flow State" (Calm Hyper-Vigilance).</strong> Coactivation allows entering a
@@ -7896,7 +7896,7 @@ test — a slope is shown for orientation, not as a significance claim.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="1.-Config">1. Config<a class="anchor-link" href="#1.-Config">¶</a></h2><p><code>EDGARDO_USER_ID</code> resolved once via <code>users</code> table, <code>name ILIKE '%edgardo%'</code> → a single account, 10
+<h2 id="1.-Config">1. Config<a class="anchor-link" href="#1.-Config">¶</a></h2><p><code>CLINIC_PATIENT_USER_ID</code> resolved once via <code>users</code> table, <code>name ILIKE '%clinic patient%'</code> → a single account, 10
 sessions with an uploaded HRV file (see <code>notebooks/query_metrics_by_participant_or_playlist.ipynb</code>
 for the general-purpose version of that lookup).</p>
 <p>Operational thresholds this notebook adds beyond what the brief states directly:</p>
@@ -7921,7 +7921,7 @@ windows overlap by 1 minute) is much harder to explain as anything but a real, s
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">EDGARDO_USER_ID</span> <span class="o">=</span> <span class="s2">"c6ea1cdd-9a7e-4b40-bd83-f4f610d1c120"</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">CLINIC_PATIENT_USER_ID</span> <span class="o">=</span> <span class="s2">"c6ea1cdd-9a7e-4b40-bd83-f4f610d1c120"</span>
 
 <span class="n">RECOVERY_BAND_PCT</span> <span class="o">=</span> <span class="mf">10.0</span>   <span class="c1"># "recovered" = within +/-10% of pre-session baseline, HR and RMSSD both</span>
 <span class="n">MIN_RUN_WINDOWS</span> <span class="o">=</span> <span class="mi">2</span>        <span class="c1"># stress/coactivation must hold for &gt;=2 consecutive sliding windows</span>
@@ -7951,9 +7951,9 @@ windows overlap by 1 minute) is much harder to explain as anything but a real, s
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">sessions</span> <span class="o">=</span> <span class="n">fetch_session_rows</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">EDGARDO_USER_ID</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sessions</span> <span class="o">=</span> <span class="n">fetch_session_rows</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">CLINIC_PATIENT_USER_ID</span><span class="p">)</span>
 <span class="n">sessions</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sessions</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="s2">"started_at_utc"</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sessions</span><span class="p">)</span><span class="si">}</span><span class="s2"> sessions for Edgardo"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sessions</span><span class="p">)</span><span class="si">}</span><span class="s2"> sessions for Clinic patient"</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sessions</span><span class="p">)[[</span><span class="s2">"started_at_utc"</span><span class="p">,</span> <span class="s2">"playlist_name"</span><span class="p">,</span> <span class="s2">"artifact_pct"</span><span class="p">]]</span>
 </pre></div>
 </div>
@@ -7967,7 +7967,7 @@ windows overlap by 1 minute) is much harder to explain as anything but a real, s
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>10 sessions for Edgardo
+<pre>10 sessions for Clinic patient
 </pre>
 </div>
 </div>
@@ -8190,7 +8190,7 @@ the LF band that function doesn't need.</p>
     <span class="c1"># Coactivation -- HR up AND RMSSD up at once (the non-reciprocal pattern, as opposed</span>
     <span class="c1"># to the stress quadrant where RMSSD drops). Deliberately NOT run-filtered like peak</span>
     <span class="c1"># stress: applying the same &gt;=2-consecutive-window persistence rule here zeroed out</span>
-    <span class="c1"># coactivation entirely, in every one of Edgardo's 10 sessions -- every occurrence was</span>
+    <span class="c1"># coactivation entirely, in every one of Clinic patient's 10 sessions -- every occurrence was</span>
     <span class="c1"># a single isolated window. Since detecting brief joint-activation moments is the whole</span>
     <span class="c1"># point of this metric, a single qualifying window (already a 2-minute average) counts.</span>
     <span class="c1">#</span>
