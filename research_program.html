@@ -1,0 +1,405 @@
+<title>Research Program Briefing</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root{
+    --paper:#eff1ec;
+    --paper-raised:#e4e7e0;
+    --ink:#1a211f;
+    --ink-soft:#3c443f;
+    --muted:#6e776f;
+    --line:#cfd3c9;
+    --activation:#a85a1a;
+    --activation-soft:#f0e0cd;
+    --recovery:#1f6f6b;
+    --recovery-soft:#d9e9e6;
+    --focus-ring:#1f6f6b;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#141a18;
+      --paper-raised:#1b2220;
+      --ink:#e7eae6;
+      --ink-soft:#c2c8c2;
+      --muted:#8b948b;
+      --line:#2c3531;
+      --activation:#e08a45;
+      --activation-soft:#3a2a18;
+      --recovery:#4bb3ac;
+      --recovery-soft:#16302d;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#141a18;
+    --paper-raised:#1b2220;
+    --ink:#e7eae6;
+    --ink-soft:#c2c8c2;
+    --muted:#8b948b;
+    --line:#2c3531;
+    --activation:#e08a45;
+    --activation-soft:#3a2a18;
+    --recovery:#4bb3ac;
+    --recovery-soft:#16302d;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.55;
+  }
+  ::selection{ background:var(--recovery-soft); color:var(--ink); }
+
+  h1,h2,h3{
+    font-family:'Zilla Slab', Georgia, serif;
+    font-weight:600;
+    text-wrap:balance;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .wrap{ max-width:920px; margin:0 auto; padding:0 28px 96px; }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    padding:56px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .masthead .eyebrow{ margin-bottom:10px; }
+  .masthead h1{ font-size:clamp(2rem, 5vw, 2.9rem); letter-spacing:-0.01em; }
+  .masthead p.mission{
+    max-width:60ch;
+    font-size:1.05rem;
+    color:var(--ink-soft);
+    margin-top:16px;
+  }
+  .principles{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:24px;
+  }
+  .principle{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    font-weight:500;
+    letter-spacing:0.03em;
+    padding:6px 12px;
+    border:1px solid var(--line);
+    border-radius:100px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Sections ---------- */
+  section{ padding:44px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:22px; flex-wrap:wrap; }
+  .section-head h2{ font-size:1.5rem; }
+  .phase-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+    border-radius:4px;
+  }
+  .phase-tag.now{ background:var(--recovery-soft); color:var(--recovery); }
+  .phase-tag.next{ background:var(--activation-soft); color:var(--activation); }
+
+  /* ---------- Streams (4-up) ---------- */
+  .streams{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+  }
+  .stream{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px 16px;
+  }
+  .stream svg{ width:22px; height:22px; stroke:var(--recovery); margin-bottom:10px; }
+  .stream h3{ font-size:0.95rem; font-weight:600; font-family:'Source Sans 3',sans-serif; margin-bottom:6px; }
+  .stream p{ font-size:0.83rem; color:var(--muted); margin:0; }
+
+  /* ---------- Protocol flow ---------- */
+  .flow{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    overflow-x:auto;
+    padding:6px 2px 14px;
+  }
+  .flow-node{
+    flex:1 1 0;
+    min-width:118px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:0 8px;
+  }
+  .flow-node .dot{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--paper-raised);
+    border:1.5px solid var(--recovery);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--recovery);
+    font-family:'IBM Plex Mono',monospace; font-size:0.78rem; font-weight:600;
+    margin-bottom:10px;
+  }
+  .flow-node.baseline .dot{ border-color:var(--muted); color:var(--muted); border-style:dashed; }
+  .flow-node .label{ font-size:0.82rem; font-weight:600; color:var(--ink); }
+  .flow-node .sub{ font-size:0.72rem; color:var(--muted); margin-top:3px; }
+  .flow-arrow{
+    flex:0 0 20px;
+    align-self:center;
+    color:var(--line);
+    font-size:1.1rem;
+    margin-top:-24px;
+  }
+  .sensors{
+    margin-top:6px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.74rem;
+    color:var(--muted);
+  }
+  .sensors span{
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:3px 8px;
+  }
+
+  /* ---------- Lenses ---------- */
+  .lenses{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:20px; }
+  .lens{ padding:12px 14px; background:var(--paper-raised); border-radius:8px; border:1px solid var(--line); }
+  .lens .eyebrow{ font-size:0.65rem; color:var(--recovery); margin-bottom:4px; display:block; }
+  .lens p{ margin:0; font-size:0.82rem; color:var(--ink-soft); }
+
+  /* ---------- Outcomes ---------- */
+  .outcomes{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+  .outcome{ display:grid; grid-template-columns:22px 1fr; gap:12px; align-items:start; }
+  .outcome .mark{ width:8px; height:8px; border-radius:50%; background:var(--activation); margin-top:8px; }
+  .outcome p{ margin:0; font-size:0.95rem; }
+  .outcome strong{ color:var(--activation); }
+
+  /* ---------- Two column phase layout ---------- */
+  .split{ display:grid; grid-template-columns:1fr; gap:12px; }
+
+  .steps{ counter-reset:step; display:flex; flex-direction:column; gap:10px; margin-top:6px; }
+  .step{ display:grid; grid-template-columns:30px 1fr; gap:12px; align-items:baseline; }
+  .step::before{
+    counter-increment:step;
+    content:counter(step);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem; font-weight:600;
+    color:var(--activation);
+    background:var(--activation-soft);
+    width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .step p{ margin:0; font-size:0.9rem; }
+
+  .targets{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:22px; }
+  .target{ background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; padding:16px 18px; }
+  .target .eyebrow{ color:var(--activation); font-size:0.68rem; }
+  .target h3{ font-size:1rem; margin:6px 0 8px; font-family:'Source Sans 3',sans-serif; font-weight:700; }
+  .target p{ margin:0; font-size:0.82rem; color:var(--muted); }
+  .target .track{ margin-top:8px; font-size:0.76rem; color:var(--ink-soft); }
+  .target .track b{ color:var(--ink); font-weight:600; }
+
+  .stat-row{
+    display:flex; gap:24px; flex-wrap:wrap;
+    margin-top:22px; padding:18px 20px;
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:10px;
+  }
+  .stat{ }
+  .stat .num{ font-family:'IBM Plex Mono',monospace; font-size:1.4rem; font-weight:600; color:var(--recovery); }
+  .stat .cap{ font-size:0.74rem; color:var(--muted); margin-top:2px; }
+
+  .questions{ columns:2; column-gap:32px; margin-top:18px; }
+  .questions li{ font-size:0.9rem; margin-bottom:12px; break-inside:avoid; color:var(--ink-soft); }
+  .questions li::marker{ color:var(--activation); }
+
+  footer{ padding-top:32px; }
+  footer p{ font-size:0.76rem; color:var(--muted); max-width:60ch; }
+
+  @media (max-width:760px){
+    .streams, .lenses, .targets, .split{ grid-template-columns:repeat(2,1fr); }
+    .questions{ columns:1; }
+    .flow{ flex-wrap:nowrap; }
+  }
+  @media (max-width:520px){
+    .streams, .lenses, .targets{ grid-template-columns:1fr; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Community-based research initiative</div>
+    <h1>The Research Program</h1>
+    <p class="mission">
+      Can multilayered sound (innerdance playlists) be measured well enough to draw real insight —
+      and protocols — for autonomic nervous system health and wellbeing?
+    </p>
+    <div class="principles">
+      <span class="principle">Simple to follow</span>
+      <span class="principle">Measured &amp; felt</span>
+      <span class="principle">Scalable</span>
+      <span class="principle">Openly available</span>
+    </div>
+  </header>
+
+  <section id="streams">
+    <div class="section-head"><h2>Four streams, moving in parallel</h2></div>
+    <div class="streams">
+      <div class="stream">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 19V9M12 19V4M20 19v-6"/></svg>
+        <h3>Research</h3>
+        <p>AI-assisted synthesis of existing innerdance &amp; HRV literature, filtered through validated knowledge.</p>
+      </div>
+      <div class="stream">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+        <h3>Fast prototyping</h3>
+        <p>Iterative experimentation &amp; data sprints to find which acoustic features move which groups.</p>
+      </div>
+      <div class="stream">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/></svg>
+        <h3>Platform</h3>
+        <p>One simple, scalable system — useful to participants, practitioners, and medical staff alike.</p>
+      </div>
+      <div class="stream">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+        <h3>Data collection</h3>
+        <p>Structured experiments that validate hypotheses and build a trustworthy first dataset.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="phase1">
+    <div class="section-head">
+      <span class="phase-tag now">Phase 1 · underway</span>
+      <h2>Exploratory phase</h2>
+    </div>
+    <p style="color:var(--ink-soft); max-width:68ch; margin:0 0 8px;">
+      What's needed for the program to run, how it's applied, and what questions we can even ask.
+      Run in partnership with Maia Earth's community health network in Palawan, Philippines, and in Germany.
+    </p>
+
+    <div class="eyebrow" style="margin-top:28px;">The session protocol</div>
+    <div class="flow">
+      <div class="flow-node baseline"><div class="dot">5′</div><div class="label">Baseline</div><div class="sub">pre-rest</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="dot">✓</div><div class="label">Pre-questionnaire</div><div class="sub">HRV confounders + PANAS</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="dot">40′</div><div class="label">Sound intervention</div><div class="sub">12-stage playlist</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="dot">✓</div><div class="label">Post-questionnaire</div><div class="sub">stress + PANAS</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node baseline"><div class="dot">5′</div><div class="label">Baseline</div><div class="sub">post-rest</div></div>
+    </div>
+    <div class="sensors">
+      <span>Polar H10 chest strap</span><span>ECG Logger</span><span>→ ML pipeline → instant report</span>
+    </div>
+
+    <div class="eyebrow" style="margin-top:30px;">Four lenses on the same data</div>
+    <div class="lenses">
+      <div class="lens"><span class="eyebrow">Per session</span><p>What happens in one sound intervention.</p></div>
+      <div class="lens"><span class="eyebrow">Across sessions</span><p>What changes after repeated exposure, one person.</p></div>
+      <div class="lens"><span class="eyebrow">Cross-playlist</span><p>Participants A/B/C on the same playlist.</p></div>
+      <div class="lens"><span class="eyebrow">Cross-time</span><p>Across participants, over the full time scope.</p></div>
+    </div>
+
+    <div class="eyebrow" style="margin-top:30px;">What we've learned so far</div>
+    <div class="outcomes">
+      <div class="outcome"><div class="mark"></div><p><strong>Clinic patients need their own lane</strong> — a clearly depressed HRV pattern showed up for the clinic patient, separate from the general population.</p></div>
+      <div class="outcome"><div class="mark"></div><p><strong>Data quality gate is now a priority</strong> — robust artefact removal is being added to the pipeline before we trust any reading.</p></div>
+      <div class="outcome"><div class="mark"></div><p><strong>Not ready to name states yet</strong> — "Deep Recovery", "Flow", "Focus" are useful labels, but the HRV rules behind them aren't defined with confidence.</p></div>
+      <div class="outcome"><div class="mark"></div><p><strong>Sequence going forward:</strong> define reportable participant states first, then correlate to documented HRV metrics — not the other way round.</p></div>
+      <div class="outcome"><div class="mark"></div><p>Some states (anxiety, emotional release, insight) may need more than HRV — open question on what else to collect.</p></div>
+    </div>
+  </section>
+
+  <section id="phase2">
+    <div class="section-head">
+      <span class="phase-tag next">Phase 2 · proposed</span>
+      <h2>Next steps</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p>Decide the objective state and the initial participant group.</p></div>
+      <div class="step"><p>Formulate a hypothesis, grounded in existing research and its potential impact.</p></div>
+      <div class="step"><p>Extend the hypothesis with a causal model — which acoustic features drive which effect.</p></div>
+      <div class="step"><p>Define and select playlists with strong enough differentiation on those features.</p></div>
+      <div class="step"><p>Define the data collection protocol, questionnaires, and grouping strategy.</p></div>
+      <div class="step"><p>Record and analyze iteratively — a pilot study designed to be publishable.</p></div>
+    </div>
+
+    <div class="eyebrow" style="margin-top:34px;">A first hypothesis on the table</div>
+    <p style="font-size:0.95rem; color:var(--ink-soft); margin:8px 0 0; max-width:68ch;">
+      A weekly stress/recovery protocol, after screening, measurably and subjectively improves four areas:
+    </p>
+    <div class="targets">
+      <div class="target">
+        <span class="eyebrow">01</span>
+        <h3>Flow state</h3>
+        <p>Calm hyper-vigilance — sharp and energized, not frantic.</p>
+        <div class="track"><b>Track:</b> HR up with stable/rising RMSSD; Flow State Scale</div>
+      </div>
+      <div class="target">
+        <span class="eyebrow">02</span>
+        <h3>Cardiovascular stability</h3>
+        <p>The parasympathetic "brake" stays active while the "gas" is on.</p>
+        <div class="track"><b>Track:</b> resting HR ↓, morning RMSSD ↑ over weeks</div>
+      </div>
+      <div class="target">
+        <span class="eyebrow">03</span>
+        <h3>Rapid recovery</h3>
+        <p>Doesn't stay stuck in fight-or-flight after a stressor.</p>
+        <div class="track"><b>Track:</b> Heart Rate Recovery, first 1–2 min post-stress</div>
+      </div>
+      <div class="target">
+        <span class="eyebrow">04</span>
+        <h3>Sleep &amp; autonomic reset</h3>
+        <p>Evening downregulation clears daytime stress hormones.</p>
+        <div class="track"><b>Track:</b> waking RMSSD trend; Pittsburgh Sleep Quality Index</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="num">3 wks</div><div class="cap">draft protocol length</div></div>
+      <div class="stat"><div class="num">15′ ×3</div><div class="cap">short sessions / week</div></div>
+      <div class="stat"><div class="num">40′ ×1</div><div class="cap">long session / week</div></div>
+      <div class="stat"><div class="num">alt.</div><div class="cap">stress / recovery days</div></div>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="section-head"><h2>Open questions</h2></div>
+    <ul class="questions">
+      <li>Which population should we focus on first — and are effects clearer in healthy, first-time participants?</li>
+      <li>Do we track how well HRV reflects felt improvement, or simply how much HRV improves?</li>
+      <li>Which outcome states are both self-reportable and already correlated with HRV?</li>
+      <li>Can "insight" signals be detected at all from physiology alone?</li>
+      <li>Do we also collect next-day data, not just immediate pre/post?</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Research Program overview — condensed for presentation. Source: <em>docs/Research Program.docx</em>.
+    Hypothesis descriptions and training-timeline framing were AI-drafted and human-reviewed.</p>
+  </footer>
+
+</div>
