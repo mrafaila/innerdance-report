@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<title>HRV Standards 1996 — Key Metrics, 10-Minute Version</title>
+<style>
+  body { margin:0; padding:28px; background:#0d0d1a; font-family:-apple-system,Helvetica,Arial,sans-serif; color:#e0e0e0; }
+  .wrap { max-width:980px; margin:0 auto; }
+  .badge { display:inline-block; background:#1a1a2e; border:1px solid #2a2a4a; border-radius:20px; padding:5px 14px; color:#76b7b2; font-size:12px; margin:3px 6px 3px 0; }
+  h1 { font-size:26px; margin:18px 0 6px; }
+  .sub { font-size:13px; color:#aaa; line-height:1.6; max-width:760px; }
+  .src { font-size:12px; color:#777; margin-top:10px; }
+  .src a { color:#76b7b2; }
+  h2 { font-size:14px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#888; margin:44px 0 16px; border-bottom:1px solid #2a2a4a; padding-bottom:8px; }
+
+  /* spectrum bar */
+  .spectrum { display:flex; height:64px; border-radius:8px; overflow:hidden; margin:18px 0 8px; font-family:monospace; }
+  .band { display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#0d0d1a; }
+  .band small { font-weight:400; font-size:10px; opacity:0.8; }
+  .band-vlf { background:#8e7cc3; width:52.9%; }
+  .band-lf  { background:#f39c12; width:27.0%; }
+  .band-hf  { background:#4c9be8; width:20.1%; }
+  .spectrum-axis { display:flex; justify-content:space-between; font-size:10px; color:#666; font-family:monospace; margin-bottom:6px; }
+  .spectrum-note { font-size:11px; color:#888; line-height:1.6; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px; }
+  .card { background:#13132a; border:1px solid #2a2a4a; border-left:4px solid #76b7b2; border-radius:8px; padding:16px 18px; }
+  .card.vlf { border-left-color:#8e7cc3; }
+  .card.lf { border-left-color:#f39c12; }
+  .card.hf { border-left-color:#4c9be8; }
+  .card.ratio { border-left-color:#e74c3c; }
+  .metric-name { font-size:16px; font-weight:700; color:#fff; }
+  .metric-full { font-size:11px; color:#888; margin-bottom:8px; }
+  .formula { font-family:monospace; font-size:12px; background:#0d0d1a; border:1px solid #2a2a4a; border-radius:5px; padding:6px 9px; margin:8px 0; color:#9be8c4; }
+  .reflects { font-size:12px; color:#ccc; line-height:1.55; margin-top:8px; }
+  .reflects b { color:#e0e0e0; }
+  .usage { font-size:11px; color:#76b7b2; margin-top:10px; padding-top:8px; border-top:1px solid #2a2a4a; }
+
+  .stack-box { background:#1a0a00; border:1px solid #e67e22; border-radius:8px; padding:18px 20px; margin-top:16px; font-size:13px; line-height:1.7; }
+  .stack-box b { color:#f0c080; }
+  .stack-box code { background:#0d0d1a; padding:1px 5px; border-radius:3px; font-size:12px; }
+
+  footer { margin:56px 0 20px; text-align:center; font-size:11px; color:#444; }
+  footer a { color:#555; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div>
+  <span class="badge">&#9200; ~10 min read</span>
+  <span class="badge">1 source paper</span>
+  <span class="badge">8 metrics</span>
+</div>
+<h1>HRV Standards, 1996 — Key Metrics for Innerdance</h1>
+<p class="sub">
+The Task Force of the European Society of Cardiology &amp; NASPE (1996) is the foundational reference
+that defines the standard HRV frequency bands, the core time-domain measures, and introduces the
+Poincaré plot as a geometric method. This page pulls out <b>only the metrics this project's pipeline
+actually uses</b>, in plain definitions, visually.</p>
+<p class="src">Source: Task Force of ESC &amp; NASPE (1996). Heart rate variability: standards of
+measurement, physiological interpretation and clinical use. <i>Circulation</i>, 93(5):1043&ndash;1065.
+&middot; <a href="https://doi.org/10.1161/01.CIR.93.5.1043" target="_blank" rel="noopener">DOI: 10.1161/01.CIR.93.5.1043</a></p>
+
+<h2>1. The frequency spectrum (log scale)</h2>
+<div class="spectrum-axis"><span>0.003 Hz</span><span>0.04 Hz</span><span>0.15 Hz</span><span>0.40 Hz</span></div>
+<div class="spectrum">
+  <div class="band band-vlf">VLF<small>0.003&ndash;0.04 Hz</small></div>
+  <div class="band band-lf">LF<small>0.04&ndash;0.15 Hz</small></div>
+  <div class="band band-hf">HF<small>0.15&ndash;0.40 Hz</small></div>
+</div>
+<p class="spectrum-note">Bar widths are log-scaled (each band spans a different order of magnitude, not
+an equal slice of Hz). Total power is everything ≤0.40 Hz. These exact bands are what
+<code>edgardo_frequency_domain_analysis.ipynb</code> and this project's PSD code use.</p>
+
+<h2>2. Time domain — beat-to-beat variability</h2>
+<div class="grid">
+  <div class="card">
+    <div class="metric-name">RMSSD</div>
+    <div class="metric-full">Root Mean Square of Successive Differences</div>
+    <div class="formula">RMSSD = sqrt( mean( (RR[i+1] − RR[i])² ) )</div>
+    <div class="reflects"><b>Reflects:</b> short-term, beat-to-beat variability — dominated by vagal
+    (parasympathetic) tone. The most vagally-specific time-domain measure in the paper.</div>
+    <div class="usage">Our use: pre/post 5-min resting windows ONLY — a slow/paced breathing rate
+    inflates it artifactually, so it never appears as an in-session metric.</div>
+  </div>
+  <div class="card">
+    <div class="metric-name">SDNN</div>
+    <div class="metric-full">Standard Deviation of NN intervals</div>
+    <div class="formula">SDNN = std( RR[1..n] )</div>
+    <div class="reflects"><b>Reflects:</b> total variability — every cyclic component in the
+    recording, both branches combined, not just the HF band.</div>
+    <div class="usage">Our use: breathing-robust summary for in-session windows, where breathing rate
+    is unknown and RMSSD can't be trusted.</div>
+  </div>
+</div>
+
+<h2>3. Frequency domain — spectral power</h2>
+<div class="grid">
+  <div class="card vlf">
+    <div class="metric-name">VLF power</div>
+    <div class="metric-full">Very Low Frequency, 0.003&ndash;0.04 Hz</div>
+    <div class="reflects"><b>Reflects:</b> the least well-characterized band — linked to
+    thermoregulation, the renin-angiotensin system, and slow physiological rhythms rather than a
+    clean SNS/PNS signal. The paper itself is cautious about interpreting it in short recordings.</div>
+    <div class="usage">Our finding: VLF is the most outlier-prone band in a 5-min window — a single
+    sensor-contact dropout session produced a ~1000&times; spike, forcing a log-scale display.</div>
+  </div>
+  <div class="card lf">
+    <div class="metric-name">LF power</div>
+    <div class="metric-full">Low Frequency, 0.04&ndash;0.15 Hz</div>
+    <div class="reflects"><b>Reflects:</b> a mix of sympathetic and parasympathetic activity plus
+    baroreflex modulation — never a "pure" sympathetic marker, contrary to older shorthand.</div>
+    <div class="usage">Our use: tracked per-session as one input to LF/HF, never read alone as
+    "sympathetic tone."</div>
+  </div>
+  <div class="card hf">
+    <div class="metric-name">HF power</div>
+    <div class="metric-full">High Frequency, 0.15&ndash;0.40 Hz</div>
+    <div class="reflects"><b>Reflects:</b> respiratory sinus arrhythmia (RSA) — vagally mediated,
+    synchronized with the breathing cycle. The cleanest parasympathetic spectral marker.</div>
+    <div class="usage">Our use: valid in-session even when breathing rate is unknown or slow — CLAUDE.md's
+    original in-session recommendation, alongside RSA amplitude.</div>
+  </div>
+  <div class="card ratio">
+    <div class="metric-name">LF/HF ratio</div>
+    <div class="metric-full">Low/High Frequency ratio</div>
+    <div class="formula">LF/HF = LF power ÷ HF power</div>
+    <div class="reflects"><b>Reflects:</b> proposed as a "sympathovagal balance" index — but the 1996
+    paper itself already flags this interpretation as debated, since LF is not sympathetically pure.</div>
+    <div class="usage">Our use: reported descriptively per session/stage, never as a standalone
+    balance verdict.</div>
+  </div>
+</div>
+
+<h2>4. Geometric method — the Poincaré plot</h2>
+<p class="sub" style="margin-bottom:14px;">The 1996 paper introduces the Poincaré plot (RR[i] vs.
+RR[i+1]) as a geometric alternative to time/frequency methods; SD1/SD2 as its two numeric axes were
+formalized in follow-up work, not in this paper's own tables — included here because they are core
+to this project's pipeline.</p>
+<div class="grid">
+  <div class="card">
+    <div class="metric-name">SD1</div>
+    <div class="metric-full">Poincaré short-term (minor) axis</div>
+    <div class="formula">SD1 = RMSSD / &radic;2</div>
+    <div class="reflects"><b>Reflects:</b> mathematically redundant with RMSSD — same vagal signal,
+    same breathing-rate confound.</div>
+    <div class="usage">Our use: kept for Poincaré-plot convention only; never reported alongside
+    RMSSD in the same table (double-counting the same measurement).</div>
+  </div>
+  <div class="card">
+    <div class="metric-name">SD2</div>
+    <div class="metric-full">Poincaré long-term (major) axis</div>
+    <div class="formula">SD2 = sqrt( 2·SDNN² − 0.5·mean(diff(RR)²) )</div>
+    <div class="reflects"><b>Reflects:</b> long-term variability across both branches — closely
+    correlated with SDNN in short windows.</div>
+    <div class="usage">Our use: the primary in-session/cross-stage autonomic-flexibility metric —
+    valid at any breathing rate, drives the Stage 4→10 "resilience arc."</div>
+  </div>
+  <div class="card ratio">
+    <div class="metric-name">SD1/SD2</div>
+    <div class="metric-full">Poincaré ratio</div>
+    <div class="reflects"><b>Reflects:</b> a sympathovagal-balance proxy, shaped like LF/HF but from
+    the time domain.</div>
+    <div class="usage">Our use: descriptive only, in-session — its numerator (SD1) shares RMSSD's
+    breathing-rate sensitivity, so it's not used as a primary in-session metric.</div>
+  </div>
+</div>
+
+<div class="stack-box">
+  <b>&#9888; The one rule that matters most:</b> RMSSD and SD1 (and by extension SD1/SD2) are only
+  physiologically valid in the pre/post 5-minute resting windows, where breathing is uncontrolled but
+  at least not the slow, entrained breathing that innerdance sessions can induce. In-session, use
+  <code>SD2</code>, <code>SDNN</code>, and <code>HF power</code> — none of them are confounded by
+  breathing rate. This is the same rule already documented in <code>CLAUDE.md</code> and
+  <code>hrv_core.py</code>; this page just traces it back to where the metrics themselves are defined.
+</div>
+
+</div>
+<footer>
+  <p>Innerdance Biofeedback POC &middot; AI-generated literature summary, one source paper</p>
+  <p style="margin-top:6px;"><a href="https://github.com/mrafaila/innerdance-report">GitHub</a></p>
+</footer>
+</body></html>
