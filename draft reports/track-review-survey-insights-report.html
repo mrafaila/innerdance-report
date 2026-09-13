@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>12 Stages Inquiry — Insights &amp; Hypotheses</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --page:        #f9f9f7;
+    --surface:     #fcfcfb;
+    --surface-2:   #f3f2ee;
+    --ink:         #0b0b0b;
+    --ink-2:       #52514e;
+    --ink-muted:   #898781;
+    --grid:        #e1e0d9;
+    --baseline:    #c3c2b7;
+    --border:      rgba(11,11,11,0.10);
+    --accent-data:  #2a78d6;   /* empirical / measured */
+    --accent-infer: #4a3aa7;   /* interpretive / hypothesis */
+    --series-pa:    #2a78d6;
+    --series-na:    #e34948;
+    --series-oa:    #1baf7a;
+    --good:     #0ca30c;
+    --warning:  #fab219;
+    --serious:  #ec835a;
+    --critical: #d03b3b;
+    --serif: "IBM Plex Serif", Georgia, serif;
+    --sans:  "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono:  "IBM Plex Mono", "SF Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --page:      #0d0d0d;
+      --surface:   #1a1a19;
+      --surface-2: #232322;
+      --ink:       #ffffff;
+      --ink-2:     #c3c2b7;
+      --ink-muted: #898781;
+      --grid:      #2c2c2a;
+      --baseline:  #383835;
+      --border:    rgba(255,255,255,0.10);
+      --accent-data:  #3987e5;
+      --accent-infer: #9085e9;
+      --series-pa:    #3987e5;
+      --series-na:    #e66767;
+      --series-oa:    #199e70;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:      #0d0d0d;
+    --surface:   #1a1a19;
+    --surface-2: #232322;
+    --ink:       #ffffff;
+    --ink-2:     #c3c2b7;
+    --ink-muted: #898781;
+    --grid:      #2c2c2a;
+    --baseline:  #383835;
+    --border:    rgba(255,255,255,0.10);
+    --accent-data:  #3987e5;
+    --accent-infer: #9085e9;
+    --series-pa:    #3987e5;
+    --series-na:    #e66767;
+    --series-oa:    #199e70;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--page); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.55;
+  }
+  h1,h2,h3{ font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0; }
+  code, .mono{ font-family:var(--mono); }
+  a{ color:var(--accent-data); }
+
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 24px; }
+
+  /* ---- top nav ---- */
+  .topnav{
+    position:sticky; top:0; z-index:10;
+    background:color-mix(in srgb, var(--page) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  .topnav .wrap{ display:flex; align-items:center; gap:20px; height:52px; overflow-x:auto; }
+  .topnav .brand{ font-family:var(--serif); font-weight:600; font-size:15px; white-space:nowrap; }
+  .topnav nav{ display:flex; gap:18px; white-space:nowrap; }
+  .topnav nav a{ color:var(--ink-2); text-decoration:none; font-size:13.5px; }
+  .topnav nav a:hover{ color:var(--ink); }
+
+  /* ---- header ---- */
+  header.hero{ padding:56px 0 32px; }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent-infer); margin-bottom:10px; display:block;
+  }
+  header.hero h1{ font-size:clamp(28px,4vw,40px); max-width:16ch; }
+  header.hero p.lede{ max-width:62ch; color:var(--ink-2); font-size:17px; margin-top:14px; }
+
+  .stat-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-top:28px; }
+  .stat-tile{ background:var(--surface); padding:16px 18px; }
+  .stat-tile .n{ font-family:var(--serif); font-size:26px; font-variant-numeric:tabular-nums; }
+  .stat-tile .l{ font-size:12.5px; color:var(--ink-muted); margin-top:2px; }
+
+  section{ padding:44px 0; border-top:1px solid var(--border); }
+  section > .sec-head{ margin-bottom:24px; }
+  section > .sec-head .eyebrow{ margin-bottom:8px; }
+  section h2{ font-size:23px; }
+  section p.sec-sub{ color:var(--ink-2); margin-top:8px; max-width:64ch; }
+
+  /* ---- insight cards ---- */
+  .insight-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+  .insight{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px 20px; }
+  .insight .tag{ display:inline-block; font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--accent-data); border:1px solid color-mix(in srgb, var(--accent-data) 40%, transparent); border-radius:99px; padding:2px 9px; margin-bottom:10px; }
+  .insight h3{ font-size:16px; font-family:var(--sans); font-weight:600; }
+  .insight p{ font-size:14.5px; color:var(--ink-2); margin:8px 0 0; }
+  .insight .cite{ margin-top:10px; font-size:12px; color:var(--ink-muted); font-family:var(--mono); }
+
+  /* ---- watch table ---- */
+  .watch-table{ width:100%; border-collapse:collapse; font-size:14.5px; }
+  .watch-table th{ text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-muted); font-weight:500; padding:0 12px 10px; border-bottom:1px solid var(--border); }
+  .watch-table td{ padding:12px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .watch-table tr:last-child td{ border-bottom:none; }
+  .pill{ display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:500; padding:3px 10px 3px 8px; border-radius:99px; white-space:nowrap; }
+  .pill .dot{ width:7px; height:7px; border-radius:50%; flex:none; }
+  .pill.good{ color:var(--good); background:color-mix(in srgb, var(--good) 14%, transparent); }
+  .pill.good .dot{ background:var(--good); }
+  .pill.warning{ color:color-mix(in srgb, var(--warning) 70%, var(--ink)); background:color-mix(in srgb, var(--warning) 20%, transparent); }
+  .pill.warning .dot{ background:var(--warning); }
+  .pill.serious{ color:var(--serious); background:color-mix(in srgb, var(--serious) 16%, transparent); }
+  .pill.serious .dot{ background:var(--serious); }
+  .num{ font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:13.5px; color:var(--ink-2); }
+
+  /* ---- chart ---- */
+  .chart-card{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px 24px 16px; }
+  .legend{ display:flex; gap:18px; flex-wrap:wrap; margin-bottom:6px; font-size:13px; color:var(--ink-2); }
+  .legend .key{ display:inline-flex; align-items:center; gap:6px; }
+  .legend .sw{ width:14px; height:3px; border-radius:2px; display:inline-block; }
+  svg text{ font-family:var(--sans); fill:var(--ink-muted); }
+  svg .axis-line{ stroke:var(--baseline); stroke-width:1; }
+  svg .grid-line{ stroke:var(--grid); stroke-width:1; }
+  svg .stage-label{ font-family:var(--mono); font-size:10.5px; fill:var(--ink-2); }
+  svg .theme-label{ font-size:9.5px; fill:var(--ink-muted); }
+  .pt{ cursor:default; }
+  .thin-note{ font-size:12px; color:var(--ink-muted); margin-top:10px; }
+
+  /* ---- bars ---- */
+  .bar-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  @media (max-width:720px){ .bar-grid{ grid-template-columns:1fr; } }
+  .bar-row{ display:grid; grid-template-columns:118px 1fr 34px; align-items:center; gap:10px; margin-bottom:9px; }
+  .bar-row .lbl{ font-size:12.5px; color:var(--ink-2); text-align:right; }
+  .bar-track{ background:var(--surface-2); border-radius:4px; height:12px; overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:4px; }
+  .bar-row .val{ font-family:var(--mono); font-size:12px; color:var(--ink-muted); }
+
+  /* ---- hypotheses ---- */
+  .hyp-card{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 22px; margin-bottom:14px; }
+  .hyp-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+  .hyp-num{ font-family:var(--mono); color:var(--accent-infer); font-size:13px; }
+  .hyp-title{ font-family:var(--serif); font-weight:600; font-size:17px; margin-top:4px; }
+  .priority{ font-size:11.5px; font-family:var(--mono); text-transform:uppercase; letter-spacing:.04em; border:1px solid var(--border); border-radius:99px; padding:4px 11px; color:var(--ink-2); white-space:nowrap; }
+  .hyp-body{ color:var(--ink-2); font-size:14.5px; margin-top:10px; max-width:74ch; }
+  .dims{ display:flex; gap:22px; flex-wrap:wrap; margin-top:14px; }
+  .dim{ font-size:12px; }
+  .dim .dl{ color:var(--ink-muted); text-transform:uppercase; letter-spacing:.04em; font-size:10.5px; display:block; margin-bottom:4px; }
+  .dots{ display:inline-flex; gap:3px; vertical-align:middle; }
+  .dots span{ width:7px; height:7px; border-radius:50%; background:var(--grid); display:inline-block; }
+  .dots span.on{ background:var(--accent-data); }
+  .dim-text{ font-weight:600; margin-left:6px; font-size:12.5px; }
+  .hyp-cite{ margin-top:12px; font-family:var(--mono); font-size:11.5px; color:var(--ink-muted); }
+
+  /* ---- methodology ---- */
+  .callout{ background:var(--surface-2); border-left:3px solid var(--accent-infer); border-radius:0 8px 8px 0; padding:14px 18px; font-size:14px; color:var(--ink-2); margin-bottom:16px; }
+  .callout strong{ color:var(--ink); }
+  ul.limits{ padding-left:20px; color:var(--ink-2); font-size:14.5px; }
+  ul.limits li{ margin-bottom:8px; }
+
+  footer{ padding:36px 0 60px; color:var(--ink-muted); font-size:13px; }
+  footer .src-list{ margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; }
+  footer .src-list span{ font-family:var(--mono); font-size:11.5px; border:1px solid var(--border); border-radius:99px; padding:3px 10px; }
+</style>
+</head>
+<body>
+
+<div class="topnav"><div class="wrap">
+  <span class="brand">12 Stages Inquiry</span>
+  <nav>
+    <a href="#insights">Key insights</a>
+    <a href="#watch">Topics to watch</a>
+    <a href="#arc">The 12-stage arc</a>
+    <a href="#experiences">Top experiences</a>
+    <a href="#hypotheses">Hypotheses</a>
+    <a href="#method">Methodology</a>
+  </nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Track review survey · aggregate report</span>
+  <h1>What 117 people reported after listening to innerdance tracks</h1>
+  <p class="lede">A de-identified read of the 12 Stages Inquiry dataset — self-reported affect (PANAS-X) and physical/perceptual experience across the practice's 12-stage sequence — with hypotheses for what this might mean for a generally healthy, stress-exposed population, scored on impact, effort, and risk.</p>
+  <div class="stat-row">
+    <div class="stat-tile"><div class="n">117</div><div class="l">participants</div></div>
+    <div class="stat-tile"><div class="n">614</div><div class="l">track reviews</div></div>
+    <div class="stat-tile"><div class="n">12</div><div class="l">languages</div></div>
+    <div class="stat-tile"><div class="n">May–Dec</div><div class="l">2025 collection window</div></div>
+  </div>
+</div></header>
+
+<section id="insights"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">01 · Key insights</span>
+    <h2>Difficulty concentrates where the practice designs it to — Stage 3 above all — and Positive Affect still leads throughout</h2>
+    <p class="sec-sub">Every figure below is a pooled mean or count across all 614 responses — no individual row is shown or shown-through anywhere in this report. Stage design intent (which stages are meant to be hard) is drawn from <code>twelve-stages-design-map</code>, a facilitator-level reference obtained after this report's first draft.</p>
+  </div>
+  <div class="insight-grid">
+    <div class="insight">
+      <span class="tag">measured</span>
+      <h3>Anxiety and Agitation both peak sharply at Stage 3 — the one stage whose own design names cortisol</h3>
+      <p>Anxiety hits 3.09/5 at Stage 3 (Threshold) against a pooled mean of 1.90 elsewhere; Agitation hits 2.81/5 against a pooled 1.91. This isn't a diffuse "minority of responses" pattern — it's concentrated exactly at the stage the practice's own facilitator design names as its cortisol/exhaustion point ("Have you had enough? Are you exhausted?"). Fear peaks at Stage 4 (3.25/5, n=4 — small sample) alongside Confusion (2.75/5).</p>
+      <div class="cite">track-inquiry-survey-aggregate · re-derived per-stage · twelve-stages-design-map</div>
+    </div>
+    <div class="insight">
+      <span class="tag">measured</span>
+      <h3>Positive Affect still beats Negative Affect at all 12 stages, including Stage 3</h3>
+      <p>On the PANAS-X-derived 14-item battery, Positive Affect stays above Negative Affect from Stage 1 (Safety) through Stage 12 (Re-integration) — including Stage 3–4, now read as the design's intended difficulty peak rather than an unexplained "crisis theme." The 60-item PANAS-X checklist agrees on the same shape: difficulty registers, but doesn't dominate, even where it's meant to show up.</p>
+      <div class="cite">track-inquiry-survey-aggregate · battery 1 &amp; 2</div>
+    </div>
+    <div class="insight">
+      <span class="tag">measured</span>
+      <h3>Serenity and self-assurance dominate the top emotions</h3>
+      <p>Calm, relaxed, at ease, inspired, strong, confident — no negative-affect item cracks the top 20 pooled emotions out of 60. The somatic top-line (energy waves, floating, visions, chest expansion) reads as engagement, not distress, at the aggregate level.</p>
+      <div class="cite">track-inquiry-survey-aggregate · battery 2</div>
+    </div>
+    <div class="insight">
+      <span class="tag">measured</span>
+      <h3>Engagement is heavily front-loaded</h3>
+      <p>Stages 1–4 account for 74% of all 614 responses. Stages 10–12 — arguably the most consequential for a "does the arc complete" claim — have only 6, 3, and 5 participants respectively. Any per-stage claim past Stage 9 is provisional.</p>
+      <div class="cite">track-inquiry-survey-aggregate · sample table</div>
+    </div>
+    <div class="insight">
+      <span class="tag">inference</span>
+      <h3>This is a reviewer sample, not a naive-user sample</h3>
+      <p>Respondents are auditioning tracks against their intended stage — very likely existing practitioners, not first-time, unaffiliated stress-exposed users. The positive skew above may partly reflect who was reviewing, not just what the tracks do.</p>
+      <div class="cite">inference, see Hypothesis 2</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="watch"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">02 · Topics to watch</span>
+    <h2>Distress-adjacent items are low on average pooled — but concentrated, not scattered, once split by stage</h2>
+    <p class="sec-sub">Pooled means understate how concentrated these get: split by stage, several items exceed 2.5–3.0/5 at Stage 3 or 4 specifically. Still frequent enough, and specific enough, to name for informed-consent/facilitator-guidance purposes — now with a stage attached instead of "somewhere in the sequence."</p>
+  </div>
+  <table class="watch-table">
+    <thead><tr><th>Reported item</th><th>Pooled mean</th><th>Share of responses</th><th>Peaks at</th><th>Read as</th></tr></thead>
+    <tbody>
+      <tr><td>Anxiety</td><td class="num">1.90 / 5</td><td class="num">124 / 614 (20%)</td><td class="num">3.09 at Stage 3 (n=11)</td><td><span class="pill serious"><span class="dot"></span>Design-consistent peak</span></td></tr>
+      <tr><td>Agitation</td><td class="num">1.91 / 5</td><td class="num">128 / 614 (21%)</td><td class="num">2.81 at Stage 3 (n=16)</td><td><span class="pill serious"><span class="dot"></span>Design-consistent peak</span></td></tr>
+      <tr><td>Fear</td><td class="num">1.96 / 5</td><td class="num">100 / 614 (16%)</td><td class="num">3.25 at Stage 4 (n=4)</td><td><span class="pill warning"><span class="dot"></span>Design-consistent, small n</span></td></tr>
+      <tr><td>Confusion</td><td class="num">2.04 / 5</td><td class="num">116 / 614 (19%)</td><td class="num">2.75 at Stage 4 (n=8)</td><td><span class="pill warning"><span class="dot"></span>Design-consistent, small n</span></td></tr>
+      <tr><td>Dizziness</td><td class="num">1.79 / 5</td><td class="num">97 / 614 (16%)</td><td class="num">not re-derived by stage</td><td><span class="pill good"><span class="dot"></span>Low intensity</span></td></tr>
+      <tr><td>Vertigo</td><td class="num">1.88 / 5</td><td class="num">91 / 614 (15%)</td><td class="num">not re-derived by stage</td><td><span class="pill good"><span class="dot"></span>Low intensity</span></td></tr>
+      <tr><td>Sudden loss of awareness</td><td class="num">1.71 / 5</td><td class="num">77 / 614 (13%)</td><td class="num">3.0 at Stage 6 &amp; 10 (n=4, n=1)</td><td><span class="pill serious"><span class="dot"></span>Facilitator-relevant, very small n</span></td></tr>
+      <tr><td>Cognitive/language difficulty cluster<br><span style="color:var(--ink-muted); font-size:12px;">(reading, writing, speaking, math)</span></td><td class="num">1.1–1.3 / 5</td><td class="num">56–65 / 614 (9–11%)</td><td class="num">not re-derived by stage</td><td><span class="pill good"><span class="dot"></span>Low intensity</span></td></tr>
+    </tbody>
+  </table>
+  <p class="thin-note">"Share of responses" counts any rating &gt;0 on that item, at any intensity — it is not a count of severe events. "Peaks at" is re-derived per-stage from the raw survey (see track-inquiry-survey-aggregate), not part of the original pooled-only analysis. Anxiety and Agitation peaking at Stage 3, and Fear/Confusion at Stage 4, line up with <code>twelve-stages-design-map</code>'s own designed difficulty points — read as the design working, not an unexplained side effect. Sudden-loss-of-awareness's Stage 6/10 peak carries n=4 and n=1 and shouldn't be over-read.</p>
+</div></section>
+
+<section id="arc"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">03 · The 12-stage arc</span>
+    <h2>Negative Affect rises to its designed peak at Stage 3–4, then Positive Affect climbs through recovery</h2>
+    <p class="sec-sub">Pooled PANAS-X Positive Affect, Negative Affect, and "Other Affect" (Serenity/Fatigue) means per stage, 14-item battery. Stages 10–12 (dashed) carry 3–6 participants — read as indicative only.</p>
+  </div>
+  <div class="chart-card">
+    <div class="legend">
+      <span class="key"><span class="sw" style="background:var(--series-pa)"></span>Positive Affect</span>
+      <span class="key"><span class="sw" style="background:var(--series-na)"></span>Negative Affect</span>
+      <span class="key"><span class="sw" style="background:var(--series-oa); opacity:.6"></span>Serenity / Other Affect</span>
+    </div>
+    <svg viewBox="0 0 920 340" width="100%" role="img" aria-label="Line chart of Positive Affect, Negative Affect and Other Affect means across the 12 stages">
+      <!-- gridlines + y labels, scale 1..5 mapped to y 260..30 -->
+      <g>
+        <line class="grid-line" x1="60" x2="900" y1="260" y2="260"/>
+        <line class="grid-line" x1="60" x2="900" y1="203" y2="203"/>
+        <line class="grid-line" x1="60" x2="900" y1="145" y2="145"/>
+        <line class="grid-line" x1="60" x2="900" y1="88"  y2="88"/>
+        <line class="grid-line" x1="60" x2="900" y1="30"  y2="30"/>
+        <text x="46" y="264" text-anchor="end" font-size="11">1</text>
+        <text x="46" y="207" text-anchor="end" font-size="11">2</text>
+        <text x="46" y="149" text-anchor="end" font-size="11">3</text>
+        <text x="46" y="92"  text-anchor="end" font-size="11">4</text>
+        <text x="46" y="34"  text-anchor="end" font-size="11">5</text>
+      </g>
+      <line class="axis-line" x1="60" x2="900" y1="260" y2="260"/>
+
+      <!-- x = stage 1..12 mapped to 60..900 step 76.4; y = 260-(v-1)*57.5 for v in 1..5 -->
+      <!-- OA line -->
+      <polyline fill="none" stroke="var(--series-oa)" stroke-width="2" opacity=".55"
+        points="60,118.6 136.4,118.6 212.7,108.8 289.1,100.2 365.5,96.1 441.8,107.6 518.2,76.6 594.5,90.4 670.9,73.1 747.3,93.8 823.6,58.8 900,55.3"/>
+      <!-- NA line: solid stages1-9, dashed 9-12 -->
+      <polyline fill="none" stroke="var(--series-na)" stroke-width="2.25"
+        points="60,190.4 136.4,166.8 212.7,136.9 289.1,136.4 365.5,161.7 441.8,170.9 518.2,164 594.5,168.6 670.9,148.4"/>
+      <polyline fill="none" stroke="var(--series-na)" stroke-width="2.25" stroke-dasharray="5,4"
+        points="670.9,148.4 747.3,173.8 823.6,58.8 900,202.5"/>
+      <!-- PA line: solid stages1-9, dashed 9-12 -->
+      <polyline fill="none" stroke="var(--series-pa)" stroke-width="2.25"
+        points="60,143.3 136.4,129.5 212.7,144.4 289.1,110.5 365.5,126 441.8,126 518.2,96.1 594.5,101.3 670.9,104.2"/>
+      <polyline fill="none" stroke="var(--series-pa)" stroke-width="2.25" stroke-dasharray="5,4"
+        points="670.9,104.2 747.3,87.5 823.6,87.5 900,47.2"/>
+
+      <!-- data points with native tooltips -->
+      <g>
+        <!-- Stage 1 -->
+        <circle class="pt" cx="60" cy="143.3" r="4" fill="var(--series-pa)"><title>Stage 1 · Safety — PA 3.03</title></circle>
+        <circle class="pt" cx="60" cy="190.4" r="4" fill="var(--series-na)"><title>Stage 1 · Safety — NA 2.21</title></circle>
+        <!-- Stage 2 -->
+        <circle class="pt" cx="136.4" cy="129.5" r="4" fill="var(--series-pa)"><title>Stage 2 · Divergence — PA 3.27</title></circle>
+        <circle class="pt" cx="136.4" cy="166.8" r="4" fill="var(--series-na)"><title>Stage 2 · Divergence — NA 2.62</title></circle>
+        <!-- Stage 3 -->
+        <circle class="pt" cx="212.7" cy="144.4" r="4" fill="var(--series-pa)"><title>Stage 3 · Threshold — PA 3.01</title></circle>
+        <circle class="pt" cx="212.7" cy="136.9" r="4" fill="var(--series-na)"><title>Stage 3 · Threshold — NA 3.14</title></circle>
+        <!-- Stage 4 -->
+        <circle class="pt" cx="289.1" cy="110.5" r="4" fill="var(--series-pa)"><title>Stage 4 · Energies Moving — PA 3.60</title></circle>
+        <circle class="pt" cx="289.1" cy="136.4" r="4" fill="var(--series-na)"><title>Stage 4 · Energies Moving — NA 3.15</title></circle>
+        <!-- Stage 5 -->
+        <circle class="pt" cx="365.5" cy="126" r="4" fill="var(--series-pa)"><title>Stage 5 · Zeropoint — PA 3.33</title></circle>
+        <circle class="pt" cx="365.5" cy="161.7" r="4" fill="var(--series-na)"><title>Stage 5 · Zeropoint — NA 2.71</title></circle>
+        <!-- Stage 6 -->
+        <circle class="pt" cx="441.8" cy="126" r="4" fill="var(--series-pa)"><title>Stage 6 · Awakening — PA 3.33</title></circle>
+        <circle class="pt" cx="441.8" cy="170.9" r="4" fill="var(--series-na)"><title>Stage 6 · Awakening — NA 2.55</title></circle>
+        <!-- Stage 7 -->
+        <circle class="pt" cx="518.2" cy="96.1" r="4" fill="var(--series-pa)"><title>Stage 7 · Illumination — PA 3.85</title></circle>
+        <circle class="pt" cx="518.2" cy="164" r="4" fill="var(--series-na)"><title>Stage 7 · Illumination — NA 2.67</title></circle>
+        <!-- Stage 8 -->
+        <circle class="pt" cx="594.5" cy="101.3" r="4" fill="var(--series-pa)"><title>Stage 8 · Choice — PA 3.76</title></circle>
+        <circle class="pt" cx="594.5" cy="168.6" r="4" fill="var(--series-na)"><title>Stage 8 · Choice — NA 2.59</title></circle>
+        <!-- Stage 9 -->
+        <circle class="pt" cx="670.9" cy="104.2" r="4" fill="var(--series-pa)"><title>Stage 9 · Strengthening/Failure — PA 3.71</title></circle>
+        <circle class="pt" cx="670.9" cy="148.4" r="4" fill="var(--series-na)"><title>Stage 9 · Strengthening/Failure — NA 2.94</title></circle>
+        <!-- Stage 10 (thin) -->
+        <circle class="pt" cx="747.3" cy="87.5" r="4" fill="var(--series-pa)" opacity=".7"><title>Stage 10 · Dark Night (n=6) — PA 4.00</title></circle>
+        <circle class="pt" cx="747.3" cy="173.8" r="4" fill="var(--series-na)" opacity=".7"><title>Stage 10 · Dark Night (n=6) — NA 2.50</title></circle>
+        <!-- Stage 11 (very thin) -->
+        <circle class="pt" cx="823.6" cy="87.5" r="4" fill="var(--series-pa)" opacity=".55"><title>Stage 11 · Unitive State (n=3) — PA 4.00</title></circle>
+        <circle class="pt" cx="823.6" cy="58.8" r="4" fill="var(--series-na)" opacity=".55"><title>Stage 11 · Unitive State (n=3) — NA 4.50</title></circle>
+        <!-- Stage 12 (thin) -->
+        <circle class="pt" cx="900" cy="47.2" r="4" fill="var(--series-pa)" opacity=".7"><title>Stage 12 · Re-integration (n=5) — PA 4.70</title></circle>
+        <circle class="pt" cx="900" cy="202.5" r="4" fill="var(--series-na)" opacity=".7"><title>Stage 12 · Re-integration (n=5) — NA 2.00</title></circle>
+      </g>
+
+      <!-- x labels: stage number + theme -->
+      <g>
+        <text class="stage-label" x="60"  y="280" text-anchor="middle">1</text>
+        <text class="stage-label" x="136.4" y="280" text-anchor="middle">2</text>
+        <text class="stage-label" x="212.7" y="280" text-anchor="middle">3</text>
+        <text class="stage-label" x="289.1" y="280" text-anchor="middle">4</text>
+        <text class="stage-label" x="365.5" y="280" text-anchor="middle">5</text>
+        <text class="stage-label" x="441.8" y="280" text-anchor="middle">6</text>
+        <text class="stage-label" x="518.2" y="280" text-anchor="middle">7</text>
+        <text class="stage-label" x="594.5" y="280" text-anchor="middle">8</text>
+        <text class="stage-label" x="670.9" y="280" text-anchor="middle">9</text>
+        <text class="stage-label" x="747.3" y="280" text-anchor="middle">10</text>
+        <text class="stage-label" x="823.6" y="280" text-anchor="middle">11</text>
+        <text class="stage-label" x="900" y="280" text-anchor="middle">12</text>
+
+        <text class="theme-label" x="60"  y="296" text-anchor="middle">Safety</text>
+        <text class="theme-label" x="136.4" y="296" text-anchor="middle">Divergence</text>
+        <text class="theme-label" x="212.7" y="296" text-anchor="middle">Threshold</text>
+        <text class="theme-label" x="289.1" y="296" text-anchor="middle">Purgation</text>
+        <text class="theme-label" x="365.5" y="296" text-anchor="middle">Zeropoint</text>
+        <text class="theme-label" x="441.8" y="296" text-anchor="middle">Awakening</text>
+        <text class="theme-label" x="518.2" y="296" text-anchor="middle">Illumination</text>
+        <text class="theme-label" x="594.5" y="296" text-anchor="middle">Choice</text>
+        <text class="theme-label" x="670.9" y="296" text-anchor="middle">Strength.</text>
+        <text class="theme-label" x="747.3" y="296" text-anchor="middle">Dark Night</text>
+        <text class="theme-label" x="823.6" y="296" text-anchor="middle">Unitive</text>
+        <text class="theme-label" x="900" y="296" text-anchor="middle">Re-integ.</text>
+      </g>
+    </svg>
+    <p class="thin-note">n per stage (participants): 100, 46, 30, 26, 17, 13, 11, 11, 10, 6, 3, 5. Hover any point for its exact value.</p>
+  </div>
+</div></section>
+
+<section id="experiences"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">04 · Top reported experiences</span>
+    <h2>Serenity-family emotions and somatic/energetic phenomena lead</h2>
+    <p class="sec-sub">Pooled mean intensity (1–5 scale) across all 614 responses, top 8 of 60 emotion items and top 8 of 66 physical/perceptual items.</p>
+  </div>
+  <div class="bar-grid">
+    <div>
+      <h3 style="font-size:14px; color:var(--ink-muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:14px;">Emotions (PANAS-X, 60 items)</h3>
+      <div class="bar-row"><div class="lbl">calm</div><div class="bar-track"><div class="bar-fill" style="width:70.2%; background:var(--accent-data);"></div></div><div class="val">3.51</div></div>
+      <div class="bar-row"><div class="lbl">relaxed</div><div class="bar-track"><div class="bar-fill" style="width:70%; background:var(--accent-data);"></div></div><div class="val">3.50</div></div>
+      <div class="bar-row"><div class="lbl">at ease</div><div class="bar-track"><div class="bar-fill" style="width:68.8%; background:var(--accent-data);"></div></div><div class="val">3.44</div></div>
+      <div class="bar-row"><div class="lbl">inspired</div><div class="bar-track"><div class="bar-fill" style="width:68.6%; background:var(--accent-data);"></div></div><div class="val">3.43</div></div>
+      <div class="bar-row"><div class="lbl">strong</div><div class="bar-track"><div class="bar-fill" style="width:67.2%; background:var(--accent-data);"></div></div><div class="val">3.36</div></div>
+      <div class="bar-row"><div class="lbl">delighted</div><div class="bar-track"><div class="bar-fill" style="width:64.8%; background:var(--accent-data);"></div></div><div class="val">3.24</div></div>
+      <div class="bar-row"><div class="lbl">confident</div><div class="bar-track"><div class="bar-fill" style="width:64%; background:var(--accent-data);"></div></div><div class="val">3.20</div></div>
+      <div class="bar-row"><div class="lbl">attentive</div><div class="bar-track"><div class="bar-fill" style="width:64%; background:var(--accent-data);"></div></div><div class="val">3.20</div></div>
+    </div>
+    <div>
+      <h3 style="font-size:14px; color:var(--ink-muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:14px;">Physical / perceptual (66 items)</h3>
+      <div class="bar-row"><div class="lbl">energy waves</div><div class="bar-track"><div class="bar-fill" style="width:68.8%; background:var(--accent-infer);"></div></div><div class="val">3.44</div></div>
+      <div class="bar-row"><div class="lbl">head/face/arm sensations</div><div class="bar-track"><div class="bar-fill" style="width:64.4%; background:var(--accent-infer);"></div></div><div class="val">3.22</div></div>
+      <div class="bar-row"><div class="lbl">visions of symbols</div><div class="bar-track"><div class="bar-fill" style="width:62.8%; background:var(--accent-infer);"></div></div><div class="val">3.14</div></div>
+      <div class="bar-row"><div class="lbl">floating sensation</div><div class="bar-track"><div class="bar-fill" style="width:61.8%; background:var(--accent-infer);"></div></div><div class="val">3.09</div></div>
+      <div class="bar-row"><div class="lbl">lights / colors / patterns</div><div class="bar-track"><div class="bar-fill" style="width:59.6%; background:var(--accent-infer);"></div></div><div class="val">2.98</div></div>
+      <div class="bar-row"><div class="lbl">dreamlike sensations</div><div class="bar-track"><div class="bar-fill" style="width:59%; background:var(--accent-infer);"></div></div><div class="val">2.95</div></div>
+      <div class="bar-row"><div class="lbl">chest expansion</div><div class="bar-track"><div class="bar-fill" style="width:55%; background:var(--accent-infer);"></div></div><div class="val">2.75</div></div>
+      <div class="bar-row"><div class="lbl">tingling</div><div class="bar-track"><div class="bar-fill" style="width:53.4%; background:var(--accent-infer);"></div></div><div class="val">2.67</div></div>
+    </div>
+  </div>
+  <p class="thin-note" style="margin-top:18px;">Free-text entries (289 of 614, non-empty) converge on the same themes in participants' own words: stomach/chest vibration, sustained vocalization, yawning, third-eye/solar-plexus light, spontaneous limb movement, and occasional emotionally-toned memory. Translated and anonymized; no identifying content found on full read.</p>
+</div></section>
+
+<section id="hypotheses"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">05 · Hypotheses to take forward</span>
+    <h2>Eight candidates, scored on impact, effort, risk, and current evidence strength</h2>
+    <p class="sec-sub">Framed against the actual Research Program document (see <code>research-program</code>) and its Phase II coactivation/toughening-model hypothesis, now that it's been ingested — this list previously used Concept Overview's generic phase table as a stand-in proxy; see Methodology for that history. Ordered by what to act on first.</p>
+  </div>
+
+  <div class="hyp-card">
+    <div class="hyp-top"><div><div class="hyp-num">H3</div><div class="hyp-title">Name the minority distress-adjacent phenomena in informed consent, cheaply</div></div><div class="priority">Prioritize now</div></div>
+    <p class="hyp-body">Confusion, agitation, anxiety, fear, and sudden loss of awareness are each reported by 13–21% of responses (low mean intensity). For a generally healthy but stress-exposed population — who may not be screened the way an existing practitioner community is — a short informed-consent note and facilitator awareness of these specific items is a near-zero-cost, safety-positive step, and echoes the Living Neuroscience module's own caution about vulnerable nervous systems.</p>
+    <div class="dims">
+      <div class="dim"><span class="dl">Impact</span><span class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></span><span class="dim-text">High</span></div>
+      <div class="dim"><span class="dl">Effort</span><span class="dots"><span class="on"></span></span><span class="dim-text">Low</span></div>
+      <div class="dim"><span class="dl">Risk</span><span class="pill good"><span class="dot"></span>Low</span></div>
+      <div class="dim"><span class="dl">Evidence</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+    </div>
+    <div class="hyp-cite">track-inquiry-survey-aggregate · living-neuroscience-module</div>
+  </div>
+
+  <div class="hyp-card">
+    <div class="hyp-top"><div><div class="hyp-num">H8</div><div class="hyp-title">Test whether a naive, non-practitioner sample reports the same profile</div></div><div class="priority">Design a pilot</div></div>
+    <p class="hyp-body">This dataset is reviewers auditioning tracks against an intended stage — very likely existing practitioners. The whole positive-skew finding (H2 below) rests on generalizing from this sample to "a generally healthy, stress-exposed population," which is exactly the population this sample is <em>not</em> guaranteed to represent. A small pilot with unaffiliated, screened-for-no-prior-exposure participants would test the single biggest validity assumption underneath every other hypothesis here.</p>
+    <div class="dims">
+      <div class="dim"><span class="dl">Impact</span><span class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></span><span class="dim-text">High</span></div>
+      <div class="dim"><span class="dl">Effort</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+      <div class="dim"><span class="dl">Risk</span><span class="pill good"><span class="dot"></span>Low</span></div>
+      <div class="dim"><span class="dl">Evidence</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+    </div>
+    <div class="hyp-cite">track-inquiry-survey-aggregate · concept-overview</div>
+  </div>
+
+  <div class="hyp-card">
+    <div class="hyp-top"><div><div class="hyp-num">H1</div><div class="hyp-title">Engagement is front-loaded — check whether that's the tracks or the recruiting</div></div><div class="priority">Quick win</div></div>
+    <p class="hyp-body">74% of responses are Stages 1–4. Before reading this as "most benefit lands early," rule out the simpler explanation: reviewers may simply have been asked to prioritize early-stage tracks, or later tracks may not have existed yet in the review queue. Checking the recruiting/task-assignment records (not more survey data) resolves this quickly.</p>
+    <div class="dims">
+      <div class="dim"><span class="dl">Impact</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+      <div class="dim"><span class="dl">Effort</span><span class="dots"><span class="on"></span></span><span class="dim-text">Low</span></div>
+      <div class="dim"><span class="dl">Risk</span><span class="pill good"><span class="dot"></span>Low</span></div>
+      <div class="dim"><span class="dl">Evidence</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+    </div>
+    <div class="hyp-cite">track-inquiry-survey-aggregate</div>
+  </div>
+
+  <div class="hyp-card">
+    <div class="hyp-top"><div><div class="hyp-num">H5</div><div class="hyp-title">Collect more Stage 9–12 responses before relying on the "full recovery" arc</div></div><div class="priority">Quick win</div></div>
+    <p class="hyp-body">Concept Overview's resilience-arc / toughening-model hypothesis (Stage 4 stress → Stage 10 full recovery) is built on the HRV pilot, not this survey. Here, Negative Affect does not decline monotonically through Stage 9 (NA≈2.9), and Stage 10–11 are too thin (n=6, n=3) to confirm or contradict a clean recovery shape. This is a data-collection gap, not a finding — worth closing before the toughening-model story is used in any external-facing claim.</p>
+    <div class="dims">
+      <div class="dim"><span class="dl">Impact</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+      <div class="dim"><span class="dl">Effort</span><span class="dots"><span class="on"></span></span><span class="dim-text">Low</span></div>
+      <div class="dim"><span class="dl">Risk</span><span class="pill good"><span class="dot"></span>Low</span></div>
+      <div class="dim"><span class="dl">Evidence</span><span class="dots"><span class="on"></span></span><span class="dim-text">Low</span></div>
+    </div>
+    <div class="hyp-cite">track-inquiry-survey-aggregate · concept-overview · twelve-stages</div>
+  </div>
+
+  <div class="hyp-card">
+    <div class="hyp-top"><div><div class="hyp-num">H7</div><div class="hyp-title">Re-run the analysis stratified by language before generalizing globally</div></div><div class="priority">Quick win</div></div>
+    <p class="hyp-body">58% of responses are in a non-English language across 11 languages, and PANAS-X's psychometric properties across these translations were never separately validated here. The data already exists — a stratified re-cut by language (no new collection needed) would show whether the positive-affect skew holds uniformly or is concentrated in particular language groups.</p>
+    <div class="dims">
+      <div class="dim"><span class="dl">Impact</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+      <div class="dim"><span class="dl">Effort</span><span class="dots"><span class="on"></span></span><span class="dim-text">Low</span></div>
+      <div class="dim"><span class="dl">Risk</span><span class="pill good"><span class="dot"></span>Low</span></div>
+      <div class="dim"><span class="dl">Evidence</span><span class="dots"><span class="on"></span></span><span class="dim-text">Low</span></div>
+    </div>
+    <div class="hyp-cite">track-inquiry-survey-aggregate</div>
+  </div>
+
+  <div class="hyp-card">
+    <div class="hyp-top"><div><div class="hyp-num">H6</div><div class="hyp-title">Give Stage 10 ("Dark Night") extra facilitator attention ahead of wider rollout</div></div><div class="priority">Proceed carefully</div></div>
+    <p class="hyp-body">Stage 10 shows the highest Interoception/Cognition/Movement domain intensity of any stage in the physical checklist, at the same time as its own name signals it's meant to be the hardest stage. With only 6 participants, this could easily be noise — but if a stage is both self-reported as high-intensity <em>and</em> is the practice's own crisis stage, it's a reasonable place to prioritize facilitator support ahead of scaling to a less-experienced population, before waiting for a larger sample to confirm.</p>
+    <div class="dims">
+      <div class="dim"><span class="dl">Impact</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+      <div class="dim"><span class="dl">Effort</span><span class="dots"><span class="on"></span></span><span class="dim-text">Low</span></div>
+      <div class="dim"><span class="dl">Risk</span><span class="pill warning"><span class="dot"></span>Medium</span></div>
+      <div class="dim"><span class="dl">Evidence</span><span class="dots"><span class="on"></span></span><span class="dim-text">Low (n=6)</span></div>
+    </div>
+    <div class="hyp-cite">track-inquiry-survey-aggregate</div>
+  </div>
+
+  <div class="hyp-card">
+    <div class="hyp-top"><div><div class="hyp-num">H2</div><div class="hyp-title">Position innerdance as a controlled-difficulty coactivation practice, not a purely calming one</div></div><div class="priority">Design a pilot</div></div>
+    <p class="hyp-body"><strong>Revised from an earlier draft</strong>, which read the positive-affect-dominant profile as support for a "serenity practice" positioning. That was a misreading: <code>twelve-stages-design-map</code> shows Stage 3–4 are designed activation/difficulty points (cortisol named explicitly at Stage 3), not incidental crisis theming, and the Research Program's own Phase II hypothesis is a coactivation/toughening model — controlled stress followed by full recovery — not a relaxation model. The positioning this data actually supports, pending the naive-sample check (H8): a practice that deliberately includes a brief, contained difficulty peak (Stage 3–4) as part of how it produces its recovery/wellbeing effect, not one that avoids difficulty altogether.</p>
+    <div class="dims">
+      <div class="dim"><span class="dl">Impact</span><span class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></span><span class="dim-text">High</span></div>
+      <div class="dim"><span class="dl">Effort</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+      <div class="dim"><span class="dl">Risk</span><span class="pill good"><span class="dot"></span>Low</span></div>
+      <div class="dim"><span class="dl">Evidence</span><span class="dots"><span class="on"></span><span class="on"></span></span><span class="dim-text">Medium</span></div>
+    </div>
+    <div class="hyp-cite">track-inquiry-survey-aggregate · sleep-study-music-that-heals</div>
+  </div>
+
+  <div class="hyp-card">
+    <div class="hyp-top"><div><div class="hyp-num">H4</div><div class="hyp-title">Pair this self-report instrument with the HRV pipeline to test a vagal mechanism</div></div><div class="priority">Design a pilot</div></div>
+    <p class="hyp-body">Nelson's vlPAG/vagus mechanism (spiritual-doorway-nelson) predicts that parasympathetic/vagal engagement — not just relaxation in general — should track with the Serenity-family affect reported here. This survey's top physical items (energy waves, chest expansion, floating) are at least plausibly vagally-mediated, and free-text mentions of yawning point the same direction. Running the existing HRV biofeedback pipeline (SD2/RMSSD) alongside this PANAS-X instrument, on the same sessions, is the most direct test — but it's a real study design, not a re-analysis, and the biggest lift of the eight.</p>
+    <div class="dims">
+      <div class="dim"><span class="dl">Impact</span><span class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></span><span class="dim-text">High</span></div>
+      <div class="dim"><span class="dl">Effort</span><span class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></span><span class="dim-text">High</span></div>
+      <div class="dim"><span class="dl">Risk</span><span class="pill good"><span class="dot"></span>Low</span></div>
+      <div class="dim"><span class="dl">Evidence</span><span class="dots"></span><span class="dim-text">Low</span></div>
+    </div>
+    <div class="hyp-cite">spiritual-doorway-nelson · track-inquiry-survey-aggregate · concept-overview</div>
+  </div>
+
+</div></section>
+
+<section id="method"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">06 · Methodology &amp; limitations</span>
+    <h2>What this report is built on, and where it's assuming</h2>
+  </div>
+
+  <div class="callout"><strong>On "the Research Program's objective":</strong> at this report's original writing, no file named "Research Program" existed in the repo, and Concept Overview's generic phase table was used as a stand-in proxy. The actual document was added afterward as <code>research-program</code> and Hypotheses above are now framed against its real Phase II coactivation/toughening-model hypothesis, not the proxy.</div>
+  <div class="callout warn"><strong>On stage design intent:</strong> this report's original Key Insights (Section 1) and Hypothesis 2 read the low Negative-Affect pattern as uniformly reassuring, including at the "crisis-themed" stages. <code>twelve-stages-design-map</code> — a facilitator-level design reference obtained after the first draft — showed this was a misreading: Stage 3 and Stage 9 are explicitly designed to surface fear, exhaustion, and failure. Sections 1–3 and Hypothesis 2 have been corrected accordingly; this callout records that the correction happened and why.</div>
+
+  <div class="callout"><strong>De-identification:</strong> the raw survey file (614 rows, including email addresses and free text) never enters this report or the tracked knowledge base. It lives in a gitignored local folder. Every number above is a pooled mean, count, or percentage computed across the full sample; the handful of free-text illustrations are generic sensory descriptions, translated, hand-reviewed for identifying content (none found), and can't be traced back to a respondent.</div>
+
+  <ul class="limits">
+    <li><strong>Self-selection.</strong> Respondents are reviewing/auditioning tracks, not undergoing a naive first exposure — see Hypothesis 8.</li>
+    <li><strong>Stage imbalance.</strong> Stages 10–12 have 3–6 participants each; treat any claim about them as provisional.</li>
+    <li><strong>No physiological measurement.</strong> Everything here is 1–5 self-report; it cannot be cross-checked against HRV, EEG, or any objective marker in this vault.</li>
+    <li><strong>Translation equivalence untested.</strong> 58% of responses are non-English; whether PANAS-X's validated properties survive translation here wasn't established.</li>
+    <li><strong>This report mixes two epistemic modes.</strong> Sections 1–4 are vault-grounded aggregate statistics. Section 5's hypotheses are original inference built on top of that data plus general research-design reasoning — not themselves vault-cited facts.</li>
+  </ul>
+</div></section>
+
+<footer><div class="wrap">
+  Generated from <code>cbrain/sources/track-inquiry-survey-aggregate.md</code>, cross-referenced against:
+  <div class="src-list">
+    <span>concept-overview</span><span>twelve-stages</span><span>twelve-stages-design-map</span><span>living-neuroscience-module</span>
+    <span>spiritual-doorway-nelson</span><span>neural-pathways-qa</span><span>sleep-study-music-that-heals</span><span>research-program</span>
+  </div>
+</div></footer>
+
+</body>
+</html>
