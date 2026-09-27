@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Coactivation Findings</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb; --surface-2: #f3f2ee;
+    --ink: #0b0b0b; --ink-2: #52514e; --ink-muted: #898781;
+    --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+    --accent-data: #2a78d6; --accent-infer: #4a3aa7;
+    --warning: #fab219; --good: #0ca30c;
+    --serif: "IBM Plex Serif", Georgia, serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --page: #0d0d0d; --surface: #1a1a19; --surface-2: #232322;
+      --ink: #ffffff; --ink-2: #c3c2b7; --ink-muted: #898781;
+      --grid: #2c2c2a; --border: rgba(255,255,255,0.10);
+      --accent-data: #3987e5; --accent-infer: #9085e9;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --surface-2: #232322;
+    --ink: #ffffff; --ink-2: #c3c2b7; --ink-muted: #898781;
+    --grid: #2c2c2a; --border: rgba(255,255,255,0.10);
+    --accent-data: #3987e5; --accent-infer: #9085e9;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--page); color:var(--ink); font-family:var(--sans); font-size:15.5px; line-height:1.55; }
+  h1,h2,h3{ font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0; }
+  code{ font-family:var(--mono); font-size:0.92em; background:var(--surface-2); padding:1px 5px; border-radius:4px; }
+  a{ color:var(--accent-data); }
+  .wrap{ max-width:980px; margin:0 auto; padding:0 24px; }
+
+  .topnav{ position:sticky; top:0; z-index:10; background:color-mix(in srgb, var(--page) 88%, transparent); backdrop-filter: blur(6px); border-bottom:1px solid var(--border); }
+  .topnav .wrap{ display:flex; align-items:center; gap:20px; height:50px; overflow-x:auto; }
+  .topnav .brand{ font-family:var(--serif); font-weight:600; font-size:14.5px; white-space:nowrap; }
+  .topnav nav{ display:flex; gap:16px; white-space:nowrap; }
+  .topnav nav a{ color:var(--ink-2); text-decoration:none; font-size:13px; }
+
+  header.hero{ padding:44px 0 26px; }
+  .eyebrow{ font-family:var(--mono); font-size:11.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--accent-infer); margin-bottom:8px; display:block; }
+  header.hero h1{ font-size:clamp(24px,3.4vw,32px); max-width:26ch; }
+  header.hero p.lede{ max-width:70ch; color:var(--ink-2); font-size:15.5px; margin-top:12px; }
+
+  section{ padding:34px 0; border-top:1px solid var(--border); }
+  section h2{ font-size:20px; margin-bottom:6px; }
+  section .qnum{ font-family:var(--mono); font-size:12px; color:var(--ink-muted); }
+  section p.sec-sub{ color:var(--ink-2); margin-top:6px; max-width:74ch; font-size:14.5px; }
+
+  table.data{ width:100%; border-collapse:collapse; font-size:13.5px; margin-top:14px; }
+  table.data th{ text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-muted); font-weight:500; padding:0 10px 8px; border-bottom:1px solid var(--border); }
+  table.data td{ padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  table.data tr:last-child td{ border-bottom:none; }
+  .num{ font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:12.5px; color:var(--ink-2); }
+  .cite{ font-family:var(--mono); font-size:11px; color:var(--ink-muted); }
+  .flag{ font-family:var(--mono); font-size:11px; color:var(--warning); }
+  tr.highlight td{ background:color-mix(in srgb, var(--accent-infer) 6%, transparent); }
+
+  .finding{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-top:14px; }
+  .finding p{ margin:6px 0 0; font-size:14.5px; color:var(--ink-2); }
+  .finding .src{ margin-top:8px; font-family:var(--mono); font-size:11.5px; color:var(--ink-muted); }
+
+  .links{ width:100%; border-collapse:collapse; font-size:14px; margin-top:14px; }
+  .links th{ text-align:left; font-size:11px; text-transform:uppercase; color:var(--ink-muted); padding:0 10px 8px; border-bottom:1px solid var(--border); }
+  .links td{ padding:9px 10px; border-bottom:1px solid var(--border); }
+  .links code{ font-size:12.5px; }
+
+  .status{ display:inline-block; font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.03em; border-radius:99px; padding:2px 8px; }
+  .status.done{ color:var(--good); background:color-mix(in srgb, var(--good) 14%, transparent); }
+  .status.pending{ color:color-mix(in srgb, var(--warning) 70%, var(--ink)); background:color-mix(in srgb, var(--warning) 20%, transparent); }
+
+  footer{ padding:30px 0 50px; color:var(--ink-muted); font-size:12.5px; }
+</style>
+</head>
+<body>
+
+<div class="topnav"><div class="wrap">
+  <span class="brand">Coactivation Findings</span>
+  <nav>
+    <a href="#keywords">1. Keywords by stage</a>
+    <a href="#mapping">2. Coactivation mapping</a>
+    <a href="#forward">3. Way forward</a>
+    <a href="#links">4. Links</a>
+  </nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Findings compilation — self-report data only</span>
+  <h1>Coactivation Research: What the Data Shows</h1>
+  <p class="lede">Every figure below is drawn from a specific vault source, cited in place. No claim here is extrapolated beyond what its cited source states. All data is self-report (a 614-response, 117-participant track-review survey); no physiological measurement exists yet — see Section 2.</p>
+</div></header>
+
+<section id="keywords"><div class="wrap">
+  <span class="qnum">Question 1</span>
+  <h2>What states were most reported, per stage, and by how many samples</h2>
+  <p class="sec-sub">Top 3 self-reported items per stage, 60-item PANAS-X checklist, requiring n≥5 for inclusion. n≥4 = count of responses rating that item ≥4/5.</p>
+  <table class="data">
+    <thead><tr><th>Stage</th><th>Top 3 items (mean/5, n, n≥4)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td>relaxed (3.51, n=149, 80≥4) · calm (3.41, n=134, 69≥4) · at ease (3.27, n=101, 52≥4)</td></tr>
+      <tr><td class="num">2</td><td>strong (3.66, n=29, 18≥4) · interested (3.66, n=29, 20≥4) · at ease (3.64, n=33, 22≥4)</td></tr>
+      <tr class="highlight"><td class="num">3</td><td>surprised (3.94, n=16, 11≥4) · energetic (3.89, n=19, 12≥4) · interested (3.80, n=20, 11≥4)</td></tr>
+      <tr class="highlight"><td class="num">4</td><td><strong>lonely (4.00, n=7, 4≥4)</strong> · calm (3.80, n=30, 19≥4) · strong (3.73, n=11, 7≥4)</td></tr>
+      <tr><td class="num">5</td><td>relaxed (3.83, n=18, 14≥4) · calm (3.71, n=17, 10≥4) · at ease (3.62, n=13, 7≥4)</td></tr>
+      <tr><td class="num">6</td><td>inspired (3.71, n=7, 5≥4) · at ease (3.70, n=10, 6≥4) · calm (3.69, n=13, 7≥4)</td></tr>
+      <tr><td class="num">7</td><td>delighted (4.20, n=10, 8≥4) · happy (4.17, n=6, 4≥4) · calm (4.08, n=12, 9≥4)</td></tr>
+      <tr><td class="num">8</td><td>strong (4.40, n=5, 4≥4) · calm (4.38, n=8, 7≥4) · at ease (4.33, n=6, 5≥4)</td></tr>
+      <tr><td class="num">9</td><td>relaxed (3.83, n=6, 4≥4) · inspired (3.71, n=7, 4≥4) · interested (3.60, n=5, 2≥4)</td></tr>
+      <tr><td class="num">10</td><td>calm (4.00, n=5, 4≥4) · sleepy (3.80, n=5, 3≥4) · relaxed (3.71, n=7, 4≥4)</td></tr>
+      <tr><td class="num">11</td><td class="flag">excluded — no item reaches n≥5 (3 responses total for this stage)</td></tr>
+      <tr><td class="num">12</td><td>inspired (5.00, n=7, 7≥4) · delighted (4.67, n=6, 5≥4) · relaxed (4.00, n=5, 3≥4)</td></tr>
+    </tbody>
+  </table>
+  <p class="cite" style="margin-top:8px;">Source: track-inquiry-survey-aggregate.md, "Top-3 self-reported items per stage"</p>
+
+  <div class="finding">
+    <strong>Distress-adjacent items, checked separately (do not appear in the table above at their own stage's rank, but are stage-concentrated relative to their own pooled mean):</strong>
+    <p>Anxiety peaks at Stage 3 (3.09/5, n=11) vs. pooled mean 1.90. Agitation peaks at Stage 3 (2.81/5, n=16) vs. pooled mean 1.91. Fear peaks at Stage 4 (3.25/5, n=4) vs. pooled mean 1.96. Confusion peaks at Stage 4 (2.75/5, n=8) vs. pooled mean 2.04.</p>
+    <div class="src">Source: track-inquiry-survey-aggregate.md, "Distress-adjacent items concentrate at Stage 3"</div>
+  </div>
+  <div class="finding">
+    <strong>Two specific, non-obvious items, stated plainly:</strong>
+    <p>Stage 4's single highest-rated item is "lonely" (Sadness subscale), not a Serenity or Self-Assurance item — the only stage where this occurs (n=7, small sample). Stage 3's top item is "surprised" (Surprise subscale, not a positive-affect item).</p>
+    <div class="src">Source: track-inquiry-survey-aggregate.md</div>
+  </div>
+</div></section>
+
+<section id="mapping"><div class="wrap">
+  <span class="qnum">Question 2</span>
+  <h2>Which stages map most cleanly to coactivation, and what that means in plain terms</h2>
+  <p class="sec-sub">Coactivation (Weissman &amp; Mendes 2021): sympathetic and parasympathetic activity both elevated relative to baseline, specifically during post-stressor recovery. Their measures (RSA, PEP) require impedance cardiography; nothing below is that measurement. This is a self-report proxy: <code>min(Activation, Calm)</code> computed <strong>per response</strong>, then averaged — Distress reported alongside, never subtracted. — Source: coactivation-weissman-mendes-2021.md, coactivation-proxy-analysis.md.</p>
+
+  <table class="data" style="margin-bottom:4px;">
+    <thead><tr><th>Cluster</th><th>Built from</th></tr></thead>
+    <tbody>
+      <tr><td>Activation</td><td>PANAS-X subscales Self-Assurance, Attentiveness, Joviality (e.g. strong, confident, attentive, alert, energetic) + the physical-checklist Movement domain</td></tr>
+      <tr><td>Calm</td><td>PANAS-X Serenity subscale (calm, relaxed, at ease)</td></tr>
+      <tr><td>Distress</td><td>PANAS-X Fear, Hostility, Sadness, General-Negative subscales</td></tr>
+      <tr><td>Anchor</td><td>Single item, scored separately, never folded into a cluster: "the feeling of being shattered and relaxed at the same time"</td></tr>
+    </tbody>
+  </table>
+  <p class="cite" style="margin-top:2px;">Source: coactivation-proxy-analysis.md, "Method recap"</p>
+
+  <table class="data">
+    <thead><tr><th>Stage</th><th>N</th><th>Activation</th><th>Calm</th><th>Distress</th><th>Proxy</th><th>Coactivated<br>(n / N)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="num">225</td><td class="num">2.76</td><td class="num">3.49</td><td class="num">2.36</td><td class="num">2.61</td><td class="num">32/225</td></tr>
+      <tr><td class="num">2</td><td class="num">100</td><td class="num">3.15</td><td class="num">3.11</td><td class="num">2.53</td><td class="num">2.70</td><td class="num">18/100</td></tr>
+      <tr><td class="num">3</td><td class="num">61</td><td class="num">3.17</td><td class="num">3.29</td><td class="num">2.73</td><td class="num">3.01</td><td class="num">12/61</td></tr>
+      <tr><td class="num">4</td><td class="num">60</td><td class="num">3.01</td><td class="num">3.49</td><td class="num">2.91</td><td class="num">2.88</td><td class="num">7/60</td></tr>
+      <tr><td class="num">5</td><td class="num">40</td><td class="num">2.81</td><td class="num">3.70</td><td class="num">2.82</td><td class="num">2.82</td><td class="num">8/40</td></tr>
+      <tr><td class="num">6</td><td class="num">28</td><td class="num">2.62</td><td class="num">3.40</td><td class="num">2.72</td><td class="num">2.50</td><td class="num">1/28</td></tr>
+      <tr class="highlight"><td class="num">7</td><td class="num">30</td><td class="num">3.50</td><td class="num">4.14</td><td class="num">2.73</td><td class="num"><strong>3.68</strong></td><td class="num">11/30</td></tr>
+      <tr><td class="num">8</td><td class="num">26</td><td class="num">2.86</td><td class="num">3.74</td><td class="num">2.37</td><td class="num">3.17</td><td class="num">4/26</td></tr>
+      <tr><td class="num">9</td><td class="num">21</td><td class="num">3.47</td><td class="num">3.91</td><td class="num">2.75</td><td class="num">3.32</td><td class="num">4/21</td></tr>
+      <tr><td class="num">10</td><td class="num">11</td><td class="num">3.50</td><td class="num">3.81</td><td class="num">2.80</td><td class="num">3.67</td><td class="num">3/11</td></tr>
+      <tr><td class="num">11</td><td class="num">3</td><td class="num">4.08</td><td class="num">4.00</td><td class="num">3.33</td><td class="num">4.00</td><td class="num">2/3</td></tr>
+      <tr class="highlight"><td class="num">12</td><td class="num">9</td><td class="num">4.47</td><td class="num">4.46</td><td class="num">1.47</td><td class="num"><strong>4.32</strong></td><td class="num">7/9</td></tr>
+    </tbody>
+  </table>
+  <p class="sec-sub" style="margin-top:6px;"><strong>Coactivated (n/N):</strong> count of individual responses meeting Activation≥3.5 AND Calm≥3.5 AND Distress&lt;3.5, out of that stage's total responses (N). This is a per-response pass count, not the same computation as the Proxy column.</p>
+  <p class="cite" style="margin-top:8px;">Source: coactivation-results.csv, coactivation-proxy-analysis.md, coactivation-count-per-stage.csv</p>
+
+  <div class="finding">
+    <strong>Item-level sparsity at low-N stages — checked after a direct question about Stage 10.</strong>
+    <p>At Stage 10 (N=11), every individual Activation-cluster item (e.g. "confident," "alert") has only 1-2 responses — too few to reach the n≥5 bar used in the Question 1 table, which is why none appear there. The Activation score at Stage 10 is an average over these sparse, largely non-overlapping items, not a reflection of the same people who reported "calm/sleepy/relaxed." This likely affects Stages 9-12 generally, not just Stage 10.</p>
+    <div class="src">Source: direct computation on coactivation_scored_rows.csv (not a standing vault note)</div>
+  </div>
+  <div class="finding">
+    <strong>Cleanest well-sampled mapping: Stage 7 (Illumination), N=30.</strong>
+    <p>Highest Calm (4.14) and highest proxy (3.68) among stages with N≥20, with Distress unremarkable (2.73). Translation to reported experience: the stage's top-rated items are "delighted" (4.20, n=10), "happy" (4.17, n=6), and "calm" (4.08, n=12) — i.e., respondents most commonly reported feeling delighted/happy and calm together, not one or the other.</p>
+    <div class="src">Source: coactivation-proxy-analysis.md; track-inquiry-survey-aggregate.md (top-3 items table)</div>
+  </div>
+  <div class="finding">
+    <strong>Cleanest mapping overall, but thin sample: Stage 12 (Re-integration), N=9.</strong>
+    <p>Highest proxy (4.32) and lowest Distress (1.47) of any stage. Top items: "inspired" (5.00, n=7), "delighted" (4.67, n=6), "relaxed" (4.00, n=5). N=9 is below the ~30 this dataset treats as stable elsewhere — stated as a lead, not a confirmed result.</p>
+    <div class="src">Source: coactivation-proxy-analysis.md</div>
+  </div>
+  <div class="finding">
+    <strong>One confirmed false positive, excluded from the above.</strong>
+    <p>One Stage 3 track scored highest on the raw composite (4.86) but Distress was also at ceiling (5.00) for the same response — flagged as a rating-ceiling artifact (respondent rating everything at maximum), not counted as a coactivation instance.</p>
+    <div class="src">Source: coactivation-proxy-analysis.md</div>
+  </div>
+</div></section>
+
+<section id="forward"><div class="wrap">
+  <span class="qnum">Question 3</span>
+  <h2>Way forward: which samples, and what acoustic properties, to examine next</h2>
+  <table class="data">
+    <thead><tr><th>Step</th><th>Status</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Sample-set selection</td>
+        <td><span class="status done">done</span></td>
+        <td>Per stage, tracks that were (a) listened to more than once and (b) scored highest on that stage's own target metric (Activation for Stages 2/3/8, Calm for 1/5, coactivation proxy for 4/6/7/9/10/11/12). Stage 11's set is a single N=1 track, accepted as an explicit exception (only 3 responses exist for that stage). Stage 10 has 2 qualifying tracks, not 3.</td>
+      </tr>
+      <tr>
+        <td>Acoustic feature extraction (Task 1)</td>
+        <td><span class="status done">done</span></td>
+        <td>Acoustic features for every sample in the set, plotted as a heatmap. No written numeric interpretation yet — the plot exists, a feature table doesn't.</td>
+      </tr>
+      <tr>
+        <td>Coactivation acoustic score (Task 2)</td>
+        <td><span class="status pending">not run</span></td>
+        <td>A derived <code>min(drive, smoothness)</code> score per sample — same non-averaging logic as the self-report proxy — plotted on a single gradient bar to test whether coactivation-target-stage samples cluster at the high end acoustically. No results exist yet.</td>
+      </tr>
+    </tbody>
+  </table>
+  <img src="heatmap_canonical.jpg" alt="Acoustic feature heatmap, Task 1: canonical features by stage.track" style="max-width:100%; margin-top:14px; border-radius:8px; border:1px solid var(--border);">
+  <p class="sec-sub">Open dependency for Task 2: no lookup exists yet from the survey's track-ID labels (e.g. <code>7.10</code>) to actual audio files beyond what Task 1 already used. The spec states this explicitly rather than assuming it.</p>
+  <p class="cite">Source: sample-sets-per-stage.csv; acoustic-analysis-agent-prompt.md; heatmap_canonical.jpg</p>
+</div></section>
+
+<section id="links"><div class="wrap">
+  <span class="qnum">Question 4</span>
+  <h2>Concrete links — playlist generation, sample sets, verification</h2>
+  <table class="links">
+    <thead><tr><th>File</th><th>Contents</th></tr></thead>
+    <tbody>
+      <tr><td><code>playlist-plan-40min.csv</code></td><td>The 40-minute playlist: sample per stage, exact timing, crossfade lengths, selection criterion per stage</td></tr>
+      <tr><td><code>mixing-agent-spec.json</code></td><td>Instructions to render the plan into one continuous audio file (crossfade curve, trimming, loudness, QA)</td></tr>
+      <tr><td><code>verification-agent-spec.json</code></td><td>Scoring rules for the participant questionnaire and the Polar H10 checks</td></tr>
+      <tr><td><code>participant-questionnaire.docx</code></td><td>The post-session "moments of" questionnaire, 10 items + timing bucket</td></tr>
+      <tr><td><code>sample-sets-per-stage.csv</code></td><td>Per-stage sample sets (N≥2, high on stage target) used for the acoustic-analysis tasks above</td></tr>
+      <tr><td><code>acoustic-analysis-agent-prompt.md</code></td><td>The two-task acoustic analysis spec (heatmap + coactivation acoustic score), not yet run</td></tr>
+      <tr><td><code>coactivation-playlist-package.zip</code></td><td>The bundled send-package: summary doc, questionnaire, playlist CSV, both agent specs, results CSV</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<footer><div class="wrap">
+  Sources cited above: coactivation-weissman-mendes-2021.md · coactivation-proxy-analysis.md · track-inquiry-survey-aggregate.md · twelve-stages-design-map.md · coactivation-results.csv · sample-sets-per-stage.csv · acoustic-analysis-agent-prompt.md
+</div></footer>
+
+</body>
+</html>
