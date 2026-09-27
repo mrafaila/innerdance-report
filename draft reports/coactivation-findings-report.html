@@ -140,25 +140,43 @@
   <span class="qnum">Question 2</span>
   <h2>Which stages map most cleanly to coactivation, and what that means in plain terms</h2>
   <p class="sec-sub">Coactivation (Weissman &amp; Mendes 2021): sympathetic and parasympathetic activity both elevated relative to baseline, specifically during post-stressor recovery. Their measures (RSA, PEP) require impedance cardiography; nothing below is that measurement. This is a self-report proxy: <code>min(Activation, Calm)</code> computed <strong>per response</strong>, then averaged — Distress reported alongside, never subtracted. — Source: coactivation-weissman-mendes-2021.md, coactivation-proxy-analysis.md.</p>
-  <table class="data">
-    <thead><tr><th>Stage</th><th>N</th><th>Activation</th><th>Calm</th><th>Distress</th><th>Proxy</th></tr></thead>
+
+  <table class="data" style="margin-bottom:4px;">
+    <thead><tr><th>Cluster</th><th>Built from</th></tr></thead>
     <tbody>
-      <tr><td class="num">1</td><td class="num">225</td><td class="num">2.76</td><td class="num">3.49</td><td class="num">2.36</td><td class="num">2.61</td></tr>
-      <tr><td class="num">2</td><td class="num">100</td><td class="num">3.15</td><td class="num">3.11</td><td class="num">2.53</td><td class="num">2.70</td></tr>
-      <tr><td class="num">3</td><td class="num">61</td><td class="num">3.17</td><td class="num">3.29</td><td class="num">2.73</td><td class="num">3.01</td></tr>
-      <tr><td class="num">4</td><td class="num">60</td><td class="num">3.01</td><td class="num">3.49</td><td class="num">2.91</td><td class="num">2.88</td></tr>
-      <tr><td class="num">5</td><td class="num">40</td><td class="num">2.81</td><td class="num">3.70</td><td class="num">2.82</td><td class="num">2.82</td></tr>
-      <tr><td class="num">6</td><td class="num">28</td><td class="num">2.62</td><td class="num">3.40</td><td class="num">2.72</td><td class="num">2.50</td></tr>
-      <tr class="highlight"><td class="num">7</td><td class="num">30</td><td class="num">3.50</td><td class="num">4.14</td><td class="num">2.73</td><td class="num"><strong>3.68</strong></td></tr>
-      <tr><td class="num">8</td><td class="num">26</td><td class="num">2.86</td><td class="num">3.74</td><td class="num">2.37</td><td class="num">3.17</td></tr>
-      <tr><td class="num">9</td><td class="num">21</td><td class="num">3.47</td><td class="num">3.91</td><td class="num">2.75</td><td class="num">3.32</td></tr>
-      <tr><td class="num">10</td><td class="num">11</td><td class="num">3.50</td><td class="num">3.81</td><td class="num">2.80</td><td class="num">3.67</td></tr>
-      <tr><td class="num">11</td><td class="num">3</td><td class="num">4.08</td><td class="num">4.00</td><td class="num">3.33</td><td class="num">4.00</td></tr>
-      <tr class="highlight"><td class="num">12</td><td class="num">9</td><td class="num">4.47</td><td class="num">4.46</td><td class="num">1.47</td><td class="num"><strong>4.32</strong></td></tr>
+      <tr><td>Activation</td><td>PANAS-X subscales Self-Assurance, Attentiveness, Joviality (e.g. strong, confident, attentive, alert, energetic) + the physical-checklist Movement domain</td></tr>
+      <tr><td>Calm</td><td>PANAS-X Serenity subscale (calm, relaxed, at ease)</td></tr>
+      <tr><td>Distress</td><td>PANAS-X Fear, Hostility, Sadness, General-Negative subscales</td></tr>
+      <tr><td>Anchor</td><td>Single item, scored separately, never folded into a cluster: "the feeling of being shattered and relaxed at the same time"</td></tr>
     </tbody>
   </table>
-  <p class="cite" style="margin-top:8px;">Source: coactivation-results.csv, coactivation-proxy-analysis.md</p>
+  <p class="cite" style="margin-top:2px;">Source: coactivation-proxy-analysis.md, "Method recap"</p>
 
+  <table class="data">
+    <thead><tr><th>Stage</th><th>N</th><th>Activation</th><th>Calm</th><th>Distress</th><th>Proxy</th><th>Coactivated<br>(n / N)</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="num">225</td><td class="num">2.76</td><td class="num">3.49</td><td class="num">2.36</td><td class="num">2.61</td><td class="num">32/225</td></tr>
+      <tr><td class="num">2</td><td class="num">100</td><td class="num">3.15</td><td class="num">3.11</td><td class="num">2.53</td><td class="num">2.70</td><td class="num">18/100</td></tr>
+      <tr><td class="num">3</td><td class="num">61</td><td class="num">3.17</td><td class="num">3.29</td><td class="num">2.73</td><td class="num">3.01</td><td class="num">12/61</td></tr>
+      <tr><td class="num">4</td><td class="num">60</td><td class="num">3.01</td><td class="num">3.49</td><td class="num">2.91</td><td class="num">2.88</td><td class="num">7/60</td></tr>
+      <tr><td class="num">5</td><td class="num">40</td><td class="num">2.81</td><td class="num">3.70</td><td class="num">2.82</td><td class="num">2.82</td><td class="num">8/40</td></tr>
+      <tr><td class="num">6</td><td class="num">28</td><td class="num">2.62</td><td class="num">3.40</td><td class="num">2.72</td><td class="num">2.50</td><td class="num">1/28</td></tr>
+      <tr class="highlight"><td class="num">7</td><td class="num">30</td><td class="num">3.50</td><td class="num">4.14</td><td class="num">2.73</td><td class="num"><strong>3.68</strong></td><td class="num">11/30</td></tr>
+      <tr><td class="num">8</td><td class="num">26</td><td class="num">2.86</td><td class="num">3.74</td><td class="num">2.37</td><td class="num">3.17</td><td class="num">4/26</td></tr>
+      <tr><td class="num">9</td><td class="num">21</td><td class="num">3.47</td><td class="num">3.91</td><td class="num">2.75</td><td class="num">3.32</td><td class="num">4/21</td></tr>
+      <tr><td class="num">10</td><td class="num">11</td><td class="num">3.50</td><td class="num">3.81</td><td class="num">2.80</td><td class="num">3.67</td><td class="num">3/11</td></tr>
+      <tr><td class="num">11</td><td class="num">3</td><td class="num">4.08</td><td class="num">4.00</td><td class="num">3.33</td><td class="num">4.00</td><td class="num">2/3</td></tr>
+      <tr class="highlight"><td class="num">12</td><td class="num">9</td><td class="num">4.47</td><td class="num">4.46</td><td class="num">1.47</td><td class="num"><strong>4.32</strong></td><td class="num">7/9</td></tr>
+    </tbody>
+  </table>
+  <p class="sec-sub" style="margin-top:6px;"><strong>Coactivated (n/N):</strong> count of individual responses meeting Activation≥3.5 AND Calm≥3.5 AND Distress&lt;3.5, out of that stage's total responses (N). This is a per-response pass count, not the same computation as the Proxy column.</p>
+  <p class="cite" style="margin-top:8px;">Source: coactivation-results.csv, coactivation-proxy-analysis.md, coactivation-count-per-stage.csv</p>
+
+  <div class="finding">
+    <strong>Item-level sparsity at low-N stages — checked after a direct question about Stage 10.</strong>
+    <p>At Stage 10 (N=11), every individual Activation-cluster item (e.g. "confident," "alert") has only 1-2 responses — too few to reach the n≥5 bar used in the Question 1 table, which is why none appear there. The Activation score at Stage 10 is an average over these sparse, largely non-overlapping items, not a reflection of the same people who reported "calm/sleepy/relaxed." This likely affects Stages 9-12 generally, not just Stage 10.</p>
+    <div class="src">Source: direct computation on coactivation_scored_rows.csv (not a standing vault note)</div>
+  </div>
   <div class="finding">
     <strong>Cleanest well-sampled mapping: Stage 7 (Illumination), N=30.</strong>
     <p>Highest Calm (4.14) and highest proxy (3.68) among stages with N≥20, with Distress unremarkable (2.73). Translation to reported experience: the stage's top-rated items are "delighted" (4.20, n=10), "happy" (4.17, n=6), and "calm" (4.08, n=12) — i.e., respondents most commonly reported feeling delighted/happy and calm together, not one or the other.</p>
@@ -189,8 +207,8 @@
       </tr>
       <tr>
         <td>Acoustic feature extraction (Task 1)</td>
-        <td><span class="status pending">not run</span></td>
-        <td>Extract acoustic features for every sample in the set, plotted as a heatmap. No results exist yet.</td>
+        <td><span class="status done">done</span></td>
+        <td>Acoustic features for every sample in the set, plotted as a heatmap. No written numeric interpretation yet — the plot exists, a feature table doesn't.</td>
       </tr>
       <tr>
         <td>Coactivation acoustic score (Task 2)</td>
@@ -199,8 +217,9 @@
       </tr>
     </tbody>
   </table>
-  <p class="sec-sub">Open dependency for both acoustic tasks: no lookup exists yet from the survey's track-ID labels (e.g. <code>7.10</code>) to actual audio files. Both specs state this explicitly rather than assuming it.</p>
-  <p class="cite">Source: sample-sets-per-stage.csv; acoustic-analysis-agent-prompt.md</p>
+  <img src="heatmap_canonical.jpg" alt="Acoustic feature heatmap, Task 1: canonical features by stage.track" style="max-width:100%; margin-top:14px; border-radius:8px; border:1px solid var(--border);">
+  <p class="sec-sub">Open dependency for Task 2: no lookup exists yet from the survey's track-ID labels (e.g. <code>7.10</code>) to actual audio files beyond what Task 1 already used. The spec states this explicitly rather than assuming it.</p>
+  <p class="cite">Source: sample-sets-per-stage.csv; acoustic-analysis-agent-prompt.md; heatmap_canonical.jpg</p>
 </div></section>
 
 <section id="links"><div class="wrap">
