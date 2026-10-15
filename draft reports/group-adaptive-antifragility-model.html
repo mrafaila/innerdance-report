@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Group- and Level-Adaptive Antifragility Model</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb; --surface-2: #f3f2ee;
+    --ink: #0b0b0b; --ink-2: #52514e; --ink-muted: #898781;
+    --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+    --accent-data: #2a78d6; --accent-infer: #4a3aa7;
+    --good: #0ca30c; --warning: #fab219; --critical: #d03b3b;
+    --serif: "IBM Plex Serif", Georgia, serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --page: #0d0d0d; --surface: #1a1a19; --surface-2: #232322;
+      --ink: #ffffff; --ink-2: #c3c2b7; --ink-muted: #898781;
+      --grid: #2c2c2a; --border: rgba(255,255,255,0.10);
+      --accent-data: #3987e5; --accent-infer: #9085e9;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --surface-2: #232322;
+    --ink: #ffffff; --ink-2: #c3c2b7; --ink-muted: #898781;
+    --grid: #2c2c2a; --border: rgba(255,255,255,0.10);
+    --accent-data: #3987e5; --accent-infer: #9085e9;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--page); color:var(--ink); font-family:var(--sans); font-size:15.5px; line-height:1.55; }
+  h1,h2,h3,h4{ font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0; }
+  code{ font-family:var(--mono); font-size:0.9em; background:var(--surface-2); padding:1px 5px; border-radius:4px; }
+  a{ color:var(--accent-data); }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  .topnav{ position:sticky; top:0; z-index:10; background:color-mix(in srgb, var(--page) 88%, transparent); backdrop-filter: blur(6px); border-bottom:1px solid var(--border); }
+  .topnav .wrap{ display:flex; align-items:center; gap:16px; height:50px; overflow-x:auto; }
+  .topnav .brand{ font-family:var(--serif); font-weight:600; font-size:14px; white-space:nowrap; }
+  .topnav nav{ display:flex; gap:13px; white-space:nowrap; }
+  .topnav nav a{ color:var(--ink-2); text-decoration:none; font-size:12.5px; }
+  header.hero{ padding:40px 0 24px; }
+  .eyebrow{ font-family:var(--mono); font-size:11.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--accent-infer); margin-bottom:8px; display:block; }
+  header.hero h1{ font-size:clamp(22px,3vw,30px); max-width:32ch; }
+  header.hero p.lede{ max-width:78ch; color:var(--ink-2); font-size:15px; margin-top:10px; }
+  section{ padding:30px 0; border-top:1px solid var(--border); }
+  section h2{ font-size:19px; margin-bottom:6px; }
+  section h3{ font-size:14.5px; margin:18px 0 8px; }
+  section h4{ font-size:13.5px; margin:14px 0 6px; color:var(--ink-2); }
+  section .qnum{ font-family:var(--mono); font-size:12px; color:var(--ink-muted); }
+  section p.sec-sub{ color:var(--ink-2); margin-top:6px; max-width:80ch; font-size:14px; }
+  table.data{ width:100%; border-collapse:collapse; font-size:12.8px; margin-top:10px; }
+  table.data th{ text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-muted); font-weight:500; padding:0 10px 7px; border-bottom:1px solid var(--border); }
+  table.data td{ padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  table.data tr:last-child td{ border-bottom:none; }
+  .mono{ font-variant-numeric:tabular-nums; font-family:var(--mono); font-size:12px; color:var(--ink-2); }
+  .cite{ font-family:var(--mono); font-size:11px; color:var(--ink-muted); }
+  .finding{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:10px; }
+  .finding p{ margin:6px 0 0; font-size:14px; color:var(--ink-2); }
+  .diagram{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px; font-family:var(--mono); font-size:11.5px; line-height:1.8; white-space:pre; overflow-x:auto; margin-top:10px; }
+  .svgwrap{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-top:10px; }
+  .svgwrap svg{ width:100%; height:auto; display:block; }
+  .pill{ display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:500; padding:3px 10px 3px 8px; border-radius:99px; white-space:nowrap; }
+  .pill.h{ color:var(--critical); background:color-mix(in srgb, var(--critical) 14%, transparent); }
+  .pill.l{ color:var(--good); background:color-mix(in srgb, var(--good) 14%, transparent); }
+  .pill.todo{ color:color-mix(in srgb, var(--warning) 70%, var(--ink)); background:color-mix(in srgb, var(--warning) 20%, transparent); }
+  ul.tight{ padding-left:19px; margin:8px 0 0; } ul.tight li{ margin-bottom:5px; font-size:14px; color:var(--ink-2); }
+  .flag{ border-left:3px solid var(--warning); padding:2px 0 2px 10px; margin-top:8px; font-size:13px; color:var(--ink-2); }
+  footer{ padding:26px 0 46px; color:var(--ink-muted); font-size:12px; }
+</style>
+</head>
+<body>
+
+<div class="topnav"><div class="wrap">
+  <span class="brand">Group-Adaptive Antifragility Model</span>
+  <nav>
+    <a href="#origin">0. Origin &amp; claim</a>
+    <a href="#defs">1. Definitions</a>
+    <a href="#model">2. Causal model &amp; checks</a>
+    <a href="#workflow">3. Experiment workflow</a>
+    <a href="#cascade">4. Cascaded models</a>
+    <a href="#refs">5. References &amp; assumptions</a>
+  </nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Compiled, not new — same claims as the working chat, organized</span>
+  <h1>A Group- and Level-Adaptive Model for Training Coactivation via Sound</h1>
+  <p class="lede">Compiles the antifragility-coupled extension to the coactivation causal model: two participant groups, six response-shape classes, the parameters and control law linking them, the closed-loop causal model, the proposed experiment, and the self-report proxy design. No new claims beyond what was already derived — this is the compact, unambiguous reference version.</p>
+</div></header>
+
+<section id="origin"><div class="wrap">
+  <span class="qnum">0</span>
+  <h2>What this study would show, and how the theory was reached</h2>
+
+  <h3>Why antifragility, why anxiety</h3>
+  <p class="sec-sub">Anxiety is characterized in the literature as autonomic <i>inflexibility</i>, not just "too much arousal": reduced HF-HRV and vagal tone are consistently found across anxiety disorders (Hedges' g ≈ −0.29 to −0.39 across two independent meta-analyses — Chalmers et al. 2014; Cheng et al. 2022), and Friedman's (2007) autonomic flexibility–neurovisceral integration model frames anxiety specifically as a restricted response range — a system too rigid to flexibly engage and disengage its own vagal brake. Antifragility theory's claim is that a system exposed to graded, recoverable perturbation becomes progressively <i>more</i> flexible, not just more tolerant. If anxiety is low flexibility, and antifragility training raises flexibility, a controlled dose-then-recovery sound arc is a plausible lever on the exact mechanism anxiety is defined by — which is also why Group H (overstressed, rarely-coactivating participants, defined in §1) are the antifragility-relevant candidates, not a side group.</p>
+
+  <p class="sec-sub">The chain of reasoning, in order:</p>
+  <ul class="tight">
+    <li><b>Coactivation</b> (Weissman &amp; Mendes 2021) — sympathetic and parasympathetic activity elevated <i>together</i>, not reciprocally — gave a precise, testable mechanism for why a controlled-stress-then-recovery sound arc might train the ANS.</li>
+    <li>The 12-stage design already has this exact shape: a dose (Stage 3, Threshold — the only stage whose chemistry names cortisol) followed by recovery (Stages 10–12) — but closer reading of the stage chemistry/circuitry shows <b>three</b> such dose→recovery cycles in one session, not one (the "3 waves").</li>
+    <li><b>Antifragility</b> (Axenie et al. 2023) sharpens the claim: a trained system shouldn't just recover, its post-perturbation baseline should measurably <i>exceed</i> the pre-perturbation one, repeated over trials/sessions.</li>
+    <li>Applying this to real participants surfaces a confound: not everyone starts at the same place. Some run too hot during the dose and rarely reach coactivation at all; others reach it easily and may need less stimulus to keep doing so. This is the <b>two-group theory</b> this document formalizes.</li>
+  </ul>
+
+  <h3>The antifragility pattern, visually</h3>
+  <p class="sec-sub">Schematic redrawing of the response pattern Axenie et al. (2023) describe for a system hit with repeated perturbations over time — not the paper's own figure, but the same described shape: fragile degrades further each time, robust plateaus at a reduced level, resilient returns to exactly where it started, antifragile rises <i>above</i> its own previous baseline after each hit.</p>
+  <div class="svgwrap">
+    <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic of fragile, robust, resilient, and antifragile responses to repeated perturbations">
+      <line x1="20" y1="130" x2="610" y2="130" stroke="var(--ink-muted)" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="612" y="134" font-family="var(--mono)" font-size="9.5" fill="var(--ink-muted)">baseline</text>
+      <g stroke="var(--warning)" stroke-width="1" stroke-dasharray="2,2">
+        <line x1="130" y1="20" x2="130" y2="200"/>
+        <line x1="310" y1="20" x2="310" y2="200"/>
+        <line x1="490" y1="20" x2="490" y2="200"/>
+      </g>
+      <text x="130" y="14" text-anchor="middle" font-family="var(--mono)" font-size="9.5" fill="var(--warning)">perturbation</text>
+      <text x="310" y="14" text-anchor="middle" font-family="var(--mono)" font-size="9.5" fill="var(--warning)">perturbation</text>
+      <text x="490" y="14" text-anchor="middle" font-family="var(--mono)" font-size="9.5" fill="var(--warning)">perturbation</text>
+      <polyline points="40,130 130,170 220,155 310,185 400,165 490,200 580,180" fill="none" stroke="var(--critical)" stroke-width="2"/>
+      <polyline points="40,130 130,160 220,145 310,160 400,145 490,160 580,145" fill="none" stroke="var(--ink-muted)" stroke-width="2"/>
+      <polyline points="40,130 130,160 220,130 310,160 400,130 490,160 580,130" fill="none" stroke="var(--accent-data)" stroke-width="2"/>
+      <polyline points="40,130 130,160 220,115 310,160 400,100 490,160 580,85" fill="none" stroke="var(--good)" stroke-width="2.5"/>
+    </svg>
+    <div style="display:flex; gap:16px; flex-wrap:wrap; font-family:var(--mono); font-size:11px; color:var(--ink-2); margin-top:8px;">
+      <span><span style="display:inline-block;width:10px;height:10px;background:var(--critical);margin-right:5px;"></span>fragile</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:var(--ink-muted);margin-right:5px;"></span>robust (plateaus below baseline)</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent-data);margin-right:5px;"></span>resilient (returns to baseline)</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:var(--good);margin-right:5px;"></span>antifragile (rises above previous baseline each time)</span>
+    </div>
+  </div>
+
+  <div class="finding"><p><b>What the study would show:</b> that per-person, per-group adaptive dosing — graded up for the overstressed group, tapered down for the already-coactivating group — increases coactivation frequency over sessions for the first group and preserves it at lower input for the second. That is the actual test of whether the sound stimulus <i>trains</i> ANS flexibility, as opposed to merely evoking it once per session.</p></div>
+</div></section>
+
+<section id="defs"><div class="wrap">
+  <span class="qnum">1</span>
+  <h2>Definitions — groups, classes, parameters</h2>
+
+  <h3>Per-moment states — defined by the metrics in use</h3>
+  <p class="sec-sub">These are classifications of a specific stage/window — "what is happening right now." Flexibility, covered separately below, is not one of these: it's a standing capacity, not a momentary classification.</p>
+  <table class="data">
+    <thead><tr><th>State</th><th>HR/HRV definition</th><th>Self-report detection</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Coactivation</td><td><code>coactivation_index &gt; τ_coact</code>, i.e. HR and SD1/RMSSD both elevated vs. baseline at once, gated by breathing ≥9/min</td><td>Item 1, "activated and relaxed at once" ≥ threshold</td><td>anchor item exists (check #8); the physiology↔self-report link itself is <b>still to be confirmed in the study</b></td></tr>
+      <tr><td>Overstress</td><td>HR&gt;HR_ceil or anxiety&gt;A_ceil, without coactivation</td><td>Item 2, "more than I could handle" ≥ threshold, with Item 1 below threshold</td><td>both metrics defined; the correlation is <b>still to be confirmed</b> (check #9)</td></tr>
+      <tr><td>Baseline / resting</td><td>pre-session HR, SD1, SD2 at rest</td><td>pre-session trait questionnaires (resilience, baseline anxiety)</td><td>already standard practice in this project's protocol</td></tr>
+      <tr><td>Non-response (class C)</td><td>neither HR nor SD1/RMSSD deviate from baseline at peak stages</td><td>no self-report signature hypothesized yet</td><td><b>not yet researched</b></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Flexibility vs. coactivation — not the same kind of thing</h3>
+  <table class="data">
+    <thead><tr><th></th><th>Coactivation</th><th>Flexibility</th></tr></thead>
+    <tbody>
+      <tr><td>What it is</td><td>an <i>event</i>: did both branches spike together, right now, at this stage</td><td>a <i>capacity</i>: how much of this person's total heartbeat variability is active, reversible vagal control</td></tr>
+      <tr><td>When it can be measured</td><td>only during/just after a stimulus (needs something to react to)</td><td>any time, including at rest with no stimulus at all — it's a property of the resting system too</td></tr>
+      <tr><td>How it's scored</td><td>pass/fail per stage: <code>coactivation_index &gt; τ_coact</code>, yes or no</td><td>a continuous ratio (<code>SD1/SD2</code>) with no fixed threshold — read as a trend going up or down, not a yes/no</td></tr>
+      <tr><td>Relationship between the two</td><td colspan="2">flexibility is the hypothesized <i>precondition</i>: a person with higher flexibility is expected to reach coactivation more easily at a given dose. Coactivation frequency (<code>CR</code>) is the session-level readout used to check whether flexibility is actually improving — flexibility is the thing being trained, coactivation events are the evidence it's working</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Flexibility — definition and how it's measured</h3>
+  <p class="sec-sub"><code>flexibility_index = SD1/SD2</code> (Poincaré short-axis over long-axis), not raw SD2: SD1 is the fast, vagally-mediated component (≈RMSSD/√2 — Porges' "vagal brake"), while SD2 is total, mixed-source variability. The ratio asks what fraction of total variability is active, reversible, vagal control. Self-report side is not yet fielded — two candidate proxies, both still to be designed into the study:</p>
+  <ul class="tight">
+    <li>the <b>Brief Resilience Scale</b> (a 6-item trait questionnaire, Smith et al. 2008) given periodically across sessions, as a self-report trend to compare against the across-session flexibility trend</li>
+    <li>the variance of a continuous in-session dial reading <i>within</i> a single stage — how much someone's self-rated state moves around, as a self-report analogue of the within-session trend</li>
+  </ul>
+  <p class="sec-sub">Tracked as a trend in two places: <i>within</i> one session — does the ratio rise at each successive recovery trough (class E, below); and <i>across</i> sessions — does the resting/baseline ratio rise over the protocol (the cross-session antifragility claim).</p>
+
+  <h3>Groups (defined on the peak/dose window of a session)</h3>
+  <table class="data">
+    <thead><tr><th>Group</th><th>Rule</th><th>Profile</th><th>Objective</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pill h">H</span> antifragility candidate</td><td class="mono">OR &gt; OR_thresh and CR &lt; CR_thresh</td><td>overstressed at peak stages, rarely reaches coactivation</td><td>raise <code>CR</code> over sessions via a slow, safe dose ramp</td></tr>
+      <tr><td><span class="pill l">L</span> already-coactivating</td><td class="mono">CR ≥ CR_thresh and OR ≤ OR_thresh</td><td>reaches coactivation without crossing overstress</td><td>hold <code>CR</code> while tapering dose to the minimal effective level</td></tr>
+      <tr><td>unclassified</td><td>neither rule holds cleanly</td><td>— not forced into H or L —</td><td>held out, re-assessed next session</td></tr>
+    </tbody>
+  </table>
+  <p class="sec-sub"><code>CR</code> (coactivation rate) and <code>OR</code> (overstress rate) are measured <i>during</i> the stimulus (peak stages 3, 8, 9). They are a snapshot of the dose window, not the same thing as what happens afterward — see the next table.</p>
+
+  <h3>Ideal target shape per group, across the 12-stage design</h3>
+  <p class="sec-sub">The grey dashed line is the arousal intent read off <code>twelve-stages-design-map.md</code>'s chemistry/circuitry columns (full-amplitude, undosed) — not a measured value, a design reading. The two solid lines are the <i>target</i> shape the dose controller aims for, not what any single session has shown: Group H's target stays under an illustrative stress ceiling at all three wave peaks (stages 3, 8, 9) while still completing each wave's recovery; Group L's target sits lower still, the minimal amplitude that keeps crossing into coactivation.</p>
+  <div class="svgwrap">
+    <svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ideal HR/arousal shape across the 12 stages for Group H and Group L versus the design-intent reference">
+      <rect x="40" y="20" width="222.7" height="160" fill="var(--surface-2)" opacity="0.5"/>
+      <rect x="485.5" y="20" width="254.5" height="160" fill="var(--surface-2)" opacity="0.5"/>
+      <text x="151" y="14" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-muted)">Wave 1</text>
+      <text x="390" y="14" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-muted)">Wave 2</text>
+      <text x="612" y="14" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-muted)">Wave 3</text>
+      <line x1="40" y1="82.5" x2="740" y2="82.5" stroke="var(--warning)" stroke-width="1" stroke-dasharray="2,2"/>
+      <text x="742" y="86" font-family="var(--mono)" font-size="9" fill="var(--warning)">HR_ceil (illustrative)</text>
+      <line x1="40" y1="180" x2="740" y2="180" stroke="var(--border)" stroke-width="1"/>
+      <polyline points="40,150 103.6,97.5 167.3,37.5 230.9,112.5 294.5,157.5 358.2,127.5 421.8,105 485.5,45 549.1,52.5 612.7,165 676.4,120 740,142.5" fill="none" stroke="var(--ink-muted)" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <polyline points="40,150 103.6,112.5 167.3,90 230.9,123 294.5,157.5 358.2,135 421.8,120 485.5,93 549.1,97.5 612.7,162 676.4,127.5 740,147" fill="none" stroke="var(--critical)" stroke-width="2.2"/>
+      <polyline points="40,153 103.6,127.5 167.3,105 230.9,135 294.5,159 358.2,142.5 421.8,130.5 485.5,108 549.1,112.5 612.7,165 676.4,138 740,153" fill="none" stroke="var(--good)" stroke-width="2.2"/>
+      <g font-family="var(--mono)" font-size="9" fill="var(--ink-muted)">
+        <text x="40" y="195">1</text><text x="103.6" y="195">2</text><text x="167.3" y="195">3</text><text x="230.9" y="195">4</text>
+        <text x="294.5" y="195">5</text><text x="358.2" y="195">6</text><text x="421.8" y="195">7</text><text x="485.5" y="195">8</text>
+        <text x="549.1" y="195">9</text><text x="608" y="195">10</text><text x="671" y="195">11</text><text x="734" y="195">12</text>
+      </g>
+    </svg>
+    <div style="display:flex; gap:16px; flex-wrap:wrap; font-family:var(--mono); font-size:11px; color:var(--ink-2); margin-top:8px;">
+      <span><span style="display:inline-block;width:14px;border-top:1.5px dashed var(--ink-muted);margin-right:5px;"></span>design-intent reference (undosed)</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:var(--critical);margin-right:5px;"></span>Group H target (capped peaks)</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:var(--good);margin-right:5px;"></span>Group L target (minimal effective peaks)</span>
+    </div>
+  </div>
+
+  <h3>Response-shape classes (read on the recovery/trough window, after the peak — a separate axis from group)</h3>
+  <table class="data">
+    <thead><tr><th>Class</th><th>Shape</th><th>Reading</th></tr></thead>
+    <tbody>
+      <tr><td>A — coactivation-consistent</td><td>HR and SD1/RMSSD briefly elevated <i>together</i> at the wave's trailing edge, then both settle</td><td>the model's specific predicted signature</td></tr>
+      <tr><td>B — classic reciprocal</td><td>HR and SD1/RMSSD move in strict antiphase, no overlap window</td><td>the shape is intact but coactivation specifically is not occurring</td></tr>
+      <tr><td>C — flat / non-responder</td><td>neither metric tracks the wave structure</td><td>exclusion category, not a mechanism result</td></tr>
+      <tr><td>D — incomplete recovery / overshoot</td><td>HR does not return to baseline and/or SD1/RMSSD stays suppressed by session end</td><td>the "overtriggered" failure mode the dosing is meant to avoid</td></tr>
+      <tr><td>E — rising recovery floor <span class="cite">(corrected)</span></td><td>each successive <i>trough's</i> flexibility_index (not peak HR) exceeds the last trough's — e.g. trough after wave 1 &lt; trough after wave 2 &lt; trough after wave 3</td><td>the within-session micro-version of antifragility's "ratchets up" signature. <b>Correction:</b> originally mis-defined as rising peak HR — that would be overshoot (class D), not training. The paper's own ratchet-up is about recovery level, not peak size, and is a cross-trial claim; applying it within one continuous session is a plausible but untested extension</td></tr>
+      <tr><td>F — damping <span class="cite">(corrected, now split)</span></td><td>each wave's peak HR is lower than the last</td><td><b>F-efficient (wanted):</b> peak HR shrinks while <code>coactivation_index</code> holds or rises — reaching the same benefit for less cost, the actual Group L objective.<br><b>F-disengaged (unwanted):</b> peak HR shrinks <i>and</i> <code>coactivation_index</code> also falls — the person has stopped responding, not trained. Same raw shape, opposite meaning; the discriminator is whether coactivation is maintained at the smaller peak</td></tr>
+    </tbody>
+  </table>
+  <div class="flag">Group (H/L) and shape (A–F) are different measurements in different time windows, hypothesized to couple (H→D-like shapes, L→A/B-like shapes) but not assumed equal — see check #9 below.</div>
+
+  <h3>Parameters</h3>
+  <table class="data">
+    <thead><tr><th>Symbol</th><th>Definition</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">B</td><td>participant's own pre-session baseline (HR, RMSSD/SD1)</td></tr>
+      <tr><td class="mono">HR_ceil</td><td><code>B_HR + k·SD(B_HR)</code> — participant-specific stress ceiling, not a population constant</td></tr>
+      <tr><td class="mono">A_ceil</td><td>self-report anxiety ceiling, from the existing survey scale</td></tr>
+      <tr><td class="mono">coactivation_index</td><td><code>min(normalized_HR_elevation, normalized_SD1_elevation)</code> vs. pre-session baseline, gated by breathing ≥9/min and low self-reported anxiety</td></tr>
+      <tr><td class="mono">flexibility_index</td><td><code>SD1/SD2</code> ratio</td></tr>
+      <tr><td class="mono">τ_coact</td><td>threshold on <code>coactivation_index</code> above which a stage counts as coactivated</td></tr>
+      <tr><td class="mono">CR</td><td>fraction of peak stages (3, 8, 9) this session with <code>coactivation_index &gt; τ_coact</code></td></tr>
+      <tr><td class="mono">OR</td><td>fraction of peak stages with HR&gt;HR_ceil or anxiety&gt;A_ceil <i>and not</i> coactivated</td></tr>
+      <tr><td class="mono">d</td><td>dose level — the controllable peak-stage acoustic intensity (sub_bass amplitude / tempo-acceleration magnitude), or exposure duration</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Control law — one adaptive staircase per participant</h3>
+  <table class="data">
+    <thead><tr><th>Group</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pill h">H</span></td><td class="mono">d ← d − Δ if OR &gt; OR_thresh; d ← d + Δ/2 only once OR ≤ OR_thresh and CR improved vs. last session</td></tr>
+      <tr><td><span class="pill l">L</span></td><td class="mono">d ← d − Δ as long as CR ≥ CR_thresh (taper to minimal effective dose); step back up by Δ the moment CR drops below threshold</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Self-report proxy (fast, two anchor items, peak stages only)</h3>
+  <ul class="tight">
+    <li><b>Item 1</b> (coactivation anchor, existing): "activated and relaxed at once", 1–5 → <code>CR_self</code> = fraction of peak stages with item 1 ≥ threshold</li>
+    <li><b>Item 2</b> (overstress anchor): "more than I could handle right now", 1–5 → <code>OR_self</code> = fraction with item 2 ≥ threshold <i>and</i> item 1 &lt; threshold</li>
+    <li>Adaptive branch: a 3rd clarifying prompt fires only when items 1+2 disagree with the live HRV read — otherwise stop at 2 items</li>
+    <li>One optional open-text box, session end only: "Anything these numbers missed?" — the falsification valve</li>
+  </ul>
+</div></section>
+
+<section id="model"><div class="wrap">
+  <span class="qnum">2</span>
+  <h2>Causal model and how it is used for checks</h2>
+  <p class="sec-sub">Extends the open-loop model in <code>causal-model-coactivation.md</code> with a closed feedback loop — the group/dose controller is the concrete form of antifragility's Path 3 ("nonlinear control synthesis / learning of optimal driving signals").</p>
+  <div class="diagram">sub_bass + brightness + roughness (sympathetic)         bass + mid_energy + hf_am_ratio + tempo deceleration (parasympathetic)
+            │                                                              │
+            ▼                                                              ▼
+ reticular activating system → LOCUS COERULEUS (NE)          vagal afferent entrainment → NTS → vagal/
+                                                               dorsal motor nucleus + ventral vagal complex (ACh)
+            └───────────────────────┬──────────────────────────────────────┘
+                                     ▼
+                      onset_cv (Rhythm Clarity) — drives BOTH branches, same study
+                                     ▼
+                Heart (SA node): NE sets rate/tone, ACh gates beat-to-beat timing
+                                     ▼
+                  HR elevated AND SD1/RMSSD elevated — coactivation signature
+                     ⚠ gate: breathing ≥9/min, else discard RMSSD/SD1 reading
+                                     ▼
+                compare vs. HR_ceil, A_ceil, τ_coact  →  coactivated / overstressed / neither
+                                     ▼
+                session-level CR, OR  →  group label (H / L)
+                                     ▼
+                per-participant dose controller (staircase, §1)
+                                     ▼
+                sets d for NEXT session's peak-stage acoustic params  ──┐
+                                                                         │
+                feeds back into the TOP of this diagram  ◄──────────────┘</div>
+
+  <h3>Plausibility checks</h3>
+  <table class="data">
+    <thead><tr><th>#</th><th>Check</th><th>Pass</th><th>Fail</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Breathing-rate gate</td><td>≥9/min during stage</td><td>&lt;9/min → exclude that stage's RMSSD/SD1</td></tr>
+      <tr><td>2</td><td><code>onset_cv</code> dual predictor</td><td>high Rhythm Clarity → both HR and SD1 elevated</td><td>only one branch moves, or neither</td></tr>
+      <tr><td>3–5</td><td>Sympathetic/parasympathetic cluster convergence, bass-band split</td><td>features inside each cluster agree in direction; sub_bass and bass point opposite ways</td><td>disagreement within a cluster, or bass bands collapse into one signal</td></tr>
+      <tr><td>6</td><td>Passive-engagement caveat (<code>onset_strength</code>)</td><td>weak at passive stages, present at Stage 2/8 (active)</td><td>strong effect at passive stages too</td></tr>
+      <tr><td>7</td><td>Coactivation signature at target stages</td><td><code>min(HR-elev, SD1-elev)</code> higher at 7/9/10–12 than 2/3/8</td><td>no difference or reverse</td></tr>
+      <tr><td>8</td><td>Self-report link</td><td>anchor item correlates with HRV coactivation_index at matching stage</td><td>no correlation</td></tr>
+      <tr><td>9 <span class="cite">(new)</span></td><td>Group↔shape coupling</td><td>Group H sessions predominantly show class D/B recovery; Group L sessions predominantly show class A/F-efficient</td><td>group label doesn't predict shape class → peak-stress and recovery are separate capacities, controller must react to shape directly, not infer it from the group label</td></tr>
+      <tr><td>10 <span class="cite">(new)</span></td><td>Two-group separability</td><td>(CR, OR) bimodal/separable across participants at a fixed dose</td><td>continuous spread → it's a dial, not two discrete groups</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Real-data validation status (2-session lag-scan diagnostic, not the full ~100-session set)</h3>
+  <table class="data">
+    <thead><tr><th>Claim</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><code>sub_bass_energy</code> → HR (sympathetic)</td><td>confirmed — r≈0.87, replicated both sessions, only pair surviving Bonferroni</td></tr>
+      <tr><td>bass-band direction split (<code>bass_energy</code> independent parasympathetic driver)</td><td>contradicted — entangled with mid/high energy, not independent</td></tr>
+      <tr><td><code>am_depth</code> → RMSSD (parasympathetic)</td><td>not supported — weak, inconsistent across sessions</td></tr>
+      <tr><td><code>am_depth</code> → VLF</td><td>new, unexplained finding — real effect, doesn't fit either branch cleanly</td></tr>
+      <tr><td>Checks 1, 2, 6–10 above (breathing gate, onset_cv, passive caveat, stage signature, self-report link, group coupling, separability)</td><td>untested — the diagnostic didn't segment by stage, group, or questionnaire data</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section id="workflow"><div class="wrap">
+  <span class="qnum">3</span>
+  <h2>Experiment workflow</h2>
+  <div class="diagram">Session 0 — standalone stress test, no playlist
+   → calibrate HR_ceil, A_ceil, sensitivity floor (per participant)
+   → classify: Group H / Group L / unclassified
+
+Sessions 1..N — playlist, dose/structure set by group
+   Group H: unlock waves progressively (Wave1 → +Wave2 → +Wave3),
+            advance a wave only after OR stays below threshold 2 sessions running
+   Group L: taper dose via duration/repeats within a wave (not just amplitude),
+            seeking the minimal effective dose
+
+   every ~3 sessions → re-run the Session-0 stress test alone
+            (dose-independent readout of whether trained capacity is actually changing)
+
+Stop:
+   Group H → CR clears threshold 2 consecutive sessions, OR a declared session cap is hit
+   Group L → CR drops below threshold once while tapering → step back up one level, hold</div>
+  <div class="flag">Duration/session cap (e.g. 8–12 sessions) is a provisional design choice per Charter §2 Budget Discipline — not derived from vault evidence, and must be reported as a cap hit, not silently extended.</div>
+</div></section>
+
+<section id="cascade"><div class="wrap">
+  <span class="qnum">4</span>
+  <h2>Where this lands: a cascaded set of models, not one model</h2>
+  <p class="sec-sub">The ~100-session / ~50-participant dataset gets clustered — by (CR, OR) peak-window signature and by recovery-shape class (A–F) — into subdatasets, and the plausibility checks in §2 are fit and validated <i>separately within each cluster</i>, rather than once over the pooled data:</p>
+  <ul class="tight">
+    <li><b>Model_H</b> — fit only on sessions/participants labeled Group H: tests whether the dose-ramp control law actually raises <code>CR</code> over sessions</li>
+    <li><b>Model_L</b> — fit only on Group L: tests whether <code>d</code> can be tapered while <code>CR</code> holds</li>
+    <li>Within each, a further split by shape class (A–F) where sample size allows — e.g. does Group H further split into "responds to wave-unlocking" vs. "stays class D regardless"</li>
+    <li>The pooled, unclustered model (the original open-loop causal model) remains the baseline these cascaded models are compared against — if clustering adds no predictive power over the pooled model, that's itself a finding (check #10), not a failure to report quietly</li>
+  </ul>
+</div></section>
+
+<section id="refs"><div class="wrap">
+  <span class="qnum">5</span>
+  <h2>References &amp; assumptions</h2>
+
+  <h3>References used</h3>
+  <table class="data">
+    <thead><tr><th>Source</th><th>Used for</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7987796/" target="_blank" rel="noopener">Weissman &amp; Mendes (2021)</a></td><td>coactivation definition (RSA×PEP, TSST paradigm) — <code>coactivation-weissman-mendes-2021.md</code></td></tr>
+      <tr><td><a href="https://arxiv.org/abs/2312.13991" target="_blank" rel="noopener">Axenie et al. (2023), arXiv:2312.13991v1</a></td><td>antifragility formal definition, fragile/robust/resilient/antifragile spectrum, three scales, three Paths — and the schematic in §0</td></tr>
+      <tr><td><a href="https://pubmed.ncbi.nlm.nih.gov/17069959/" target="_blank" rel="noopener">Friedman (2007)</a></td><td>autonomic flexibility–neurovisceral integration model of anxiety — the anxiety↔flexibility link in §0</td></tr>
+      <tr><td><a href="https://www.frontiersin.org/articles/10.3389/fpsyt.2014.00080/full" target="_blank" rel="noopener">Chalmers et al. (2014)</a>, <a href="https://doi.org/10.1111/pcn.13356" target="_blank" rel="noopener">Cheng et al. (2022)</a></td><td>meta-analyses, reduced HF-HRV/resting HRV in anxiety disorders (Hedges' g ≈ −0.29 to −0.39) — quantitative support for the anxiety↔flexibility link in §0</td></tr>
+      <tr><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12302812/" target="_blank" rel="noopener">Porges, Polyvagal Theory (2025 review)</a></td><td>vagal brake concept — theoretical grounding for SD1/SD2 as flexibility; social-engagement branch (mid_energy). <span class="cite">The specific paper that coins "vagal brake" was not independently located — this review is the best-verified current source, not confirmed as the origin</span></td></tr>
+      <tr><td>Egermann (2013), N=50 <span class="cite">— link not verified</span></td><td><code>onset_cv</code> dual-branch finding, as cited by <code>acoustic_features_report.html</code>. A targeted search could not confirm this paper describes rhythmic/timing surprise rather than pitch surprise — treat the citation itself as unverified, per the existing caveat in <code>causal-model-coactivation.md</code> §1j</td></tr>
+      <tr><td>McCreary (2022) <span class="cite">— link not verified</span></td><td>breathing-rate validity gate (&lt;9 breaths/min invalidates RMSSD/HF-HRV). Search could not locate this specific paper; the general physiological claim is independently supported in the HRV literature, but this exact citation is unconfirmed</td></tr>
+      <tr><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5339732/" target="_blank" rel="noopener">Watanabe, Ooishi &amp; Kashino (2017)</a>, <a href="https://doaj.org/article/4180eac88e344cbe8f388328124399db" target="_blank" rel="noopener">Bretherton, Deuchars &amp; Windsor (2019)</a></td><td>tempo change → parasympathetic shift. <span class="cite">Watanabe 2017's confirmed focus is HR elevation from tempo increase, not deceleration specifically — the deceleration-specific claim rests more on Bretherton 2019</span></td></tr>
+      <tr><td>Arnal (2015) <span class="cite">— link not verified</span></td><td>high-frequency sound → cortical alerting, as cited by <code>acoustic_features_report.html</code>. Search could not locate this paper under this name/year; treat as unconfirmed</td></tr>
+      <tr><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5624990/" target="_blank" rel="noopener">Shaffer &amp; Ginsberg (2017)</a></td><td>HRV metric norms/definitions — <code>hrv-metrics-norms-shaffer-ginsberg.md</code></td></tr>
+      <tr><td><code>twelve-stages-design-map.md</code> <span class="cite">(local vault file)</span></td><td>per-stage chemistry/circuitry, source of the 3-wave segmentation</td></tr>
+      <tr><td><code>causal-model-coactivation.md</code>, <code>causal-model-validation-check.md</code> <span class="cite">(local vault files)</span></td><td>full feature table, diagram, and the real 2-session validation results compiled in §2</td></tr>
+      <tr><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8829886/" target="_blank" rel="noopener">Haruvi et al. (2022)</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/29228793/" target="_blank" rel="noopener">Peterson et al. (2017)</a></td><td>competing-mechanism comparisons (focus/engagement; breath-driven coactivation) — <code>causal-model-comparative-mechanisms.md</code>, not used directly in this model</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Assumptions carried into this model, unverified</h3>
+  <ul class="tight">
+    <li><b>HR as a sympathetic-activity proxy.</b> The original coactivation construct (Weissman &amp; Mendes) uses PEP (pre-ejection period) as the sympathetic marker — not measurable with a Polar H10. HR is used instead, a cruder substitute that reflects both branches, not a clean sympathetic readout.</li>
+    <li><b>SD1/RMSSD as the vagal/parasympathetic proxy</b> — standard in the HRV literature, but still an inference from Poincaré/beat-interval geometry, not a direct vagal-tone measurement.</li>
+    <li><b>SD1/SD2 as "flexibility"</b> — a theoretical mapping (vagal time-constant argument, Porges' vagal brake), not itself a validated named metric under this exact ratio in the cited literature.</li>
+    <li><b>Acoustic-feature-to-local-column mapping</b> (Section 1 of <code>causal-model-coactivation.md</code>) is a naming-similarity guess, not confirmed against the actual data dictionary.</li>
+    <li><b>3-wave segmentation of the 12 stages</b> is read off the design map's chemistry/circuitry language as a proxy for intended arousal — not yet checked against real per-stage HR.</li>
+    <li><b>All thresholds</b> (<code>HR_ceil</code>, <code>A_ceil</code>, <code>τ_coact</code>, <code>CR_thresh</code>, <code>OR_thresh</code>, step size <code>Δ</code>) are placeholders to be fit from data, not pre-calibrated values.</li>
+    <li><b>Group↔shape coupling</b> (H→D/B shapes, L→A/F-efficient shapes) and the <b>two-group separability</b> itself are both assumed, not confirmed — checks #9–10 above exist specifically to test them.</li>
+    <li><b>Within-session "ratchets up" (class E)</b> extends antifragility's own cross-trial claim to within one continuous session — the paper itself doesn't make this claim at this granularity.</li>
+    <li><b>Session cap / protocol duration</b> is a provisional design choice, not evidence-based.</li>
+    <li>None of the adaptive-dosing machinery in §2–3 has been run against the real dataset — the existing ~100 sessions are fixed-dose and mostly cross-sectional, not collected under any adaptive protocol.</li>
+  </ul>
+</div></section>
+
+<footer><div class="wrap">Compiled from the working chat on group- and level-adaptive dosing — no claims beyond what was already derived there. Sources as listed in §5.</div></footer>
+
+</body>
+</html>
