@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Exploring Session Data — Team Tutorial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb; --surface-2: #f3f2ee;
+    --ink: #0b0b0b; --ink-2: #52514e; --ink-muted: #898781;
+    --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+    --accent-data: #2a78d6; --accent-infer: #4a3aa7;
+    --good: #0ca30c; --warning: #fab219; --critical: #d03b3b;
+    --serif: "IBM Plex Serif", Georgia, serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --page: #0d0d0d; --surface: #1a1a19; --surface-2: #232322;
+      --ink: #ffffff; --ink-2: #c3c2b7; --ink-muted: #898781;
+      --grid: #2c2c2a; --border: rgba(255,255,255,0.10);
+      --accent-data: #3987e5; --accent-infer: #9085e9;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --surface-2: #232322;
+    --ink: #ffffff; --ink-2: #c3c2b7; --ink-muted: #898781;
+    --grid: #2c2c2a; --border: rgba(255,255,255,0.10);
+    --accent-data: #3987e5; --accent-infer: #9085e9;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--page); color:var(--ink); font-family:var(--sans); font-size:15.5px; line-height:1.6; }
+  h1,h2,h3,h4{ font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0; }
+  code{ font-family:var(--mono); font-size:0.9em; background:var(--surface-2); padding:1px 5px; border-radius:4px; }
+  a{ color:var(--accent-data); }
+  .wrap{ max-width:880px; margin:0 auto; padding:0 24px; }
+  .topnav{ position:sticky; top:0; z-index:10; background:color-mix(in srgb, var(--page) 88%, transparent); backdrop-filter: blur(6px); border-bottom:1px solid var(--border); }
+  .topnav .wrap{ display:flex; align-items:center; gap:16px; height:50px; overflow-x:auto; max-width:1080px; }
+  .topnav .brand{ font-family:var(--serif); font-weight:600; font-size:14px; white-space:nowrap; }
+  .topnav nav{ display:flex; gap:13px; white-space:nowrap; }
+  .topnav nav a{ color:var(--ink-2); text-decoration:none; font-size:12.5px; }
+  header.hero{ padding:40px 0 24px; }
+  .eyebrow{ font-family:var(--mono); font-size:11.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--accent-infer); margin-bottom:8px; display:block; }
+  header.hero h1{ font-size:clamp(22px,3vw,30px); max-width:32ch; }
+  header.hero p.lede{ max-width:72ch; color:var(--ink-2); font-size:15px; margin-top:10px; }
+  section{ padding:30px 0; border-top:1px solid var(--border); }
+  section h2{ font-size:20px; margin-bottom:6px; }
+  section h3{ font-size:15.5px; margin:20px 0 8px; }
+  section h4{ font-size:13.5px; margin:16px 0 6px; color:var(--ink-2); }
+  section .qnum{ font-family:var(--mono); font-size:12px; color:var(--ink-muted); }
+  section p.sec-sub{ color:var(--ink-2); margin-top:6px; max-width:72ch; font-size:14.5px; }
+  p{ max-width:72ch; }
+  table.data{ width:100%; border-collapse:collapse; font-size:13px; margin-top:10px; }
+  table.data th{ text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-muted); font-weight:500; padding:0 10px 7px; border-bottom:1px solid var(--border); }
+  table.data td{ padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  table.data tr:last-child td{ border-bottom:none; }
+  .cite{ font-family:var(--mono); font-size:11px; color:var(--ink-muted); }
+  .finding{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:10px; }
+  .finding p{ margin:6px 0 0; font-size:14px; color:var(--ink-2); }
+  .step{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-top:14px; }
+  .step-num{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--accent-data); color:#fff; font-family:var(--mono); font-size:12px; font-weight:600; margin-right:8px; flex-shrink:0; }
+  .step h4{ display:flex; align-items:center; color:var(--ink); font-size:14.5px; margin:0 0 6px; }
+  .step p{ margin:6px 0 0; font-size:14px; color:var(--ink-2); }
+  .shot{ border:2px dashed var(--warning); border-radius:10px; padding:14px 16px; margin-top:10px; background:color-mix(in srgb, var(--warning) 8%, transparent); }
+  .shot-label{ font-family:var(--mono); font-size:11px; color:color-mix(in srgb, var(--warning) 70%, var(--ink)); text-transform:uppercase; letter-spacing:.04em; }
+  .shot p{ margin:4px 0 0; font-size:13.5px; color:var(--ink-2); }
+  .pill{ display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:500; padding:3px 10px 3px 8px; border-radius:99px; white-space:nowrap; }
+  .pill.do{ color:var(--good); background:color-mix(in srgb, var(--good) 14%, transparent); }
+  .pill.dont{ color:var(--critical); background:color-mix(in srgb, var(--critical) 14%, transparent); }
+  ul.tight{ padding-left:19px; margin:8px 0 0; } ul.tight li{ margin-bottom:7px; font-size:14.5px; color:var(--ink-2); }
+  ol.tight{ padding-left:19px; margin:8px 0 0; } ol.tight li{ margin-bottom:7px; font-size:14.5px; color:var(--ink-2); }
+  .flag{ border-left:3px solid var(--warning); padding:2px 0 2px 10px; margin-top:8px; font-size:13.5px; color:var(--ink-2); }
+  .notebook-card{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-top:14px; }
+  .notebook-card h4{ color:var(--ink); font-size:15px; margin:0 0 4px; }
+  .notebook-card .path{ font-family:var(--mono); font-size:11.5px; color:var(--ink-muted); margin-bottom:8px; }
+  footer{ padding:26px 0 46px; color:var(--ink-muted); font-size:12px; }
+  .toc-box{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 18px; margin-top:18px; }
+  .toc-box a{ display:block; font-size:13.5px; padding:3px 0; text-decoration:none; color:var(--ink-2); }
+  .toc-box a:hover{ color:var(--accent-data); }
+</style>
+</head>
+<body>
+
+<div class="topnav"><div class="wrap">
+  <span class="brand">Exploring Session Data</span>
+  <nav>
+    <a href="#ch1">1. Working Well</a>
+    <a href="#ch2">2. Using Colab</a>
+    <a href="#ch3">3. First Analysis</a>
+    <a href="#ch4">4. Three More Notebooks</a>
+  </nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Team tutorial — exploring session data in Jupyter/Colab notebooks</span>
+  <h1>Exploring Session Data — A Team Tutorial</h1>
+  <p class="lede">For team members who contribute to this project's data collection, stage-timing
+  checks, and response summaries, and want to explore the numbers behind a session themselves —
+  without needing a software engineering background. Everything here runs in a notebook: a
+  document that mixes short explanations with small, runnable pieces of code and the charts they
+  produce, one step at a time.</p>
+  <div class="toc-box">
+    <a href="#ch1">1. Working well in notebooks — before you start</a>
+    <a href="#ch2">2. Using Google Colab — opening and running a notebook</a>
+    <a href="#ch3">3. Walkthrough — "Getting started with the session data"</a>
+    <a href="#ch4">4. Walkthrough — three more notebooks</a>
+  </div>
+</div></header>
+
+<section id="ch1"><div class="wrap">
+  <span class="qnum">Chapter 1</span>
+  <h2>Working well in notebooks — before you start</h2>
+  <p class="sec-sub">A notebook is easy to start and easy to turn into a mess — cells run out of
+  order, nothing is named clearly, and six months later nobody (including the person who wrote
+  it) can tell what it did or trust the numbers in it. None of that is required. A few habits,
+  followed from the first notebook you write, keep your work something a colleague can open,
+  trust, rerun, and build on.</p>
+
+  <h3>One notebook, one question</h3>
+  <p>Pick the question before you open a blank notebook — <em>"did RMSSD recover after this
+  session?"</em>, not <em>"let's see what's in the data."</em> If a second, unrelated question
+  comes up while you're working, start a new notebook for it rather than growing one notebook
+  into a pile of unrelated explorations. A reader (including you, later) should be able to tell
+  what a notebook is for from its name and its first cell, before reading anything else.</p>
+
+  <h3>Keep the same shape every time</h3>
+  <p>Every notebook already in this project follows the same order, and yours should too — it's
+  the single biggest thing that makes a notebook skimmable by someone who didn't write it:</p>
+  <ol class="tight">
+    <li><strong>Setup</strong> — imports, credentials, which session/participant you're looking at.</li>
+    <li><strong>Load</strong> — pull the data you need, print how much you got, so an error shows
+      up here, early, not three steps later as a confusing chart.</li>
+    <li><strong>Compute</strong> — turn raw data into the numbers you actually want.</li>
+    <li><strong>Plot</strong> — look at it.</li>
+    <li><strong>Interpret</strong> — a short written note on what the chart/numbers show, right
+      next to them, while the context is still in your head.</li>
+  </ol>
+  <p>Use a markdown heading (<code>## Load the data</code>, <code>## Plot RMSSD by stage</code>)
+  for every section. A notebook with no headings asks every future reader to run the whole thing
+  top to bottom just to find the one chart they wanted.</p>
+
+  <h3>Reuse, don't retype</h3>
+  <p>If a piece of logic already exists — loading a session, computing RMSSD, pulling stage
+  timestamps — <strong>import and call it</strong>, don't copy it into your own cell. Two copies
+  of the same logic will drift apart the first time either one gets fixed, and then nobody knows
+  which copy is right.</p>
+  <table class="data">
+    <thead><tr><th></th><th>Example</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pill dont">don't</span></td>
+        <td>Paste the RMSSD formula into a new cell</td>
+      </tr>
+      <tr>
+        <td><span class="pill do">do</span></td>
+        <td><code>from processing.hrv_core import rmssd</code> — then call
+          <code>rmssd(your_rr_values)</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>When your own code is worth keeping, move it out of the notebook</h3>
+  <p>The first time you write a small function in a notebook, that's fine — it's exploration.
+  The moment you find yourself <strong>copying that same function into a second notebook</strong>,
+  that's the signal: move it into a shared <code>.py</code> file (<code>processing/</code> for a
+  metric or data-loading step, <code>analysis/</code> for a report-building step) instead. From
+  then on every notebook imports the one shared version, a fix or improvement benefits everyone
+  at once, and the core solution grows instead of accumulating parallel, slightly-different copies
+  of the same idea scattered across notebooks. This is what "export as Python to extend the core
+  solution" means in practice — it's a normal, expected step, not a separate advanced skill.</p>
+
+  <h3>Make it reproducible before you share it</h3>
+  <ul class="tight">
+    <li><strong>Restart, then run all, before sharing.</strong> In Colab: <em>Runtime → Restart
+      session and run all</em>. If it only works because of something you ran earlier and then
+      changed, it isn't reproducible yet — a colleague opening it fresh will hit the same break
+      you no longer see.</li>
+    <li><strong>Name outputs so the question is obvious from the filename</strong> — a chart saved
+      as <code>figure_1.png</code> tells the next person nothing; <code>rmssd_prepost_rebecca_oct.png</code>
+      does.</li>
+    <li><strong>Comment on the <em>why</em>, not the <em>what</em>.</strong> The code already says
+      what it does; a comment earns its place by explaining a reason a reader couldn't otherwise
+      guess — e.g. <em>why</em> a specific threshold, <em>why</em> a stage is excluded.</li>
+  </ul>
+
+  <div class="finding"><p><strong>In one line:</strong> write every notebook as if a colleague
+  with no memory of writing it will open it next month, need to understand what it shows within
+  thirty seconds, and be able to rerun it from a clean copy without you in the room.</p></div>
+</div></section>
+
+<section id="ch2"><div class="wrap">
+  <span class="qnum">Chapter 2</span>
+  <h2>Using Google Colab</h2>
+  <p class="sec-sub">Google Colab is a free, browser-based way to open and run a notebook — no
+  installation, nothing on your own computer. This chapter is the mechanics: opening a notebook,
+  getting your own access set up, and running it. Chapter 3 then walks through what one specific
+  notebook actually does.</p>
+
+  <div class="step">
+    <h4><span class="step-num">1</span> Open the notebook link and make your own copy</h4>
+    <p>A shared Colab link opens as <strong>read-only</strong> — you can look, but not run or
+    edit it. Go to <strong>File → Save a copy in Drive</strong>. A new tab opens with your own
+    private copy; work in that copy from here on. Nothing you do there affects the shared
+    original, so there's no way to break it for anyone else.</p>
+    <div class="shot">
+      <span class="shot-label">📷 Screenshot needed</span>
+      <p>The notebook's <strong>File</strong> menu open, with <strong>"Save a copy in Drive"</strong>
+      highlighted.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <h4><span class="step-num">2</span> Sign in with your Google account</h4>
+    <p>Colab will ask you to sign in if you aren't already. Use the Google account you'd normally
+    use for this project's shared Drive.</p>
+  </div>
+
+  <div class="step">
+    <h4><span class="step-num">3</span> Set up your access key (once per copy)</h4>
+    <p>You'll have been sent a block of text starting with <code>GITHUB_TOKEN=</code> or similar
+    — this is your personal key to the study database, and is specific to you. In your copy of
+    the notebook:</p>
+    <ol class="tight">
+      <li>Click the <strong>🔑 key icon</strong> in the left sidebar (Secrets).</li>
+      <li>Click <strong>+ Add new secret</strong>. Name it exactly <code>ENV_BLOB</code>.</li>
+      <li>Paste the whole block you were sent into the value field.</li>
+      <li>Switch on <strong>Notebook access</strong> for that secret.</li>
+    </ol>
+    <div class="shot">
+      <span class="shot-label">📷 Screenshot needed</span>
+      <p>The left-sidebar Secrets panel, showing the 🔑 icon, the <strong>+ Add new secret</strong>
+      button, and the <strong>Notebook access</strong> toggle switched on for <code>ENV_BLOB</code>.</p>
+    </div>
+    <div class="flag">Treat that block of text like a password — it's what lets the notebook read
+    study data on your behalf. Don't paste it anywhere except this one Secrets field.</div>
+  </div>
+
+  <div class="step">
+    <h4><span class="step-num">4</span> Run the notebook</h4>
+    <p><strong>Runtime → Run all</strong> runs every cell from the top, in order. The first time,
+    a <strong>"Grant access"</strong> prompt will appear asking whether the notebook can read your
+    <code>ENV_BLOB</code> secret — click through it; this is what lets the Setup cell work.</p>
+    <div class="shot">
+      <span class="shot-label">📷 Screenshot needed</span>
+      <p>The <strong>Runtime</strong> menu with <strong>"Run all"</strong> highlighted, and
+      separately the <strong>"Grant access"</strong> permission prompt.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <h4><span class="step-num">5</span> Running one cell at a time</h4>
+    <p>Hover over a cell and click the <strong>▶ play button</strong> that appears on its
+    left edge, or click into the cell and press <strong>Shift + Enter</strong>. The next cell
+    becomes active, so pressing Shift + Enter repeatedly steps through the whole notebook one
+    cell at a time — useful for reading each part's output before moving to the next.</p>
+    <div class="shot">
+      <span class="shot-label">📷 Screenshot needed</span>
+      <p>A single code cell with its <strong>▶ play button</strong> visible, and the small
+      <strong>running / done</strong> indicator that appears to its left.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <h4><span class="step-num">6</span> Reading what a cell produces</h4>
+    <p>Output appears directly below the cell that made it: printed numbers/text, a table, or an
+    interactive chart. Charts in these notebooks are usually interactive — hover over a point for
+    its exact value, click-drag to zoom, double-click to reset.</p>
+  </div>
+
+  <div class="step">
+    <h4><span class="step-num">7</span> If something goes wrong</h4>
+    <p>An error shows as a <strong>red box</strong> under the cell, with a message at the bottom —
+    that last line is usually the most informative part. Most often:</p>
+    <ul class="tight">
+      <li>A cell further down was run before an earlier cell finished — fix: <em>Runtime → Restart
+        session and run all</em>, so everything runs in order from a clean state.</li>
+      <li>The <code>ENV_BLOB</code> secret is missing, misnamed, or its Notebook access toggle is
+        off — recheck step 3.</li>
+    </ul>
+    <p>If it's still unclear, copy the exact red error text when asking for help — it's the
+    fastest way for someone else to tell you what's wrong.</p>
+    <div class="shot">
+      <span class="shot-label">📷 Screenshot needed</span>
+      <p>An example red error box under a cell, showing where the error message text sits.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <h4><span class="step-num">8</span> Your work is saved automatically</h4>
+    <p>Colab saves your copy to your Google Drive as you go — there's no separate "save" step.
+    Because it's <em>your</em> copy, your edits and any mistakes stay in your copy only.</p>
+  </div>
+</div></section>
+
+<section id="ch3"><div class="wrap">
+  <span class="qnum">Chapter 3</span>
+  <h2>Walkthrough — "Getting started with the session data"</h2>
+  <p class="sec-sub">This notebook is the starting point for querying the study database
+  yourself. It already explains each step as you go, with a markdown note above every piece of
+  code — <strong>read through it in order first; this section is a short map of what each part is
+  for, not a replacement for reading it.</strong></p>
+
+  <div class="finding"><p><strong>One thing worth knowing going in:</strong> participants appear
+  only as a random id, not a name. The data is <em>pseudonymised</em>, not anonymous — don't
+  export it elsewhere, and don't try to work out who a specific id belongs to.</p></div>
+
+  <h3>0. Setup &amp; 1. Connect</h3>
+  <p>Installs what the notebook needs, reads your <code>ENV_BLOB</code> secret (chapter 2, step
+  3), and opens a connection to the study database using your own personal login. Running this
+  successfully — it prints your username — is what everything else in the notebook depends on.</p>
+
+  <h3>2. What's in the data</h3>
+  <p>Before querying anything specific, this section just counts rows in each of six tables and
+  previews the sessions table, so you know what exists before you go looking for something in it:</p>
+  <table class="data">
+    <thead><tr><th>Table</th><th>One row per</th></tr></thead>
+    <tbody>
+      <tr><td><code>participants</code></td><td>participant (cohort, language, month joined)</td></tr>
+      <tr><td><code>sessions</code></td><td>session, with start/rest/end times and artifact %</td></tr>
+      <tr><td><code>summary_metrics</code></td><td>one pre/post rest window, or one playlist stage, of a session</td></tr>
+      <tr><td><code>sliding_metrics</code></td><td>a short rolling-window slice through a session</td></tr>
+      <tr><td><code>baselines</code></td><td>a participant's own resting reference values</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3. Pre vs post resting RMSSD</h3>
+  <p>The simplest "did this help" check: one RMSSD value from the rest window before the
+  playlist, one from after, paired per session, with the typical (median) change across every
+  session that has both.</p>
+
+  <h3>4. Heart rate and DFA α1 per playlist stage</h3>
+  <p>The same idea stretched across all 12 stages instead of just before/after, averaged across
+  everyone who did a given playlist — this is where you'd look for the activation-then-recovery
+  pattern described in the main project documentation. Stages where the participant was breathing
+  unusually slowly are dropped from this specific chart, since DFA α1 isn't a reliable number in
+  that case.</p>
+
+  <h3>5. One raw recording, aligned to the stages</h3>
+  <p>Zooms into a single real recording: downloads one person's raw heartbeat data and plots the
+  beat-to-beat intervals as a continuous line, with the playlist's stage boundaries and rest
+  windows shaded on top. This is the one section where you see the actual signal a summary number
+  like "RMSSD" was computed from, rather than just the summary itself.</p>
+
+  <h3>6. Towards coactivation (illustrative sketch)</h3>
+  <p>A first, intentionally rough look at a more specific pattern: heart rate going <em>up</em>
+  at the same time as a calming (parasympathetic) signal also going <em>up</em> — the two moving
+  together instead of trading off. The notebook itself is explicit that this is a sketch, not a
+  finished method, and flags stages where breathing was too slow to trust the calming-signal
+  reading.</p>
+
+  <h3>Exploring further with Gemini</h3>
+  <p>Colab has a built-in AI assistant (the <strong>Gemini</strong> button, bottom centre of the
+  notebook) you can ask in plain language — e.g. <em>"explain what section 4 computes"</em> or
+  <em>"plot mean heart rate per stage for each cohort."</em> The notebook's own closing note is
+  worth repeating here: <strong>don't paste raw rows, participant ids, or recordings into it</strong> —
+  ask it about the code and the approach, not about specific people's data.</p>
+</div></section>
+
+<section id="ch4"><div class="wrap">
+  <span class="qnum">Chapter 4</span>
+  <h2>Walkthrough — three more notebooks</h2>
+  <p class="sec-sub">These three go deeper into specific questions than the starting-point
+  notebook in Chapter 3. Each is already commented in detail inline —
+  <strong>read through the notebook itself for the mechanics; this section is a short map of what
+  each one is for and why it exists.</strong></p>
+
+  <div class="notebook-card">
+    <h4>1. <code>neurokit_standalone_report.ipynb</code></h4>
+    <div class="path">notebooks/analysis/neurokit_standalone_report.ipynb</div>
+    <p>A self-contained version of this project's own session report, deliberately written to use
+    only the public <code>neurokit2</code> library — no import from this project's own code at
+    all. It exists so the method behind a report (which windows, which metrics, which plots) can
+    be read and checked independently of this project's specific implementation. It can run two
+    ways, switched by one setting near the top: against a local sample file (no database needed —
+    good for first trying it out), or against a real session pulled from the database.</p>
+  </div>
+
+  <div class="notebook-card">
+    <h4>2. <code>stagewise_hrv_tutorial.ipynb</code></h4>
+    <div class="path">notebooks/analysis/stagewise_hrv_tutorial.ipynb</div>
+    <p>A full worked example of the question <em>"does the same playlist produce the same
+    stage-by-stage HRV pattern in two different sessions?"</em> — end to end, from a raw database
+    pull through artifact cleaning, computing per-stage metrics for two sessions on the same
+    playlist, plotting both sessions' stage profiles on the same chart, and a correlation check
+    for whether the shapes actually match rather than just looking similar by eye. It's the
+    closest thing in this project to a worked template for "pick two sessions and compare them" —
+    useful to copy as a starting point for a similar comparison of your own.</p>
+  </div>
+
+  <div class="notebook-card">
+    <h4>3. <code>artifact_detection_methods_comparison.ipynb</code></h4>
+    <div class="path">notebooks/analysis/artifact_detection_methods_comparison.ipynb</div>
+    <p>A side-by-side check of two different ways to flag a bad heartbeat reading in a raw
+    recording: this project's own method (simple range check, then a rolling comparison against
+    each beat's neighbours), versus a more established method from the Kubios HRV software
+    (via <code>neurokit2</code>). Both are run on the same real recording and the flagged beats
+    are marked on one shared chart, so you can see exactly where the two methods agree or
+    disagree — and the notebook is explicit that on a very clean recording, as most of this
+    project's sessions are, there may be very little for them to disagree on.</p>
+  </div>
+
+  <div class="flag">All three live in <code>notebooks/analysis/</code> in the project's own
+  repository — ask your technical contact for access if you'd like to open one directly rather
+  than from the descriptions above.</div>
+</div></section>
+
+<footer><div class="wrap">Team tutorial — exploring session data in notebooks. Questions or
+stuck on a step: ask your technical contact, including the exact error text if something broke.</div></footer>
+
+</body>
+</html>
